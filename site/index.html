@@ -15,7 +15,6 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
     
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/framework.css">
     <link rel="stylesheet" href="css/map.css">
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/banner.css">
@@ -160,6 +159,11 @@
 
         </div>
 
+        <!-- This is the hide/show button -->
+        <div id="list-expand-button" class="button">
+          <span class="material-symbols-outlined">expand_more</span>
+        </div>
+
       </div>
 
     </div>
@@ -170,6 +174,7 @@
         <div class="panel">
           <div id="panel-name">
             THIS PERSON HAS A LONG NAME
+            <span></span>
           </div>
           <div id="panel-status">
             <div class="button button-short"></div>
@@ -200,10 +205,11 @@
     <script type="module" src="js/map.js"></script>
     <script type="module" src="js/list-loader.js"></script>
     <script type="module" src="js/voter-list.js"></script>
-    <script type="module" src="js/searc-box.js"></script>
-    <script type="module" src="js/edit-save.js"></script>
+    <script type="module" src="js/search-box.js"></script>
+    <script type="module" src="js/save-edit.js"></script>
     <script type="module" src="js/list-filters.js"></script>
     <script type="module" src="js/custom-lists.js"></script>
+    <script type="module" src="js/voter-list-expand.js"></script>
 
   </body>
 </html>

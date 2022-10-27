@@ -2,6 +2,13 @@ html {
   font-family: Roboto, sans-serif;
 }
 
+body {
+  height: 100vh;
+  width: 100vw;
+  padding: 0;
+  margin: 0;
+}
+
 .component-margin-left {
   margin-left: 1rem;
 }
@@ -41,6 +48,8 @@ html {
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
+  border-bottom-width: 3px;
+  border-radius: 0 0 0.5rem 0.5rem;
 }
 
 .hide-show {
@@ -82,7 +91,7 @@ input:focus {
   border-radius: 6px;
   padding: 0.2rem 0.5rem;
   position: absolute;
-  z-index: 99999;
+  z-index: 999999;
   bottom: 120%;
   font-weight: 500;
   font-size: 0.8rem;

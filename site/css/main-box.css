@@ -8,7 +8,7 @@
 
 @media only screen and (max-width: 400px) {
   .main-box {
-    margin: 0 0.2rem;
+    margin: 0 0.5rem;
   }
 }
 
@@ -24,14 +24,7 @@
   }
 }
 
-@media only screen and (min-width: 900px) {
-  .main-box {
-    width: 30%;
-    margin: 0 2rem;
-  }
-}
-
-@media only screen and (min-width: 1400px) {
+@media only screen and (min-width: 1200px) {
   .main-box {
     width: 25%;
     margin: 0 3rem;
@@ -39,5 +32,5 @@
 }
 
 #bottom-component {
-  top: 45vh;
+  top: 43vh;
 }

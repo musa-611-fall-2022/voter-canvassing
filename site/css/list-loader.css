@@ -57,3 +57,7 @@
 #list-loader-load:hover .tooltiptext {
   visibility: visible;
 }
+
+.tooltip-content {
+  z-index: 9999;
+}

@@ -8,21 +8,22 @@ import { baseMap } from "./map.js";
 let hideButton = document.querySelector("#list-loader-hide");
 let hidableChunk = document.querySelector("#list-loader-hidable-chunk");
 
-let hidden = 0;
+// A variable to store whether the list loader component is currently hidden
+let loaderElIsHidden = 0;
 
 hideButton.addEventListener("click", ( ) => {
-  if(hidden == 0) {
+  if(loaderElIsHidden == 0) {
     hidableChunk.style.transform = "translateX(-16em)";
     hideButton.innerHTML = `
     <span class="material-symbols-outlined">chevron_right</span>
     `;
-    hidden = 1;
+    loaderElIsHidden = 1;
   } else {
     hidableChunk.style.transform = "translateX(0em)";
     hideButton.innerHTML = `
     <span class="material-symbols-outlined">chevron_left</span>
     `;
-    hidden = 0;
+    loaderElIsHidden = 0;
   }
 });
 
@@ -31,9 +32,22 @@ hideButton.addEventListener("click", ( ) => {
 Load List
 */
 
-let loadButton = document.querySelector("#list-loader-load");
-let toolTip = document.querySelector("#list-loader-load").querySelector(".tooltiptext");
+let loadButtonEl = document.querySelector("#list-loader-load");
+let toolTipEl = document.querySelector("#list-loader-load").querySelector(".tooltiptext");
 
+// Function to change button tooltip depending on input
+function errorTooltip(inputNumber) {
+  let interruptLoad = false;
+  if(inputNumber.length == 0) {
+    toolTipEl.innerHTML = `<div class="tooltip-content">Empty input</div>`;
+    console.log(toolTipEl);
+    interruptLoad = true;
+  } else if(inputNumber.length != 4) {
+    toolTipEl.innerHTML = `<div class="tooltip-content">Wrong digits</div>`;
+    interruptLoad = true;
+  }
+  return interruptLoad;
+}
 
 // Util function to make sure coords are valid
 function coordsAreValid(lng, lat) {
@@ -46,21 +60,8 @@ function coordsAreValid(lng, lat) {
   return result;
 }
 
-// Function to change button tooltip depending on input
-function errorTooltip(inputNumber) {
-  let interruptLoad = false;
-  if(inputNumber.length == 0) {
-    toolTip.innerHTML = `<div class="tooltip-content">Empty input</div>`;
-    console.log(toolTip);
-    interruptLoad = true;
-  } else if(inputNumber.length != 4) {
-    toolTip.innerHTML = `<div class="tooltip-content">Wrong digits</div>`;
-    interruptLoad = true;
-  }
-  return interruptLoad;
-}
-
-// Function to make feature collection
+// Function to make feature collection out of the imported data
+// Record only key information
 function makeVoterFeatureCollection(data) {
 
   // Construct a geojson empty frame
@@ -94,11 +95,36 @@ function makeVoterFeatureCollection(data) {
       }
     }
   }
+
+  console.log(voters);
   return voters;
 }
 
-loadButton.addEventListener("click", ( ) => {
+// Function to check if fetch is successful. If so, do fetch; if not, show on tooltip
+function checkFetchStatus(resp) {
+  if(resp.ok) {
+    return resp.text();
+  } else {
+      // If the file doesn't exist, then show in tooltip
+      toolTipEl.innerHTML = `<div class="tooltip-content">Wrong number</div>`;
+      return;
+  }
+}
 
+// Function: what happens after successful fetch
+function loadVoterData(text) {
+  const data = Papa.parse(text, { header: true }).data;
+
+  // Make a FeatureCollection
+  const voters = makeVoterFeatureCollection(data);
+
+  // Show voters on the map
+  showVotersOnMap(voters);
+  baseMap.fitBounds(baseMap.voterLayers.getBounds());
+}
+
+// Function on what happens when clicking on load button
+function onLoadButtonClick() {
   // Get input list number
   let inputNumber = document.querySelector("#list-loader-input").value.replace(/\s/g, '');
   if(errorTooltip(inputNumber)) { return }
@@ -107,33 +133,16 @@ loadButton.addEventListener("click", ( ) => {
 
   // Fetch the particular CSV file
   fetch(path)
-  .then(resp => {
-    // If the file exists
-    if(resp.ok) {
-      return resp.text();
-    } else {
-      // If the file doesn't exist, then show in tooltip
-      toolTip.innerHTML = `<div class="tooltip-content">Wrong number</div>`;
-      return;
-    }
-  })
-  .then(text => {
-    const data = Papa.parse(text, { header: true }).data;
+  .then(checkFetchStatus)
+  .then(loadVoterData);
+}
 
-    // Make a FeatureCollection
-    const voters = makeVoterFeatureCollection(data);
-
-    // Show voters on the map
-    showVotersOnMap(voters);
-    baseMap.fitBounds(baseMap.voterLayers.getBounds());
-  });
-});
-
+// Add event listener to the load button
+loadButtonEl.addEventListener("click", onLoadButtonClick);
 
 // Refresh tooltip text when mouse moves out
-loadButton.addEventListener("mouseout", ( ) => {
-  toolTip.innerHTML = `<div class="tooltip-content">Load List</div>`;
+loadButtonEl.addEventListener("mouseout", ( ) => {
+  toolTipEl.innerHTML = `<div class="tooltip-content">Load List</div>`;
 });
 
-console.log(document.querySelector("#test"));
 

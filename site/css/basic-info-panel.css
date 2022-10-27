@@ -1,15 +1,16 @@
+#bottom-component {
+  float: right;
+}
+
 #basic-panel-component {
   position: relative;
   height: 10em;
   background-color: white;
 }
 
-#basic-panel-component * {
-  border: 1px solid black;
-}
-
 #basic-panel-component .panel {
-  padding: 0.5rem 1rem 0 1rem;
+  background-color: white;
+  padding: 0.5rem 0.5rem 0;
   display: grid;
   grid-template: repeat(6, 1fr) / repeat(5, 1fr);
 }
@@ -21,9 +22,14 @@
   font-weight: 800;
   font-size: 1.4rem;
   vertical-align: middle;
-  text-size-adjust: auto;
   white-space: nowrap;
-  flex-wrap: nowrap;
+  text-align: justify;
+  overflow-x: auto;
+}
+
+#panel-name span {
+  width: 100%;
+  display: inline-block;
 }
 
 #panel-status {
@@ -39,11 +45,11 @@
 }
 
 .button-long {
-  width: 3rem;
+  width: 30%;
 }
 
 .button-short {
-  width: 1.8rem;
+  width: 20%;
 }
 
 #panel-address {
