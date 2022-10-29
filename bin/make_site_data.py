@@ -236,5 +236,18 @@ def geocode_voters(data_to_geocode, group_count):
     reader = csv.reader(io.StringIO(response.text))
     return list(reader)
 
+@process_site_data.command()
+@click.argument('parties_infile', type=click.File('rU'))
+@click.argument('site_data_folder', type=click.Path(exists=True))
+def make_party_lookup_file(parties_infile, site_data_folder):
+    reader = csv.DictReader(parties_infile, delimiter='\t')
+    parties_data = {
+        row['Code']: row['Political Party Description']
+        for row in reader
+    }
+    outpath = pathlib.Path(site_data_folder) / 'political_party_lookup.json'
+    with open(outpath, 'w') as outfile:
+        json.dump(parties_data, outfile, indent=2)
+
 if __name__ == '__main__':
     process_site_data()
