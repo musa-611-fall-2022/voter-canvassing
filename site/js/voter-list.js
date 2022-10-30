@@ -11,9 +11,10 @@ let voterList = document.querySelector('#voter-list');
 function showVotersInList(data) {
   voterList.innerHTML = '';
 
-  for (const voters of data) {
+  for (const voter of data) {
+    const space = ' ';
     const html = `
-          <li class="voter-list-component>${voters['first_name']}</li>
+          <li class="voter-name-list">${voter['First Name'] + space + voter['Last Name']}</li>
           `;
       const li = htmlToElement(html);
       voterList.append(li);
@@ -22,4 +23,5 @@ function showVotersInList(data) {
 
 export {
   showVotersInList,
+  voterList,
 };

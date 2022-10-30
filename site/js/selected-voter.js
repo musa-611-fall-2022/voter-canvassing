@@ -1,3 +1,2 @@
-function highlightVoter(id) {
-  
-}
+// function highlightVoter(id) {
+// }

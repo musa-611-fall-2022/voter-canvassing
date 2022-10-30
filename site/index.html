@@ -223,16 +223,16 @@
       const filter = input.value.toUpperCase();
       const ul = document.getElementById("voter-list");
       const li = ul.getElementsByTagName("li");
-      // <div class="list-name">Some Other People</div>
 
       for (i = 0; i < li.length; i++) {
-        a = li[i].getElementsByClassName("list-name")[0];
-        txtValue = a.textContent || a.innerText;
+        a = li[i].getElementsByClassName("voter-name-list")[0];
+        txtValue = a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
           li[i].style.display = "";
         } else {
           li[i].style.display = "none";
         }
+      
       }
     }
   </script>
