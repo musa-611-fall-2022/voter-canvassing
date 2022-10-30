@@ -121,6 +121,7 @@ function loadVoterData(text) {
   // Show voters on the map
   showVotersOnMap(voters);
   baseMap.fitBounds(baseMap.voterLayers.getBounds());
+  showVotersInList(data);
 }
 
 // Function on what happens when clicking on load button
