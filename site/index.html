@@ -81,7 +81,7 @@
       <!-- Search box -->
       <div id="search-box-component">
         <div class="input-container">
-          <input onkeyup="searchInputFilter()" type="text" class="text-input" id="search-box-input" placeholder="Search Name">
+          <input type="text" class="text-input" id="search-box-input" placeholder="Search Name">
         </div>
       </div>
 
@@ -217,7 +217,7 @@
 
   </body>
 
-  <script>
+  <!-- <script>
     function searchInputFilter() {
       const input = document.getElementById("search-box-input");
       const filter = input.value.toUpperCase();
@@ -226,7 +226,7 @@
 
       for (i = 0; i < li.length; i++) {
         a = li[i].getElementsByClassName("voter-name-list")[0];
-        txtValue = a.innerText;
+        txtValue = a.innerHTML || a.innerText;
         if (txtValue.toUpperCase().indexOf(filter) > -1) {
           li[i].style.display = "";
         } else {
@@ -235,6 +235,6 @@
       
       }
     }
-  </script>
+  </script> -->
 
 </html>
