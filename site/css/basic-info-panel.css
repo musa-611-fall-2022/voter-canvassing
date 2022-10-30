@@ -27,11 +27,6 @@
   overflow-x: auto;
 }
 
-#panel-name span {
-  width: 100%;
-  display: inline-block;
-}
-
 #panel-status {
   grid-area: 1/4/4/6;
   display: flex;
@@ -54,6 +49,16 @@
 
 #panel-address {
   display: flex;
-  grid-area: 3/1/4/4;
+  grid-area: 3/1/4/3;
   align-items: center;
+  font-size: 0.8rem;
+}
+
+#panel-add-to-list {
+  font-size: 0.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 80%;
+  height: 80%;
 }
