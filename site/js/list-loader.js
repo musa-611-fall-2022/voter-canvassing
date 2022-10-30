@@ -4,6 +4,7 @@ Hide and Show List Loader
 
 import { showVotersOnMap } from "./map.js";
 import { baseMap } from "./map.js";
+import { showVotersInList }  from './voter-list.js';
 
 let hideButton = document.querySelector("#list-loader-hide");
 let hidableChunk = document.querySelector("#list-loader-hidable-chunk");
