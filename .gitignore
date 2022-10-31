@@ -1,2 +1,6 @@
 node_modules/
-site/data/voters_lists/*.csv
+
+opt/*
+!opt/.gitkeep
+site/data/voters_lists/*
+!site/data/voters_lists/.gitkeep
