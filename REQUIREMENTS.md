@@ -1,9 +1,11 @@
 # Voter Canvassing Project Requirements
 
-Please read these requirements closely. The items listed under **Your Repository** and **Core Interface Elements** are actual requirements, whereas the items listed as **Stretch** are to be undertaken if you want to challenge yourself! I recommend that you...
+Please read these requirements closely. I recommend that you...
 1.  create an issue on your fork of the project on GitHub (you may have to [enable the issues feature](https://stackoverflow.com/a/16406283/123776) on your fork first),
 2.  copy the requirements listed below into that issue, and
 3.  check off the items as you satify them.
+
+The items listed under **Your Repository** and **Core Interface Elements** are actual requirements, whereas the items listed as **Stretch** are to be undertaken if you want to challenge yourself, and do not have to be completed in any order (e.g., feel free to do stretch 3, but not 1 or 2)!
 
 ## Your Repository
 
@@ -66,3 +68,7 @@ Please read these requirements closely. The items listed under **Your Repository
   * the proportion of each political party represented in the file,
   * the number/proportion of doors you've already knocked on, or
   * the number/proportion of people you've already talked to from the file.
+
+## Stretch 4: Voting Record
+
+* Include a voter's voting record information in the voter details, ordered by their participation in elections from most recent to least recent.

@@ -11,7 +11,7 @@ import requests
 import sys
 import time
 
-from data_dicts import FULL_VOTER_EXPORT_HEADER, CENSUS_GEOCODE_RESULT_HEADER
+from data_dicts import FULL_VOTER_EXPORT_HEADER, CENSUS_GEOCODE_RESULT_HEADER, ELECTION_MAPPING_HEADER
 
 CUT_VOTER_EXPORT_HEADER = [
     "ID Number",  # (String)  SURE Voter ID number
@@ -248,6 +248,22 @@ def make_party_lookup_file(parties_infile, site_data_folder):
     outpath = pathlib.Path(site_data_folder) / 'political_party_lookup.json'
     with open(outpath, 'w') as outfile:
         json.dump(parties_data, outfile, indent=2)
+
+@process_site_data.command()
+@click.argument('elections_infile', type=click.File('rU'))
+@click.argument('site_data_folder', type=click.Path(exists=True))
+def make_election_lookup_file(elections_infile, site_data_folder):
+    reader = csv.DictReader(elections_infile, delimiter='\t', fieldnames=ELECTION_MAPPING_HEADER)
+    elections_data = {
+        f'Election {row["Election Number"]}': {
+            'description': row['Election Description'],
+            'date': row['Election Date'],
+        }
+        for row in reader
+    }
+    outpath = pathlib.Path(site_data_folder) / 'election_lookup.json'
+    with open(outpath, 'w') as outfile:
+        json.dump(elections_data, outfile, indent=2)
 
 if __name__ == '__main__':
     process_site_data()
