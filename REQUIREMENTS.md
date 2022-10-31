@@ -1,6 +1,6 @@
 # Voter Canvassing Project Requirements
 
-Please read these requirements closely. I recommend that you...
+Please read these requirements closely. The items listed under **Your Repository** and **Core Interface Elements** are actual requirements, whereas the items listed as **Stretch** are to be undertaken if you want to challenge yourself! I recommend that you...
 1.  create an issue on your fork of the project on GitHub (you may have to [enable the issues feature](https://stackoverflow.com/a/16406283/123776) on your fork first),
 2.  copy the requirements listed below into that issue, and
 3.  check off the items as you satify them.
