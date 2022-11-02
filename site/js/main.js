@@ -4,5 +4,6 @@ import { getVoterList } from './dataPull.js';
 let map = initializeMap();
 
 let listNum = "0101";
-getVoterList(listNum);
+let list = getVoterList(listNum);
+console.log(list);
 
