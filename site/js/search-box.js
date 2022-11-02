@@ -3,7 +3,7 @@
 //   showVotersInList();
 // }
 
-// import { data } from './list-loader.js';
+import { data } from './list-loader.js';
 import { showVotersInList }  from './voter-list.js';
 import { voterList } from './voter-list.js';
 
@@ -24,3 +24,17 @@ voterNameFilter.addEventListener('input', () => {
   showVotersInList(filteredVoter, voterList);
 });
 
+// TEST
+
+let testEl = document.querySelector("#list-filter-component");
+
+let thisListData;
+
+testEl.addEventListener("click", ( ) => {
+  let listFromStorage = localStorage.getItem("thisList");
+  thisListData = JSON.parse(listFromStorage || "{}");
+
+  console.log(data);
+});
+
+// END TEST
