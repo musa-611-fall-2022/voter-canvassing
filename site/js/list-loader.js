@@ -116,6 +116,8 @@ function checkFetchStatus(resp) {
 function loadVoterData(text) {
   const data = Papa.parse(text, { header: true }).data;
 
+  localStorage.setItem("thisList", JSON.stringify(data));
+
   // Make a FeatureCollection
   const voters = makeVoterFeatureCollection(data);
 
@@ -146,3 +148,18 @@ loadButtonEl.addEventListener("click", onLoadButtonClick);
 loadButtonEl.addEventListener("mouseout", ( ) => {
   toolTipEl.innerHTML = `<div class="tooltip-content">Load List</div>`;
 });
+
+// TEST
+
+let testEl = document.querySelector("#list-filter-component");
+
+let thisListData;
+
+testEl.addEventListener("click", ( ) => {
+  let listFromStorage = localStorage.getItem("thisList");
+  thisListData = JSON.parse(listFromStorage || "{}");
+
+  console.log(thisListData);
+});
+
+// END TEST

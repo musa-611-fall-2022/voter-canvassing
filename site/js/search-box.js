@@ -23,3 +23,4 @@ voterNameFilter.addEventListener('input', () => {
   const filteredVoter = onSearchBoxInput();
   showVotersInList(filteredVoter, voterList);
 });
+

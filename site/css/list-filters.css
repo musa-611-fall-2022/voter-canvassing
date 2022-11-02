@@ -4,7 +4,7 @@
   right: 0;
   height: 2.5em;
   width: 8.5rem;
-  z-index: 999;
+  z-index: 99999;
 }
 
 #list-filter-component .button {
