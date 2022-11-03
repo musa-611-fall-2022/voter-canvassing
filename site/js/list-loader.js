@@ -116,7 +116,7 @@ export let data;
 
 // Function: what happens after successful fetch
 function loadVoterData(text) {
-  data = Papa.parse(text, { header: true }).data;
+  data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
   localStorage.setItem("thisList", JSON.stringify(data));
 
