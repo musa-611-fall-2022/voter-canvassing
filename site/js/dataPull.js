@@ -1,5 +1,8 @@
+import { populateVoterMap } from './map.js';
+import { populateVoterList } from './list.js';
+
 function populateVoterList(listNum, map) {
-    return fetch('data/voters_lists/' + listNum + '.csv')
+    fetch('data/voters_lists/' + listNum + '.csv')
     .then(resp => resp.text())
     .then(text => {
         const data = Papa.parse(text, { header: true });
@@ -7,14 +10,6 @@ function populateVoterList(listNum, map) {
         populateVoterMap(data, map);
         populateVoterMenu(data);
     });
-}
-
-function populateVoterMap(data, map) {
-    //pass
-}
-
-function populateVoterMenu(data) {
-    //pass
 }
 
 export {

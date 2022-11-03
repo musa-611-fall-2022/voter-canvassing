@@ -41,11 +41,16 @@ function locateMe(){
 
 }
 
+function populateVoterMap(data, map) {
+    //pass
+}
+
 
 
 export {
     initializeMap,
     locateMe,
+    populateVoterMap,
   };
 
   window.myLocation = myLocation;
