@@ -1,5 +1,9 @@
+let map = []; // made map global so that other functions can addTo 'map'
+let myLocation = {}; // made a global myLocation variable that can be accessed when looking for other point features in the vicinity
+
+
 function initializeMap () {
-    const map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13);
+    map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
     const mapboxAccount = 'mapbox';
     const mapboxStyle = 'light-v10';
     const mapboxToken = 'pk.eyJ1IjoibW9yZ2FuZ3IiLCJhIjoiY2w4dzF2bHZsMDJqdDN3czJwOGg0ZXBsbSJ9.tXRhvJAL-t7cJCrCyAEhUw';
@@ -11,6 +15,38 @@ function initializeMap () {
     return map;
 }
 
+function locateMe(){
+
+    const successCallback = (pos) => {
+        
+        myLocation = {
+            lat : pos.coords.longitude, 
+            lng : pos.coords.latitude
+        };
+
+        console.log(myLocation); 
+
+        L.marker([myLocation.lng, myLocation.lat]).addTo(map);
+
+        return myLocation;
+
+    }
+    const errorCallback = (e) => console.log(e);
+
+    const options = { enableHighAccuracy: true, timeout: 10000,};
+
+    const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options); 
+
+    //navigator.geolocation.clearWatch(id); // will need this when we change location in real-time.
+
+}
+
+
+
 export {
     initializeMap,
+    locateMe,
   };
+
+  window.myLocation = myLocation;
+  
