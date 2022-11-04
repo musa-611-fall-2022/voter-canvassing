@@ -1,3 +1,5 @@
+import { makeVoterFeature } from './dataPull.js';
+
 let map = []; // made map global so that other functions can addTo 'map'
 let myLocation = {}; // made a global myLocation variable that can be accessed when looking for other point features in the vicinity
 
@@ -41,11 +43,24 @@ function locateMe(){
 
 }
 
-function populateVoterMap(data, map) {
-    //pass
+function populateVoterMap(data, map) { // receives data from makeVoterFeature and plots them on the map
+
+    let people = makeVoterFeature(data);
+
+    console.log("These are the voters");
+
+    for( let ppl of people ){
+
+        try{
+        L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
+        }
+         
+        catch(e){
+
+        }
+    }
+
 }
-
-
 
 export {
     initializeMap,
