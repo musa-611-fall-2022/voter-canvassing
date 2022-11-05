@@ -6,28 +6,29 @@ import { showVotersOnMap } from "./map.js";
 import { baseMap } from "./map.js";
 import { showVotersInList }  from './voter-list.js';
 
-let hideButton = document.querySelector("#list-loader-hide");
-let hidableChunk = document.querySelector("#list-loader-hidable-chunk");
+// DOM elements
+let hideButtonEl = document.querySelector("#list-loader-hide");
+let hidableChunkEl = document.querySelector("#list-loader-hidable-chunk");
+let listNumberInputEl = document.querySelector("#list-loader-input");
 
 // A variable to store whether the list loader component is currently hidden
 let loaderElIsHidden = 0;
 
-hideButton.addEventListener("click", ( ) => {
+hideButtonEl.addEventListener("click", ( ) => {
   if(loaderElIsHidden == 0) {
-    hidableChunk.style.transform = "translateX(-16em)";
-    hideButton.innerHTML = `
+    hidableChunkEl.style.transform = "translateX(-16em)";
+    hideButtonEl.innerHTML = `
     <span class="material-symbols-outlined">chevron_right</span>
     `;
     loaderElIsHidden = 1;
   } else {
-    hidableChunk.style.transform = "translateX(0em)";
-    hideButton.innerHTML = `
+    hidableChunkEl.style.transform = "translateX(0em)";
+    hideButtonEl.innerHTML = `
     <span class="material-symbols-outlined">chevron_left</span>
     `;
     loaderElIsHidden = 0;
   }
 });
-
 
 /*
 Load List
@@ -101,23 +102,35 @@ function makeVoterFeatureCollection(data) {
   return voters;
 }
 
-// Function to check if fetch is successful. If so, do fetch; if not, show on tooltip
+/* Function to check if fetch is successful.
+If so, do fetch; if not, show on tooltip */
 function checkFetchStatus(resp) {
   if(resp.ok) {
     return resp.text();
   } else {
       // If the file doesn't exist, then show in tooltip
       toolTipEl.innerHTML = `<div class="tooltip-content">Wrong number</div>`;
-      return;
+      return false;
   }
 }
 
+// This is a global object to store the current list of voters
 export let data;
 
-// Function: what happens after successful fetch
+/* Function: what happens after successful fetch:
+1. Make the data using Papaparse, and store it by updating the global variable "data"
+2. When having the data, make a geometry object, which has voter IDs, using makeVoterFeatureCollection(data)
+3. Show voters on the map
+4. Show voters in the list
+*/
 function loadVoterData(text) {
 
+  if(text == false) {
+    return;
+  }
   // Note skipEmptyLines: true; cleaning up the CSV
+  /* notes with Mjumbe:
+     Papa Parse is reading the last line of each csv as a person */
   data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
   // Make a FeatureCollection
@@ -129,10 +142,16 @@ function loadVoterData(text) {
   showVotersInList(data);
 }
 
-// Function on what happens when clicking on load button
+/* Function on what happens when clicking on load button
+1. Read the list number
+2. If the number is wrong (wrong digits, empty, etc.), go to errorTooltip
+3. If the number is fine, make a path, and fetch
+4. Check fetch status using checkFetchStatus
+5. If check success, load data using loadVoterData; otherwise, show error tooltip
+*/
 function onLoadButtonClick() {
   // Get input list number
-  let inputNumber = document.querySelector("#list-loader-input").value.replace(/\s/g, '');
+  let inputNumber = listNumberInputEl.value.replace(/\s/g, '');
   if(errorTooltip(inputNumber)) { return }
 
   let path = './data/voters_lists/' + inputNumber + '.csv';
@@ -151,3 +170,10 @@ loadButtonEl.addEventListener("mouseout", ( ) => {
   toolTipEl.innerHTML = `<div class="tooltip-content">Load List</div>`;
 });
 
+/*
+Requirement:
+There should be an input element on the page where you can enter a voter file number.
+Save the input DOM element in a variable named voterFileInput attached to the global window object.
+*/
+
+window.voterFileInput = listNumberInputEl;

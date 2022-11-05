@@ -27,5 +27,3 @@ function onSearchBoxInput() {
 
 voterInputBoxEl.addEventListener("input", onSearchBoxInput);
 
-// notes with mjumbe
-// papa parse is reading the last line of each csv as a person
