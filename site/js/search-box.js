@@ -22,7 +22,7 @@ function filterByName() {
 // What happens when searchbox has input
 function onSearchBoxInput() {
   const filteredVoter = filterByName();
-  showVotersInList(filteredVoter, voterList);
+  showVotersInList(filteredVoter);
 }
 
 voterInputBoxEl.addEventListener("input", onSearchBoxInput);

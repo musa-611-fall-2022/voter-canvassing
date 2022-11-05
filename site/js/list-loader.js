@@ -108,7 +108,6 @@ function makeVoterFeatureCollection(data) {
 If so, do fetch; if not, show on tooltip */
 function checkFetchStatus(resp) {
   if(resp.ok) {
-    localStorage.setItem("current-list", inputNumber);
     return resp.text();
   } else {
       // If the file doesn't exist, then show in tooltip
@@ -159,6 +158,7 @@ function loadByListNumber(inputNumber) {
   fetch(path)
   .then(checkFetchStatus)
   .then(loadVoterData);
+  localStorage.setItem("current-list", inputNumber);
 }
 
 /* Function on what happens when clicking on load button
@@ -179,7 +179,7 @@ Automatically load list from local storage
 
 let autoList = localStorage.getItem("current-list" || "{}");
 if(autoList.length == 4) {
-  console.log(autoList);
+  loadByListNumber(autoList);
 }
 
 // Add event listener to the load button

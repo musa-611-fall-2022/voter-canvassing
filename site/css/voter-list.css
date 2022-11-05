@@ -1,14 +1,12 @@
 #voter-list-component {
   position: relative;
-  border-radius: 0 0 0.5em 0.5em;
   display: flex;
   flex-direction: column;
 }
 
 #voter-list-component .panel {
-  overflow: auto;
   background-color: white;
-  padding-bottom: 0.05rem;
+  padding: 0 0.5rem 0.05rem 0.5rem;
 }
 
 #voter-list-component .scroll-container {
@@ -34,11 +32,22 @@
 }
 
 #voter-list-component li {
-  padding: 0.2rem;
+  padding: 0.3rem;
   border-bottom: 1px solid #bbb;
   height: 1.3rem;
-  display: block;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
   width: 28rem;
+}
+
+#voter-list-component .list-address {
+  margin-right: 1rem;
+  font-size: 0.8rem;
+  padding-top: 0.8rem;
+  height: 1rem;
+  vertical-align: baseline;
+  border-bottom: 0 solid #bbb;
 }
 
 #voter-list-component li .list-name {
@@ -46,21 +55,16 @@
   font-weight: 600;
   float: left;
   margin-right: 1rem;
-  font-size: 0.9rem;
-}
-
-#voter-list-component li .list-address {
-  position: relative;
-  float: left;
-  margin-right: 1rem;
-  font-size: 0.8rem;
-  vertical-align: baseline;
-  top: 0.05rem;
+  font-size: 1rem;
+  vertical-align: center;
 }
 
 #voter-list-component .button {
   font-size: 0.8rem;
   height: 1.3rem;
+}
+
+#voter-list-component #list-expand-button {
   margin-left: auto;
   margin-right: auto;
 }
