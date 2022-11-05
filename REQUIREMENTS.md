@@ -72,3 +72,9 @@ The items listed under **Your Repository** and **Core Interface Elements** are a
 ## Stretch 4: Voting Record
 
 * Include a voter's voting record information in the voter details, ordered by their participation in elections from most recent to least recent.
+
+## Stretch 5: Geolocation
+
+* Show the closest voters that the user hasn't yet visited at the top of the address list. This way the user should always be able to simple look at the next voter/address in the list.
+
+  > Note: this can be done using (1) the [geolocation API](https://developer.mozilla.org/en-US/docs/Web/API/Geolocation_API), (2) a library like [turf.js](https://turfjs.org/), and (3) JavaScript's [`Array.sort` function](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort) which can admittedly be pretty weird at first.
