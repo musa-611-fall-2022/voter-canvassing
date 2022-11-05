@@ -116,9 +116,9 @@ export let data;
 
 // Function: what happens after successful fetch
 function loadVoterData(text) {
-  data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
-  localStorage.setItem("thisList", JSON.stringify(data));
+  // Note skipEmptyLines: true; cleaning up the CSV
+  data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
   // Make a FeatureCollection
   const voters = makeVoterFeatureCollection(data);

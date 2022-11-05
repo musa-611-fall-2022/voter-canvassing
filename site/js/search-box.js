@@ -1,41 +1,31 @@
-// // // add event listener to search box
-// function onSearchBoxInput() {
-//   showVotersInList();
-// }
-
 import { data } from './list-loader.js';
 import { showVotersInList }  from './voter-list.js';
 import { voterList } from './voter-list.js';
 
-// TEST
-// let testEl = document.querySelector("#list-filter-component");
-// let thisListData;
+let voterInputBoxEl = document.querySelector('#search-box-input');
 
-// testEl.addEventListener("click", ( ) => {
-//   let listFromStorage = localStorage.getItem("thisList");
-//   thisListData = JSON.parse(listFromStorage || "{}");
-//   console.log(data);
-// });
-// END TEST
-
-let voterInputBox = document.querySelector('#search-box-input');
-
-function onSearchBoxInput(data) {
+// Filter by the input of search box
+// Search by first name or last name
+function filterByName() {
   let filteredVoter = data;
-  const text = voterInputBox.value.toLowerCase();
+  const inputText = voterInputBoxEl.value.toLowerCase();
+
   filteredVoter = filteredVoter.filter(function(voter) {
-        const firstName = voter['First Name'].toLowerCase();
-        const lastName = voter['Last Name'].toLowerCase();
-        const hasText = firstName.includes(text) || lastName.includes(text);
-        return hasText;
-      });
-      return filteredVoter;
+    const firstName = voter['First Name'].toLowerCase();
+    const lastName = voter['Last Name'].toLowerCase();
+    const hasInputText = firstName.includes(inputText) || lastName.includes(inputText);
+    return hasInputText;
+  });
+  return filteredVoter;
 }
 
-voterInputBox.addEventListener("input", ( ) => {
-  const filteredVoter = onSearchBoxInput(data);
+// What happens when searchbox has input
+function onSearchBoxInput() {
+  const filteredVoter = filterByName();
   showVotersInList(filteredVoter, voterList);
-});
+}
+
+voterInputBoxEl.addEventListener("input", onSearchBoxInput);
 
 // notes with mjumbe
 // papa parse is reading the last line of each csv as a person
