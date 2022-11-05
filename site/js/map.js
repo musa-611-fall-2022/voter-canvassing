@@ -2,8 +2,8 @@
 INITIALIZE BASE MAP TO SHOW
 */
 
-let baseMapComponent = document.querySelector("#map-component");
-export let baseMap = L.map(baseMapComponent, { zoomControl: false }).setView([40, -75.15], 11);
+let baseMapEl = document.querySelector("#map-component");
+export let baseMap = L.map(baseMapEl, { zoomControl: false }).setView([40, -75.15], 11);
 L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=10b978ef-d3a8-4d87-84d7-9233488f7d37', {
     maxZoom: 20,
     attribution: '&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors',
@@ -34,7 +34,13 @@ function showVotersOnMap(voters) {
   .addTo(baseMap);
 }
 
-
 export {
   showVotersOnMap,
 };
+
+/* Requirement:
+A leaflet map to show voter locations;
+The leaflet map object should be available on the global window;
+*/
+
+window.voterMap = baseMap;

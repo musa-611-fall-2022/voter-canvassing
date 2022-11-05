@@ -26,4 +26,3 @@ function onSearchBoxInput() {
 }
 
 voterInputBoxEl.addEventListener("input", onSearchBoxInput);
-

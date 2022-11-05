@@ -1,10 +1,10 @@
-/*
-Hide and Show List Loader
-*/
-
 import { showVotersOnMap } from "./map.js";
 import { baseMap } from "./map.js";
 import { showVotersInList }  from './voter-list.js';
+
+/*
+Hide and Show List Loader
+*/
 
 // DOM elements
 let hideButtonEl = document.querySelector("#list-loader-hide");
@@ -12,6 +12,9 @@ let hidableChunkEl = document.querySelector("#list-loader-hidable-chunk");
 let listNumberInputEl = document.querySelector("#list-loader-input");
 let loadButtonEl = document.querySelector("#list-loader-load");
 let toolTipEl = document.querySelector("#list-loader-load").querySelector(".tooltiptext");
+
+// Create a global object to store current input number
+let inputNumber;
 
 // A variable to store whether the list loader component is currently hidden
 let loaderElIsHidden = 0;
@@ -35,8 +38,6 @@ hideButtonEl.addEventListener("click", ( ) => {
 /*
 Load List
 */
-
-
 
 // Function to change button tooltip depending on input
 function errorTooltip(inputNumber) {
@@ -107,6 +108,7 @@ function makeVoterFeatureCollection(data) {
 If so, do fetch; if not, show on tooltip */
 function checkFetchStatus(resp) {
   if(resp.ok) {
+    localStorage.setItem("current-list", inputNumber);
     return resp.text();
   } else {
       // If the file doesn't exist, then show in tooltip
@@ -141,26 +143,43 @@ function loadVoterData(text) {
   showVotersOnMap(voters);
   baseMap.fitBounds(baseMap.voterLayers.getBounds());
   showVotersInList(data);
+
+  window.data = data;
 }
 
 /* Function on what happens when clicking on load button
-1. Read the list number
-2. If the number is wrong (wrong digits, empty, etc.), go to errorTooltip
-3. If the number is fine, make a path, and fetch
-4. Check fetch status using checkFetchStatus
-5. If check success, load data using loadVoterData; otherwise, show error tooltip
+1. Make a path, and fetch
+2. Check fetch status using checkFetchStatus
+3. If check success, load data using loadVoterData; otherwise, show error tooltip
 */
-function onLoadButtonClick() {
-  // Get input list number
-  let inputNumber = listNumberInputEl.value.replace(/\s/g, '');
-  if(errorTooltip(inputNumber)) { return }
-
+function loadByListNumber(inputNumber) {
   let path = './data/voters_lists/' + inputNumber + '.csv';
 
   // Fetch the particular CSV file
   fetch(path)
   .then(checkFetchStatus)
   .then(loadVoterData);
+}
+
+/* Function on what happens when clicking on load button
+1. Read the list number
+2. If the number is wrong (wrong digits, empty, etc.), go to errorTooltip
+3. If the number is fine, go to loadByListNumber;
+*/
+function onLoadButtonClick() {
+  // Get input list number
+  inputNumber = listNumberInputEl.value.replace(/\s/g, '');
+  if(errorTooltip(inputNumber)) { return }
+  loadByListNumber(inputNumber);
+}
+
+/*
+Automatically load list from local storage
+*/
+
+let autoList = localStorage.getItem("current-list" || "{}");
+if(autoList.length == 4) {
+  console.log(autoList);
 }
 
 // Add event listener to the load button
