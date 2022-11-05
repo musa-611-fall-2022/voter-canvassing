@@ -1,5 +1,5 @@
 import { htmlToElement } from './htmlelement.js';
-// import { changeRecord } from "./save-edit";
+import { changeRecord } from "./save-edit.js";
 
 // DOM obj of voter list
 let voterList = document.querySelector('#voter-list');
@@ -54,18 +54,34 @@ function listPrepare(voterListItemsEl) {
   }
 }
 
+function getStatusIcon(voterId) {
+  const status = changeRecord[voterId] || "pending";
+
+  // Default icon: pending hourglass
+  let statusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
+  if(status == "pending") {
+    statusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
+  } // Other icons to be added
+  return(statusIcon);
+}
+
 // Function to show voters by each address
 function addVotersByAddress(votersByThisAddress) {
   for(const voter of votersByThisAddress) {
+
+    // Get current voter ID
+    const voterId = voter["ID Number"];
+
+    // Check status of this voter
+    const statusIcon = getStatusIcon(voterId);
+
+    // Check party affiliation
+
     const voterEl = htmlToElement(`
       <li class="list-voter" value=0 title="${voter["ID Number"]}">
         <div class="list-name">${voter["First Name"]} ${voter["Last Name"]}</div>
-        <div class="list-icon button">
-          <span class="material-symbols-outlined">
-            hourglass_top
-          </span>
-        </div>
-        <div class="button list-icon"></div>
+        <div class="button status-icon">${statusIcon}</div>
+        <div class="party-icon">d</div>
         <div class="button list-icon"></div>
         <div class="button list-icon"></div>
       </li>

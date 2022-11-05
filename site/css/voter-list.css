@@ -80,15 +80,45 @@
   height: 1.3rem;
 }
 
-#voter-list-component .list-icon {
+#voter-list-component .status-icon {
+  height: 1.1rem;
+  width: 1.1rem;
+  border-radius: 0.1rem;
+  margin-right: 0.4rem;
+  float: left;
+  border: 1.5px solid #0d59a9;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom-width: 3px;
   background-color: #fff;
   border-color: #fff;
   color: #0d59a9;
-  vertical-align: center;
-  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 800;
 }
 
-#voter-list-component .list-icon .material-symbols-outlined {
+#voter-list-component .party-icon {
+  min-width: 2rem;
+  height: 1.3rem;
+  float: left;
+  border: 1.5px solid #0d59a9;
+  cursor: pointer;
+  text-align: center;
+  vertical-align: middle;
+  border-bottom-width: 3px;
+  border-radius: 0 0 0.5rem 0.5rem;
+  background-color: #fff;
+  border-color: #fff;
+  color: #0d59a9;
+  font-size: 1rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#voter-list-component .status-icon .material-symbols-outlined {
   font-size: 1.2rem;
 }
 
