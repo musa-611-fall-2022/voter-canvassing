@@ -34,7 +34,7 @@
 #voter-list-component li {
   padding: 0.3rem;
   border-bottom: 1px solid #bbb;
-  height: 1.3rem;
+  height: 1.5rem;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -50,6 +50,18 @@
   border-bottom: 0 solid #bbb;
 }
 
+#voter-list-component .list-voter:hover {
+  background-color: #eee;
+}
+
+#voter-list-component .list-selected {
+  background-color: #0d59a9;
+}
+
+#voter-list-component .list-selected:hover {
+  background-color: #0d59a9;
+}
+
 #voter-list-component li .list-name {
   position: relative;
   font-weight: 600;
@@ -59,9 +71,25 @@
   vertical-align: center;
 }
 
+#voter-list-component .list-selected .list-name {
+  color: #fff;
+}
+
 #voter-list-component .button {
   font-size: 0.8rem;
   height: 1.3rem;
+}
+
+#voter-list-component .list-icon {
+  background-color: #fff;
+  border-color: #fff;
+  color: #0d59a9;
+  vertical-align: center;
+  text-align: center;
+}
+
+#voter-list-component .list-icon .material-symbols-outlined {
+  font-size: 1.2rem;
 }
 
 #voter-list-component #list-expand-button {
