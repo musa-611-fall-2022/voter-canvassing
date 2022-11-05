@@ -25,3 +25,10 @@ export {
   showVotersInList,
   voterList,
 };
+
+/*
+Requirement:
+The list's DOM element should be available on the global
+*/
+
+window.voterList = voterList;

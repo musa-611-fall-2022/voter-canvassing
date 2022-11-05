@@ -10,6 +10,8 @@ import { showVotersInList }  from './voter-list.js';
 let hideButtonEl = document.querySelector("#list-loader-hide");
 let hidableChunkEl = document.querySelector("#list-loader-hidable-chunk");
 let listNumberInputEl = document.querySelector("#list-loader-input");
+let loadButtonEl = document.querySelector("#list-loader-load");
+let toolTipEl = document.querySelector("#list-loader-load").querySelector(".tooltiptext");
 
 // A variable to store whether the list loader component is currently hidden
 let loaderElIsHidden = 0;
@@ -34,8 +36,7 @@ hideButtonEl.addEventListener("click", ( ) => {
 Load List
 */
 
-let loadButtonEl = document.querySelector("#list-loader-load");
-let toolTipEl = document.querySelector("#list-loader-load").querySelector(".tooltiptext");
+
 
 // Function to change button tooltip depending on input
 function errorTooltip(inputNumber) {
@@ -177,3 +178,10 @@ Save the input DOM element in a variable named voterFileInput attached to the gl
 */
 
 window.voterFileInput = listNumberInputEl;
+
+/*
+Requirement:
+There should be a button that will load the voter file number given in the voterFileInput when clicked. Save the button DOM element in a variable named voterFileLoadButton attached to the global window object.
+*/
+
+window.voterFileLoadButton = loadButtonEl;
