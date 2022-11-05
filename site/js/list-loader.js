@@ -119,6 +119,14 @@ function checkFetchStatus(resp) {
 // This is a global object to store the current list of voters
 export let data;
 
+// Function to add short address to each voter in data
+function makeShortAddress(data) {
+  for(let voter of data) {
+    voter["short_address"] = `${voter["House Number"]} ${voter["Street Name"]}`;
+  }
+  return(data);
+}
+
 /* Function: what happens after successful fetch:
 1. Make the data using Papaparse, and store it by updating the global variable "data"
 2. When having the data, make a geometry object, which has voter IDs, using makeVoterFeatureCollection(data)
@@ -135,6 +143,9 @@ function loadVoterData(text) {
      Papa Parse is reading the last line of each csv as a person */
   data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
+  // Create new property: combine house number with street name
+  data = makeShortAddress(data);
+
   // Make a FeatureCollection
   const voters = makeVoterFeatureCollection(data);
 
@@ -143,6 +154,8 @@ function loadVoterData(text) {
   baseMap.fitBounds(baseMap.voterLayers.getBounds());
   showVotersInList(data);
 
+  // Store current list number to local storage to be loaded the next time
+  localStorage.setItem("current-list", inputNumber);
   window.data = data;
 }
 
@@ -154,11 +167,13 @@ function loadVoterData(text) {
 function loadByListNumber(inputNumber) {
   let path = './data/voters_lists/' + inputNumber + '.csv';
 
+  // Set the input box placeholder
+  listNumberInputEl.placeholder = `${inputNumber}`;
+
   // Fetch the particular CSV file
   fetch(path)
   .then(checkFetchStatus)
   .then(loadVoterData);
-  localStorage.setItem("current-list", inputNumber);
 }
 
 /* Function on what happens when clicking on load button

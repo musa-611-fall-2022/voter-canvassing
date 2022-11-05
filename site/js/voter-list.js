@@ -52,7 +52,7 @@ function showVotersInList(data) {
   // First empty out existing voter list
   voterList.innerHTML = '';
 
-  let dataGroupedByAddress = groupByKey(data, "Street Name");
+  let dataGroupedByAddress = groupByKey(data, "short_address");
   let addressKeys = Object.keys(dataGroupedByAddress);
 
   for(const address of addressKeys) {
