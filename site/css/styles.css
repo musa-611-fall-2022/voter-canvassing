@@ -9,3 +9,15 @@ body {
 .map {
     height: 100%
 }
+
+textarea {
+    width: 50%;
+    display: block;
+    margin-bottom: 1rem;
+    height: 1rem;
+}
+
+button {
+    width: 50%; 
+    display: block;
+}
