@@ -8,13 +8,14 @@ let voterFileInput = document.querySelector('.input'); // saves input DOM elemen
 let voterFileLoadButton = document.querySelector('.button'); // saves button DOM element as variable 
 
 function onButtonClicked(evt) {
-    listNum = voterFileInput.value;
-    console.log(listNum)
+   if (listNum = voterFileInput.value) {
+    console.log(listNum);
     populateVoterList(listNum, map);
+   } else {
+    alert("This is not a valid voter list number. Please try again.")
+   }}; // creates function that passes the value entered in input text box to the variable listNum. 
 
-}; // creates function that passes the value entered in input text box to the variable listNum - don't think I got this right
-
-function loadVoterList() {
+   function loadVoterList() {
     voterFileLoadButton.addEventListener('click', onButtonClicked);
 }; //adds an event listener that executes the onButtonClicked function when the voter load button is clicked 
 loadVoterList();
