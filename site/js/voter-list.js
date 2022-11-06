@@ -54,15 +54,47 @@ function listPrepare(voterListItemsEl) {
   }
 }
 
-function getStatusIcon(voterId) {
-  const status = changeRecord[voterId] || "pending";
+// Function to get the canvassing status (visited, pendign, etc.) for each voter
+function getCanvassStatusIcon(voterId) {
+  const canvassStatus = changeRecord[voterId] || "pending";
 
   // Default icon: pending hourglass
-  let statusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
-  if(status == "pending") {
-    statusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
+  let canvassStatusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
+  if(canvassStatus == "pending") {
+    canvassStatusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
   } // Other icons to be added
-  return(statusIcon);
+  return(canvassStatusIcon);
+}
+
+// Function to get the voter status (active or inactive) for each voter
+function getVoterStatusIcon(voter) {
+  const activeVoterIcon = `<span class="material-symbols-outlined icon-ok-color">check_circle</span>`;
+  const inactiveVoterIcon = `<span class="material-symbols-outlined icon-no-color">check_circle</span>`;
+
+  const voterStatusIcon = voter["Voter Status"] == "A" ? activeVoterIcon : inactiveVoterIcon;
+
+  return voterStatusIcon;
+}
+
+// Function to get the party for each voter
+function getPartyColor(voter) {
+  const democratColor = "icon-democrat-color";
+  const republicanColor = "icon-republican-color";
+  const otherPartyColor = "icon-oth-party-color";
+
+  let partyColor;
+  switch(voter["Party Code"]) {
+    case "D":
+      partyColor = democratColor;
+      break;
+    case "R":
+      partyColor = republicanColor;
+      break;
+    default:
+      partyColor = otherPartyColor;
+  }
+
+  return partyColor;
 }
 
 // Function to show voters by each address
@@ -72,18 +104,22 @@ function addVotersByAddress(votersByThisAddress) {
     // Get current voter ID
     const voterId = voter["ID Number"];
 
-    // Check status of this voter
-    const statusIcon = getStatusIcon(voterId);
+    // Get voter status icon
+    const voterStatusIcon = getVoterStatusIcon(voter);
+
+    // Check canvassing status of this voter and get the icon
+    const canvassStatusIcon = getCanvassStatusIcon(voterId);
 
     // Check party affiliation
+    const party = voter["Party Code"];
+    const partyColor = getPartyColor(voter);
 
     const voterEl = htmlToElement(`
       <li class="list-voter" value=0 title="${voter["ID Number"]}">
         <div class="list-name">${voter["First Name"]} ${voter["Last Name"]}</div>
-        <div class="button status-icon">${statusIcon}</div>
-        <div class="party-icon">d</div>
-        <div class="button list-icon"></div>
-        <div class="button list-icon"></div>
+        <div class="list-icon">${canvassStatusIcon}</div>
+        <div class="list-icon">${voterStatusIcon}</div>
+        <div class="list-icon ${partyColor}">${party}</div>
       </li>
     `);
     voterList.append(voterEl);

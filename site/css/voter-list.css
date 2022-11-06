@@ -80,46 +80,30 @@
   height: 1.3rem;
 }
 
-#voter-list-component .status-icon {
-  height: 1.1rem;
-  width: 1.1rem;
-  border-radius: 0.1rem;
-  margin-right: 0.4rem;
-  float: left;
-  border: 1.5px solid #0d59a9;
-  cursor: pointer;
-  text-align: center;
-  vertical-align: middle;
-  border-bottom-width: 3px;
+#voter-list-component .list-icon {
   background-color: #fff;
-  border-color: #fff;
-  color: #0d59a9;
+  float: left;
+  height: 1.1rem;
+  margin: 0.3rem;
+  min-width: 1.5rem;
   font-size: 0.9rem;
   font-weight: 800;
-}
-
-#voter-list-component .party-icon {
-  min-width: 2rem;
-  height: 1.3rem;
-  float: left;
-  border: 1.5px solid #0d59a9;
-  cursor: pointer;
+  padding: 0.15rem 0.05rem;
   text-align: center;
-  vertical-align: middle;
-  border-bottom-width: 3px;
-  border-radius: 0 0 0.5rem 0.5rem;
-  background-color: #fff;
-  border-color: #fff;
-  color: #0d59a9;
-  font-size: 1rem;
-  font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
+  line-height: 0.8rem;
+  border-radius: 0 0 0.3rem 0.3rem;
+  border: 1.25px solid #0d59a9;
+  border-bottom-width: 2.5px;
 }
 
-#voter-list-component .status-icon .material-symbols-outlined {
+#voter-list-component .material-symbols-outlined {
   font-size: 1.2rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #voter-list-component #list-expand-button {
@@ -132,4 +116,20 @@
   width: 1.1rem;
   border-radius: 0.1rem;
   margin-right: 0.4rem;
+}
+
+.icon-ok-color {
+  color: #15b88a;
+}
+
+.icon-democrat-color {
+  color: #0d59a9;
+}
+
+.icon-republican-color {
+  color: #e96a46;
+}
+
+.icon-oth-party-color {
+  color: #c1c1c1;
 }
