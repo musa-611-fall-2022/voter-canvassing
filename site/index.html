@@ -12,18 +12,31 @@
         <!--Introduce Bootstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
-
+<!--        Introduce jQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
         <link rel="stylesheet" href="./styles/stylesheet.css">
 
     </head>
 
     <body>
-        <input id="voterFileInput" class="inputTag" placeholder="Enter A List"></div>
-        <button id="voterFileLoadButton">Load List</button>
+        <div class="list-container">
+            <div class="input-group">
+                <input id="voterFileInput" type="text" class="form-control" placeholder="Enter A List">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" id="voterFileLoadButton" type="button" onclick="loadList()">Load List</button>
+                </span>
+            </div>
+            <div class="lists-group" >
+                <div id="voterList" class="list-group"></div>
+            </div>
 
-        <div id="voterList"></div>
+        </div>
 
         <div id="map" class="map"></div>
+
+        <div class="list-details" >
+
+        </div>
 
         <!-- Leflet JS-->
         <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js"
@@ -32,5 +45,6 @@
 
         <!-- My project JS modules-->
         <script src="./script/main.js" type="module"></script>
+        <script src="./script/voterList.js" type="module"></script>
     </body>
 </html>

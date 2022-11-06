@@ -4,15 +4,35 @@ body {
     height: 100vh;
     margin: 0;
     padding: 0;
+    overflow: hidden;
+}
+
+.list-container{
+    overflow: hidden;
+    z-index: 2;
+}
+
+.list-group{
+    display: none;
+    overflow: auto;
+    height: 100px;
 }
 
 .map {
-    display: flex;
-    position: relative;
+    display: block;
+    position: absolute;
     flex-grow: 1;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    top: 4%;
 }
 
 button {
     width:100%;
     display: block;
+}
+
+.list-details{
+    height: 30%;
 }
