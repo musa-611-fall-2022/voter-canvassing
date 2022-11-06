@@ -4,22 +4,30 @@ import { populateVoterMenu } from './list.js';
 const voterList = [];
 
 function populateVoterList(listNum, map) {
-    try{
+    
     fetch('data/voters_lists/' + listNum + '.csv')
-    .then(resp => resp.text()) // can we handle the error right here?
+    .then(function (resp) {
+
+        if(!resp.ok){
+            alert("Invalid List Number.");
+            }
+
+        else{
+            console.log("Working")
+            return resp.text();
+        }
+
+    } ) // can we handle the error right here? // now handled invalid list number issue in this promise 
     .then(text => {
-        // TODO: try/catch HTTP error for nonexistent list number
+        // TODO: try/catch HTTP error for nonexistent list number // done.
         const data = Papa.parse(text, { header: true });
         //console.log(data['data']);
         populateVoterMap(data['data'], map);
         populateVoterMenu(data['data']);
     });
-    }
     
-    catch(e){
-        console.log(e)
-        alert("Invalid List Number.")
-    }
+    
+    
 }
 
 function makeVoterFeature(data){
