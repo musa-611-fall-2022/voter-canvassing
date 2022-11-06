@@ -5,15 +5,17 @@ let map = initializeMap();
 let listNum = "0101";
  
 let voterFileInput = document.querySelector('.input'); // saves input DOM element as variable
+//need to restrict line of input to just 1. currently accepts enter and can fit a paragraph.
+
 let voterFileLoadButton = document.querySelector('.button'); // saves button DOM element as variable 
 
-function onButtonClicked(evt) {
-   if (listNum = voterFileInput.value) {
-    console.log(listNum);
+function onButtonClicked(evt) { // maybe add functionality that listens for enter button pressed
+    
+    listNum = voterFileInput.value
+    console.log(listNum)
     populateVoterList(listNum, map);
-   } else {
-    alert("This is not a valid voter list number. Please try again.")
-   }}; // creates function that passes the value entered in input text box to the variable listNum. 
+   
+   }; // creates function that passes the value entered in input text box to the variable listNum. 
 
    function loadVoterList() {
     voterFileLoadButton.addEventListener('click', onButtonClicked);
