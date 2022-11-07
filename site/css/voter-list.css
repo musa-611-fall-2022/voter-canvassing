@@ -1,3 +1,7 @@
+/* -------
+Voter list component overall setting 
+-------- */
+
 #voter-list-component {
   position: relative;
   display: flex;
@@ -6,8 +10,12 @@
 
 #voter-list-component .panel {
   background-color: white;
-  padding: 0 0.5rem 0.05rem 0.5rem;
+  padding: 0 0.5rem 0.05rem;
 }
+
+/* -------
+Default scroll container height
+-------- */
 
 #voter-list-component .scroll-container {
   max-height: 18vh;
@@ -15,21 +23,37 @@
   transition: max-height 0.75s;
 }
 
+/* ----------
+Change scroll container height based when clicked
+---------- */
+
+/* ---- Normally, expand to 42vh ------ */
+
 #voter-list-component .scroll-container-expanded {
-  max-height: 30vh;
+  max-height: 42vh;
   transition: max-height 0.5s;
 }
+
+/* ---- With wide screen, when basic info panel is on the other side, use 75vh ------ */
 
 #voter-list-component .scroll-container-expanded-long {
   max-height: 75vh;
   transition: max-height 1s;
 }
 
+/* -------
+Voter list items
+-------- */
+
+/* ---- Overall adjustment; overwrite list defaults ------ */
+
 #voter-list-component ul {
   display: block;
   margin-right: 0.5rem;
   padding: 0.1rem 0.4rem 0 0.2rem;
 }
+
+/* ---- Each component: overall setting ------ */
 
 #voter-list-component li {
   padding: 0.3rem;
@@ -41,6 +65,8 @@
   width: 28rem;
 }
 
+/* ---- Overwrite some settings for address items ------ */
+
 #voter-list-component .list-address {
   margin-right: 1rem;
   font-size: 0.8rem;
@@ -50,9 +76,13 @@
   border-bottom: 0 solid #bbb;
 }
 
+/* ---- Hover ------ */
+
 #voter-list-component .list-voter:hover {
   background-color: #eee;
 }
+
+/* ---- Highlight voter ------ */
 
 #voter-list-component .selected {
   background-color: #0d59a9;
@@ -61,6 +91,10 @@
 #voter-list-component .selected:hover {
   background-color: #0d59a9;
 }
+
+/* ----------
+Text and icons inside voter list item
+---------- */
 
 #voter-list-component li .list-name {
   position: relative;
@@ -106,21 +140,17 @@
   margin-right: auto;
 }
 
-#voter-list-component #list-expand-button {
-  margin-left: auto;
-  margin-right: auto;
-}
+/* ----------
+For each voter, color of displayed icons
+---------- */
 
-#voter-list-component .panel .button {
-  height: 1.1rem;
-  width: 1.1rem;
-  border-radius: 0.1rem;
-  margin-right: 0.4rem;
-}
+/* ---- Voter status ------ */
 
 .icon-ok-color {
   color: #15b88a;
 }
+
+/* ---- Registered party ------ */
 
 .icon-democrat-color {
   color: #0d59a9;
@@ -132,4 +162,20 @@
 
 .icon-oth-party-color {
   color: #c1c1c1;
+}
+
+/* ----------
+Expand-list button
+---------- */
+
+#voter-list-component #list-expand-button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+#voter-list-component .panel .button {
+  height: 1.1rem;
+  width: 1.1rem;
+  border-radius: 0.1rem;
+  margin-right: 0.4rem;
 }

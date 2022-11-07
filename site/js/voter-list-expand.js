@@ -1,28 +1,32 @@
-let expandButton = document.querySelector("#list-expand-button");
-let listContainer = document.querySelector("#voter-list-component").querySelector(".scroll-container");
+let expandButtonEl = document.querySelector("#list-expand-button");
+let listContainerEl = document.querySelector("#voter-list-component").querySelector(".scroll-container");
+
+// Store state: whether the list is currently expanded or not
 export let listExpanded;
 listExpanded = 0;
 
-expandButton.addEventListener("click", ( ) => {
+expandButtonEl.addEventListener("click", ( ) => {
 
   // If currently not expanded, expand it
   if(listExpanded == 0) {
     const mediaQuery = window.matchMedia("(min-width: 1200px)");
 
     if(mediaQuery.matches) {
-      listContainer.classList.add("scroll-container-expanded-long");
+      listContainerEl.classList.add("scroll-container-expanded-long"); // Expand to 75vh
     } else {
-      listContainer.classList.add("scroll-container-expanded");
+      listContainerEl.classList.add("scroll-container-expanded"); // Expand to 42vh
     }
 
-    expandButton.innerHTML = `<span class="material-symbols-outlined">expand_less</span>`;
+    // Turn expand button upside down
+    expandButtonEl.innerHTML = `<span class="material-symbols-outlined">expand_less</span>`;
 
     listExpanded = 1;
 
   } else {
-    listContainer.className = "scroll-container";
+    listContainerEl.className = "scroll-container";
 
-    expandButton.innerHTML = `<span class="material-symbols-outlined">expand_more</span>`;
+    // Turn expand button upside down
+    expandButtonEl.innerHTML = `<span class="material-symbols-outlined">expand_more</span>`;
 
     listExpanded = 0;
   }
