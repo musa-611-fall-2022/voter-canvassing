@@ -13,6 +13,25 @@ L.tileLayer('https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.pn
 FUNCTION TO SHOW VOTERS ON THE MAP
 */
 
+// What happens when voter marker gets clicked
+function voterMarkerOnClick(event) {
+  console.log(event.layer.feature.properties.id);
+}
+
+// Adjust bounds
+function getAdjustedBounds(layers) {
+  let bounds = layers.getBounds();
+  let adjustRatio = 0.15;
+  const northLat = bounds._northEast.lat;
+  const southLat = bounds._southWest.lat;
+  const latRange = northLat - southLat;
+  const adjustAmount = latRange * adjustRatio;
+  bounds._southWest.lat = southLat + adjustAmount;
+  bounds._northEast.lat = northLat + adjustAmount;
+
+  return bounds;
+}
+
 function showVotersOnMap(voters) {
   if(baseMap.voterLayers != undefined) {
     baseMap.removeLayer(baseMap.voterLayers);
@@ -27,11 +46,12 @@ function showVotersOnMap(voters) {
       weight: 1,
     },
   })
-  .on("click", (e) => {
-    console.log(e.layer.feature.properties.id);
-  })
+  .on("click", voterMarkerOnClick)
   .bindPopup(point => point.feature.properties.last_name)
   .addTo(baseMap);
+
+  let bounds = getAdjustedBounds(baseMap.voterLayers);
+  baseMap.fitBounds(bounds);
 }
 
 export {

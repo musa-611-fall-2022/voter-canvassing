@@ -154,7 +154,7 @@ function loadVoterData(text) {
 
   // Show voters on the map
   showVotersOnMap(voters);
-  baseMap.fitBounds(baseMap.voterLayers.getBounds());
+
   showVotersInList(data);
 
   // Store current list number to local storage to be loaded the next time
