@@ -1,49 +1,64 @@
-# Canvassers
+# **Canvassers**
 
-**Jie Li ([@Leejere](https://github.com/Leejere)), Myron Bañez ([@myronbanez](https://github.com/myronbanez))**
+by **Jie Li ([@Leejere](https://github.com/Leejere))** and **Myron Bañez ([@myronbanez](https://github.com/myronbanez))**
+
 
 This is a mobile-friendly web-app used for voter canvassing. With this app, the canvasser can select the voters from a list and a map, view their status and other information, and record additional information regarding each canvassed voter. The more specific PRD for this product can be found in the same repository or via [this link](https://github.com/Leejere/js-voter-canvassing/blob/dev/PRD.md).
 
-## Data source
+## **Data source**
 
-## Functionalities
+The voter data comes from [Pennsylvania Department of State](https://www.dos.pa.gov/VotingElections/OtherServicesEvents/VotingElectionStatistics/Pages/VotingElectionStatistics.aspx), who provides voter registration data that includes the name, address, and other voting-related information. The data is available for purchase through [this link](https://www.pavoterservices.pa.gov/Pages/PurchasePAFULLVoterExport.aspx). For this application, only data from Philadelphia gets extracted, preprocessed, and geocoded by Mjumbe Poe ([@mjumbewu](https://github.com/mjumbewu)).
 
-### 1. Load voter data manually or based on geolocation API
+## **App functionalities**
 
-Overview of the `list-loader` module...
+### **Module 1: `list-loader`**
 
-Load list by manually inputting list number. (**FINISHED**)
+Due to its large amount, the data is split into more 1,000 separate lists, which also acts as task lists for the canvassing team. Each list can get loaded into the app asynchronously on demand. `list-loader.js` primarily deals with loading data. The loaded data gets stored in a global object, which is the data source for all other operations. The `list-loader` module is rerequisit for all other functions of the app.
 
-Load list via geolocation API. First identify the geoscope of each list, then get the user's current location and load the list that matches the best. (**TO BE DONE**)
+There are two ways to load the data.
 
-### 2. Filter based on voter attributes
+- [X] Load data by manually inputting list number. An input box exists on the top right of the viewport that allows the user to input a number, and then imports the corresponding list.
 
-Filter by searching for name or address. (**FINISHED**)
+- [ ] **To Be Created.** Load data using geolocation API. By calculating the spatial scope of each voter list, the app can identify which scope the user is currently in using a geolocation API, and load the corresponding voter list.
 
-Filter by canvassing status, voter status, party affiliation, etc. (**TO BE DONE**)
+### **Module 2: `list-filters`**
 
-### 3. Display voters in a list and on a map
+This filter filters voters after a particular voter list is loaded. The kernel script for the function resides in `list-filters.js`. This script workds as follows:
 
-Display voters in a list, grouped by address. (**FINISHED**)
+1. **Data import.**
+2. **Event listeners.** Event listeners get added to all filter widgets.
+3. **Filter application.** Every time a filter event is recorded, whether a new filter is applied, or a filter is modified or canceled, the `allFilters` functions takes the imported data and applies **all the filters** to produce to filtered version of the data.
+4. **Display update.** Use the filtered data to updated the voter list and map, which gets implemented in the **Module 3**.
 
-Display voters on the map, each marker representing one address (**FINISHED**)
+Several filters are available:
 
-### 4. Select voter from the list or map
+- [X] Filter voters by searching for name or address. The related functions are in `search-box.js`.
 
-Highlight a voter by clicking on the voter list or by clicking on the map markers. When clicking on a map marker, the first voter by this address is selected. (**FINISHED**)
+- [ ] **To Be Created** Filter voters by voter attributes. The related functions are in ...
 
-Update selection by selecting a new voter. Unselect by clicking on the same voter again. (**FINISHED**)
+### **Module 3: Voters display**
 
-### 5. Display detailed information of the selected voter
+This model displayed either comprehensive or filtered voter data in a particular list in the voter list and on the map. 
 
-(**TO BE DONE**)
+- [X] `voter-list.js` takes the data, group them by address, and display them in a list. The list includes the voter's address, full name, and some icons that shows the voters canvassing status (pending visit, visited, awaiting followup, etc.), voter status (active or inactive), party registration, etc.
 
-### 6. Update or add info of the selected voter
+- [X] `map.js` takes the data, makes an geometry object (`FeatureCollection`), and display it on the map.
 
-(**TO BE DONE**)
+### **Module 4: Voter selection**
 
-### 7. Save updated/added information locally or on the cloud
+This module highlights a **maximum of one voter** as the "selected" voter. The module resides in `selected-voter.js` and contains the following components:
 
-(**TO BE DONE**)
+- A global variable to store the ID of the currently selected voter. If no voter is currently under selection, the variable remains `undefined`.
+- Event listeners added on each voter list item and map marker. Whenever the list item or marker get clicked, it either 
+  - **highlight a new voter**, 
+  - **updated the highlighted voter**, or 
+  - **unhighlight the currently highlighted voter**.
+- The highlighted voter ID is recorded and passed into **Module 5**.
+
+### **Module 5: Voter information display** (To Be Created)
+
+### **Module 6: Data edits and records** (To Be Created)
+
+### **Module 7: Data saving** (To Be Created
 
 ## Overview of collaboration
