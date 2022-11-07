@@ -1,9 +1,7 @@
 import { data } from './list-loader.js';
 import { showVotersInList }  from './voter-list.js';
 
-let voterInputBoxEl = document.querySelector('#search-box-input');
-
-
+export let voterInputBoxEl = document.querySelector('#search-box-input');
 
 // Step in filter by search box; match if an individual voter fulfills the filter
 function matchInput(voter, inputText) {
@@ -27,7 +25,7 @@ function matchInput(voter, inputText) {
 
 // Filter by the input of search box
 // Search by first name or last name or short address
-function filterByNameAddress() {
+function filterByNameAddress(data) {
   let filteredVoter = data;
   const inputText = voterInputBoxEl.value.toLowerCase();
 
@@ -40,8 +38,13 @@ function filterByNameAddress() {
 
 // What happens when searchbox has input
 function onSearchBoxInput() {
-  const filteredData = filterByNameAddress();
+  const filteredData = filterByNameAddress(data);
   showVotersInList(filteredData);
 }
 
-voterInputBoxEl.addEventListener("input", onSearchBoxInput);
+//voterInputBoxEl.addEventListener("input", onSearchBoxInput);
+
+export {
+  onSearchBoxInput,
+  filterByNameAddress,
+};

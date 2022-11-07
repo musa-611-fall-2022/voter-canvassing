@@ -10,7 +10,7 @@
 import { voterListItemsEl } from "./voter-list.js";
 import { baseMap } from "./map.js";
 import { showVotersOnMap } from "./map.js";
-import { filteredVotersFeature } from "./list-loader.js";
+import { filteredData } from "./list-filters.js";
 import { voterMarkerOnClick } from "./map.js";
 
 /*
@@ -35,8 +35,7 @@ function unhighlightVoterOnMap() {
   if(baseMap.highlightLayer !== undefined) {
     baseMap.removeLayer(baseMap.highlightLayer);
   }
-  showVotersOnMap(filteredVotersFeature);
-  window.testF = filteredVotersFeature;
+  showVotersOnMap(filteredData);
 }
 
 function unhighlightVoter() {
@@ -104,6 +103,7 @@ function onSelectAction(thisId) {
 
   if(selectedVoter != undefined && thisId == selectedVoter) {
     unhighlightVoter();
+    selectedVoter = undefined;
   } else {
     highlightVoter(thisId);
     selectedVoter = thisId;

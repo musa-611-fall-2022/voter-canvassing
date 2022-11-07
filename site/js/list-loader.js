@@ -1,6 +1,7 @@
 import { showVotersOnMap } from "./map.js";
 import { fitMap } from "./map.js";
 import { showVotersInList }  from './voter-list.js';
+import { makeVoterFeatureCollection } from "./map.js";
 
 /*
 Hide and Show List Loader
@@ -23,11 +24,7 @@ let loaderElIsHidden = 0;
 export let data;
 export let votersFeature;
 
-// We should also have two objects to store the filtered data and filtered feature collection
-// These are used in all the filters
-export let filteredData;
-export let filteredVotersFeature;
-
+// The list loader thing can be hidden (not very important)
 hideButtonEl.addEventListener("click", ( ) => {
   if(loaderElIsHidden == 0) {
     hidableChunkEl.style.transform = "translateX(-16em)";
@@ -60,55 +57,6 @@ function errorTooltip(inputNumber) {
     interruptLoad = true;
   }
   return interruptLoad;
-}
-
-// Util function to make sure coords are valid
-function coordsAreValid(lng, lat) {
-  let result = false;
-  if(typeof(lng) == "number" && typeof(lat) == "number") {
-    if(lng < -73 && lng > -77 && lat < 41 && lat > 38) {
-      result = true;
-    }
-  }
-  return result;
-}
-
-// Function to make feature collection out of the imported data
-// Record only key information
-function makeVoterFeatureCollection(data) {
-
-  // Construct a geojson empty frame
-  const voters = {
-    type: "FeatureCollection",
-    features: [],
-  };
-
-  // Write into geojson
-  for(let i = 0; i < data.length; i++) {
-    let thisLngLat = data[i]["TIGER/Line Lng/Lat"];
-    if(typeof(thisLngLat) == "string"){
-
-      let thisLng = Number(thisLngLat.split(",")[0]);
-      let thisLat = Number(thisLngLat.split(",")[1]);
-
-      if(coordsAreValid(thisLng, thisLat)) {
-        voters.features.push( {
-          "type": "Feature",
-          "geometry": {
-              "type": "Point",
-              "coordinates": [thisLng, thisLat],
-          },
-          "properties": {
-              "id": data[i]["ID Number"],
-              "last_name": data[i]["Last Name"],
-              "first_name": data[i]["First Name"],
-              "address": data[i]["TIGER/Line Matched Address"],
-          },
-        });
-      }
-    }
-  }
-  return voters;
 }
 
 /* Function to check if fetch is successful.
@@ -152,17 +100,11 @@ function loadVoterData(text) {
   // Create new property: combine house number with street name
   data = makeShortAddress(data);
 
-  // Initialize filteredData
-  filteredData = data;
-
   // Make a FeatureCollection
   votersFeature = makeVoterFeatureCollection(data);
 
-  // Initialize filteredVoters
-  filteredVotersFeature = votersFeature;
-
   // Show voters on the map
-  showVotersOnMap(votersFeature);
+  showVotersOnMap(data);
   fitMap();
 
   showVotersInList(data);
