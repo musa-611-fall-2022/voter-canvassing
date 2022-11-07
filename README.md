@@ -42,7 +42,7 @@ This model displayed either comprehensive or filtered voter data in a particular
 
 - [X] `voter-list.js` takes the data, group them by address, and display them in a list. The list includes the voter's address, full name, and some icons that shows the voters canvassing status (pending visit, visited, awaiting followup, etc.), voter status (active or inactive), party registration, etc.
 
-- [X] `map.js` takes the data, makes an geometry object (`FeatureCollection`), and display it on the map.
+- [X] `map.js` takes the data, makes an geometry object (`FeatureCollection`), and display it on the map. Note that **every marker stands for 
 
 ### **Module 4: Voter selection**
 

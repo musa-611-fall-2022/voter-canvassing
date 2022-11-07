@@ -146,6 +146,10 @@ function showVotersInList(data) {
 
   // Only show expand button when necessary
   showHideExpandButton();
+
+  // Scroll back to top
+  let scrollContainer = document.querySelector("#voter-list-component").querySelector(".scroll-container")
+  scrollContainer.scrollTop = 0;
 }
 
 export {
