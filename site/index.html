@@ -36,8 +36,11 @@
 
     <!-- Map in the back (full screen, fixed) -->
     <div id="map-component">
-
     </div>
+
+    <!-- Overlay when the filter window pops up -->
+    <div id="filter-overlay" class="filter-overlay"></div>
+    <div id="filter-window" class="filter-window"></div>
 
     <div id="top-component" class="main-box">
       <!-- Widget to load a list from the thousands of lists -->
@@ -69,10 +72,9 @@
       <!-- Filter map by some attributes -->
       <div id="list-filter-component">
         <div class="widgets-container">
-          <div class="button filter-button"></div>
-          <div class="button filter-button"></div>
-          <div class="button filter-button"></div>
-          <div class="button filter-button"></div>
+          <div id="filter-popup-button" class="button filter-button">
+            <span class="material-symbols-outlined">filter_alt</span>
+          </div>
         </div>
 
         <div class="dropdown filter-dropdown"></div>
@@ -85,7 +87,7 @@
         </div>
       </div>
 
-      <!-- Show voter residences in a list -->
+      <!-- Voter list -->
       <div id="voter-list-component">
         <div class="panel">
           <div class="scroll-container">
@@ -126,6 +128,7 @@
           <div id="panel-add-to-list" class="button">Add To </div>
         </div>
       </div>
+    </div>
 
 
     <!-- Leaflet JavaScript -->
@@ -150,6 +153,7 @@
     <script type="module" src="js/list-filters.js"></script>
     <script type="module" src="js/custom-lists.js"></script>
     <script type="module" src="js/voter-list-expand.js"></script>
+    <script type="module" src="js/filter-window.js"></script>
 
   </body>
 

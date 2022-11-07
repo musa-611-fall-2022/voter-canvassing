@@ -7,7 +7,7 @@ Top right button to initiate filter window
   float: right;
   right: 0;
   height: 2.5em;
-  width: 8.5rem;
+  width: 2.1rem;
   z-index: 99999;
 }
 
@@ -18,3 +18,44 @@ Top right button to initiate filter window
   border-radius: 0 0 0.5rem 0.5rem;
 }
 
+/* ------------
+Filter window
+-------------- */
+
+/* ------- Half-transparent overlay ---------- */
+
+.filter-overlay {
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  background-color: rgb(0 0 0 / 60%);
+  color: white;
+  font-weight: bold;
+  z-index: 99999;
+  animation: pulse-black 1s infinite;
+  display: none;
+  transition: display 1s;
+}
+
+/* ------- Filter window ---------- */
+
+.filter-window {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 16rem;
+  height: 20rem;
+  margin-top: -10rem;
+  margin-left: -8rem;
+  background-color: white;
+  border-radius: 1rem;
+  z-index: 2000;
+  z-index: 9999999;
+  filter: drop-shadow(10px 10px 12px #333333);
+  display: none;
+  transition: display 2s;
+}
