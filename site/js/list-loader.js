@@ -192,7 +192,7 @@ function onLoadButtonClick() {
 Automatically load list from local storage
 */
 
-let autoList = localStorage.getItem("current-list" || "{}");
+let autoList = localStorage.getItem("current-list") || "0101";
 if(autoList.length == 4) {
   loadByListNumber(autoList);
 }

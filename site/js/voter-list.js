@@ -69,7 +69,7 @@ function getCanvassStatusIcon(voterId) {
 // Function to get the voter status (active or inactive) for each voter
 function getVoterStatusIcon(voter) {
   const activeVoterIcon = `<span class="material-symbols-outlined icon-ok-color">check_circle</span>`;
-  const inactiveVoterIcon = `<span class="material-symbols-outlined icon-no-color">check_circle</span>`;
+  const inactiveVoterIcon = `<span class="material-symbols-outlined icon-no-color">close</span>`;
 
   const voterStatusIcon = voter["Voter Status"] == "A" ? activeVoterIcon : inactiveVoterIcon;
 
