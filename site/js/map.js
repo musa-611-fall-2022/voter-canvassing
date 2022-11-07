@@ -14,8 +14,8 @@ FUNCTION TO SHOW VOTERS ON THE MAP
 */
 
 function showVotersOnMap(voters) {
-  if(baseMap.voterLayers !== undefined) {
-    baseMap.removeLayer(baseMap.schoolLayers);
+  if(baseMap.voterLayers != undefined) {
+    baseMap.removeLayer(baseMap.voterLayers);
   }
   baseMap.voterLayers = L.geoJSON(voters, {
     pointToLayer: (point, latLng) => L.circleMarker(latLng),

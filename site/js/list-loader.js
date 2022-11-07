@@ -69,7 +69,7 @@ function coordsAreValid(lng, lat) {
 function makeVoterFeatureCollection(data) {
 
   // Construct a geojson empty frame
-  const voters = {
+  let voters = {
     type: "FeatureCollection",
     features: [],
   };
@@ -99,8 +99,6 @@ function makeVoterFeatureCollection(data) {
       }
     }
   }
-
-  console.log(voters);
   return voters;
 }
 
@@ -138,16 +136,21 @@ function loadVoterData(text) {
   if(text == false) {
     return;
   }
+
   // Note skipEmptyLines: true; cleaning up the CSV
   /* notes with Mjumbe:
      Papa Parse is reading the last line of each csv as a person */
+  data = {};
+
   data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
   // Create new property: combine house number with street name
   data = makeShortAddress(data);
+  console.log("data is");
 
   // Make a FeatureCollection
   const voters = makeVoterFeatureCollection(data);
+  console.log(voters);
 
   // Show voters on the map
   showVotersOnMap(voters);
@@ -192,10 +195,13 @@ function onLoadButtonClick() {
 Automatically load list from local storage
 */
 
-let autoList = localStorage.getItem("current-list") || "0101";
-if(autoList.length == 4) {
-  loadByListNumber(autoList);
+let autoList = localStorage.getItem("current-list") || "{}";
+if(autoList == "{}" || autoList == undefined || autoList.length != 4) {
+  autoList = "0101";
 }
+
+loadByListNumber(autoList);
+
 
 // Add event listener to the load button
 loadButtonEl.addEventListener("click", onLoadButtonClick);
