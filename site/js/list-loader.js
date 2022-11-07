@@ -50,7 +50,6 @@ function errorTooltip(inputNumber) {
   let interruptLoad = false;
   if(inputNumber.length == 0) {
     toolTipEl.innerHTML = `<div class="tooltip-content">Empty input</div>`;
-    console.log(toolTipEl);
     interruptLoad = true;
   } else if(inputNumber.length != 4) {
     toolTipEl.innerHTML = `<div class="tooltip-content">Wrong digits</div>`;

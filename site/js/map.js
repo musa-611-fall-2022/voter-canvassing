@@ -36,7 +36,6 @@ function makeVoterFeatureCollection(thisData) {
   };
 
   // Write into geojson
-  console.log(thisData.length);
   for(let i = 0; i < thisData.length; i++) {
     let thisLngLat = thisData[i]["TIGER/Line Lng/Lat"];
     if(typeof(thisLngLat) == "string"){

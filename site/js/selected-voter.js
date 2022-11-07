@@ -30,15 +30,8 @@ function unhighlightVoterInList() {
 }
 
 function unhighlightVoterOnMap() {
-  // First remove the highlight layer
-  // Then re-run showVotersOnMap
-  // because previously when a voter was highlighted, its regular marker was removed
-
-  if(baseMap.highlightLayer !== undefined) {
-    baseMap.removeLayer(baseMap.highlightLayer);
-  }
-
-  // When rerun showVotersOnMap, either use data or filteredData (if it's defined)
+  // Re-run showVotersOnMap
+  // Either use data or filteredData (if it's defined)
   if(filteredData !== undefined) {
     showVotersOnMap(filteredData);
   } else {
@@ -76,36 +69,26 @@ function highlightVoterOnMap(thisId) {
   // First remove the existing highlight voter, if existing
   unhighlightVoterOnMap();
 
-  let selectedFeature;
-
   // As the map doesn't have every voter's ID, we need to find the same address
   let thisAddress = data.find(item => item["ID Number"] === thisId).short_address;
 
-  // Then remove the regular marker of the selected voter
+  // Then find the marker to be highlighted
   for(let entry of Object.entries(baseMap.voterLayers._layers)) {
     if(entry[1].feature.properties.address == thisAddress) {
-      selectedFeature = entry[1].feature;
-      baseMap.removeLayer(entry[1]);
+      entry[1].setStyle({
+        radius: 10,
+        color: "#0d59a9",
+        fillColor: "#0d59a9",
+        stroke: true,
+        opacity: 1,
+        fillOpacity: 0.7,
+        weight: 2,
+      })
+      .bringToFront();
+      //baseMap.removeLayer(entry[1]);
       break;
     }
   }
-
-  // Then show this highlighted voter on the map
-  baseMap.highlightLayer = L.geoJSON(selectedFeature, {
-    pointToLayer: (point, latLng) => L.circleMarker(latLng),
-    style: {
-      radius: 10,
-      color: "#0d59a9",
-      fillColor: "#0d59a9",
-      stroke: true,
-      opacity: 1,
-      fillOpacity: 0.7,
-      weight: 2,
-    },
-  })
-  .on("click", voterMarkerOnClick)
-  .addTo(baseMap);
-
 }
 
 function highlightVoter(thisId) {
