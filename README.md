@@ -42,17 +42,18 @@ This model displayed either comprehensive or filtered voter data in a particular
 
 - [X] `voter-list.js` takes the data, group them by address, and display them in a list. The list includes the voter's address, full name, and some icons that shows the voters canvassing status (pending visit, visited, awaiting followup, etc.), voter status (active or inactive), party registration, etc.
 
-- [X] `map.js` takes the data, makes an geometry object (`FeatureCollection`), and display it on the map. Note that **every marker stands for 
+- [X] `map.js` takes the data, makes an geometry object (`FeatureCollection`), and display it on the map. Note that **every marker stands for one address** (house number + street name), rather than one voter.
 
 ### **Module 4: Voter selection**
 
 This module highlights a **maximum of one voter** as the "selected" voter. The module resides in `selected-voter.js` and contains the following components:
 
 - A global variable to store the ID of the currently selected voter. If no voter is currently under selection, the variable remains `undefined`.
-- Event listeners added on each voter list item and map marker. Whenever the list item or marker get clicked, it either 
-  - **highlight a new voter**, 
-  - **updated the highlighted voter**, or 
-  - **unhighlight the currently highlighted voter**.
+- Event listeners added on each voter list item and map marker. Note that as each map marker stands for an address rather than a voter, **the first voter by this address** is selected when the marker is clicked on.
+- Whenever the list item or marker get clicked, it either 
+  - **highlights a new voter**, 
+  - **updats the highlighted voter**, or 
+  - **unhighlights the currently highlighted voter**.
 - The highlighted voter ID is recorded and passed into **Module 5**.
 
 ### **Module 5: Voter information display** (To Be Created)
