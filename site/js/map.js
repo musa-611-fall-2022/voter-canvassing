@@ -1,3 +1,5 @@
+import { onSelectAction } from "./selected-voter.js";
+
 /*
 INITIALIZE BASE MAP TO SHOW
 */
@@ -15,7 +17,7 @@ FUNCTION TO SHOW VOTERS ON THE MAP
 
 // What happens when voter marker gets clicked
 function voterMarkerOnClick(event) {
-  console.log(event.layer.feature.properties.id);
+  onSelectAction(event.layer.feature.properties.id);
 }
 
 // Adjust bounds
@@ -32,6 +34,13 @@ function getAdjustedBounds(layers) {
   return bounds;
 }
 
+// Fit map to bounds
+function fitMap() {
+  // Fit voters on the map
+  let bounds = getAdjustedBounds(baseMap.voterLayers);
+  baseMap.fitBounds(bounds);
+}
+
 function showVotersOnMap(voters) {
   if(baseMap.voterLayers != undefined) {
     baseMap.removeLayer(baseMap.voterLayers);
@@ -40,7 +49,7 @@ function showVotersOnMap(voters) {
     pointToLayer: (point, latLng) => L.circleMarker(latLng),
     style: {
       radius: 7,
-      color: "#0d59a9",
+      color: "#aaaaaa",
       stroke: true,
       opacity: 0.5,
       weight: 1,
@@ -49,13 +58,12 @@ function showVotersOnMap(voters) {
   .on("click", voterMarkerOnClick)
   .bindPopup(point => point.feature.properties.last_name)
   .addTo(baseMap);
-
-  let bounds = getAdjustedBounds(baseMap.voterLayers);
-  baseMap.fitBounds(bounds);
 }
 
 export {
   showVotersOnMap,
+  fitMap,
+  voterMarkerOnClick,
 };
 
 /* Requirement:

@@ -3,6 +3,8 @@ import { showVotersInList }  from './voter-list.js';
 
 let voterInputBoxEl = document.querySelector('#search-box-input');
 
+
+
 // Step in filter by search box; match if an individual voter fulfills the filter
 function matchInput(voter, inputText) {
 
@@ -38,8 +40,8 @@ function filterByNameAddress() {
 
 // What happens when searchbox has input
 function onSearchBoxInput() {
-  const filteredVoter = filterByNameAddress();
-  showVotersInList(filteredVoter);
+  const filteredData = filterByNameAddress();
+  showVotersInList(filteredData);
 }
 
 voterInputBoxEl.addEventListener("input", onSearchBoxInput);

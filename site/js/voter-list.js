@@ -1,11 +1,13 @@
 import { htmlToElement } from './htmlelement.js';
 import { changeRecord } from "./save-edit.js";
+import { onSelectAction } from "./selected-voter.js";
 
 // DOM obj of voter list
 let voterList = document.querySelector('#voter-list');
 
 // DOM obj of each voter list item
-let voterListItemsEl;
+// Not defined yet; defined in showVotersInList;
+export let voterListItemsEl;
 
 // Function to turn array of voters into a two-level array grouped by address
 // Use reduce; Initiate address if not already; append voter to address
@@ -31,25 +33,13 @@ function addAddressToList(address) {
   voterList.append(addressEl);
 }
 
-let selectedVoterId;
-
-// Function: highlight selected voter in the list
-function highlightVoterInList(thisListItem) {
-  // Initialize: remove all existing highlighted voters, if any
-  for(const listItem of voterListItemsEl) {
-    listItem.className = "list-voter";
-  }
-  // Highlight selected voter
-  thisListItem.classList.add("list-selected");
-}
 
 // Function: prepare the voterlist, i.e., add event listener
 function listPrepare(voterListItemsEl) {
   for(const thisListItem of voterListItemsEl) {
     thisListItem.addEventListener("click", () => {
-      highlightVoterInList(thisListItem);
-      selectedVoterId = thisListItem.title;
-      console.log(selectedVoterId);
+      let thisId = thisListItem.title;
+      onSelectAction(thisId);
     });
   }
 }
@@ -139,6 +129,7 @@ function showVotersInList(data) {
     addVotersByAddress(votersByThisAddress);
   }
   voterListItemsEl = document.querySelectorAll(".list-voter");
+  window.voterListItemsEl = voterListItemsEl;
   listPrepare(voterListItemsEl);
 }
 

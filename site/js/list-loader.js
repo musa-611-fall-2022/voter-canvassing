@@ -1,5 +1,5 @@
 import { showVotersOnMap } from "./map.js";
-import { baseMap } from "./map.js";
+import { fitMap } from "./map.js";
 import { showVotersInList }  from './voter-list.js';
 
 /*
@@ -18,6 +18,15 @@ let inputNumber;
 
 // A variable to store whether the list loader component is currently hidden
 let loaderElIsHidden = 0;
+
+// This is a global object to store the current list of voters
+export let data;
+export let votersFeature;
+
+// We should also have two objects to store the filtered data and filtered feature collection
+// These are used in all the filters
+export let filteredData;
+export let filteredVotersFeature;
 
 hideButtonEl.addEventListener("click", ( ) => {
   if(loaderElIsHidden == 0) {
@@ -69,7 +78,7 @@ function coordsAreValid(lng, lat) {
 function makeVoterFeatureCollection(data) {
 
   // Construct a geojson empty frame
-  let voters = {
+  const voters = {
     type: "FeatureCollection",
     features: [],
   };
@@ -114,9 +123,6 @@ function checkFetchStatus(resp) {
   }
 }
 
-// This is a global object to store the current list of voters
-export let data;
-
 // Function to add short address to each voter in data
 function makeShortAddress(data) {
   for(let voter of data) {
@@ -141,19 +147,23 @@ function loadVoterData(text) {
   /* notes with Mjumbe:
      Papa Parse is reading the last line of each csv as a person */
   data = {};
-
   data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
   // Create new property: combine house number with street name
   data = makeShortAddress(data);
-  console.log("data is");
+
+  // Initialize filteredData
+  filteredData = data;
 
   // Make a FeatureCollection
-  const voters = makeVoterFeatureCollection(data);
-  console.log(voters);
+  votersFeature = makeVoterFeatureCollection(data);
+
+  // Initialize filteredVoters
+  filteredVotersFeature = votersFeature;
 
   // Show voters on the map
-  showVotersOnMap(voters);
+  showVotersOnMap(votersFeature);
+  fitMap();
 
   showVotersInList(data);
 
