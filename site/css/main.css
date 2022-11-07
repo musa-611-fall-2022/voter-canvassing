@@ -1,3 +1,7 @@
+/* --------
+Overall framework setting
+-------- */
+
 html {
   font-family: Roboto, sans-serif;
 }
@@ -16,6 +20,10 @@ body {
 .component-margin-right {
   margin-right: 1rem;
 }
+
+/* --------
+Responsive design
+-------- */
 
 @media only screen and (max-width: 400px) {
   .component-margin-left {
@@ -36,6 +44,10 @@ body {
     margin-right: 2rem;
   }
 }
+
+/* --------
+Defining some universal classes
+-------- */
 
 .button {
   background-color: #0d59a9;

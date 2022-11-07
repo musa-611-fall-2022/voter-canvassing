@@ -1,3 +1,7 @@
+/* ----------
+Top right button to initiate filter window
+------------ */
+
 #list-filter-component {
   position: relative;
   float: right;
@@ -13,3 +17,4 @@
   border-bottom-width: 3px;
   border-radius: 0 0 0.5rem 0.5rem;
 }
+
