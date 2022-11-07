@@ -1,4 +1,4 @@
-let expandButtonEl = document.querySelector("#list-expand-button");
+export let expandButtonEl = document.querySelector("#list-expand-button");
 let listContainerEl = document.querySelector("#voter-list-component").querySelector(".scroll-container");
 
 // Store state: whether the list is currently expanded or not

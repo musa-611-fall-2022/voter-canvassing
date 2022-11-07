@@ -1,6 +1,7 @@
 import { htmlToElement } from './htmlelement.js';
 import { changeRecord } from "./save-edit.js";
 import { onSelectAction } from "./selected-voter.js";
+import { expandButtonEl } from "./voter-list-expand.js";
 
 // DOM obj of voter list
 let voterList = document.querySelector('#voter-list');
@@ -115,6 +116,17 @@ function addVotersByAddress(votersByThisAddress) {
   }
 }
 
+// Function to decide whether to show voter list's expand button
+function showHideExpandButton() {
+  let voterListHeight = document.querySelector("#voter-list").offsetHeight;
+  let voterContainerHeight = document.querySelector("#voter-list-component").querySelector(".scroll-container").offsetHeight;
+  if(voterListHeight > voterContainerHeight){
+    expandButtonEl.style.display = "block";
+  } else {
+    expandButtonEl.style.display = "none";
+  }
+}
+
 function showVotersInList(data) {
   // First empty out existing voter list
   voterList.innerHTML = '';
@@ -131,6 +143,9 @@ function showVotersInList(data) {
   voterListItemsEl = document.querySelectorAll(".list-voter");
   window.voterListItemsEl = voterListItemsEl;
   listPrepare(voterListItemsEl);
+
+  // Only show expand button when necessary
+  showHideExpandButton();
 }
 
 export {
