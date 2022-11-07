@@ -55,7 +55,7 @@ function makeVoterFeatureCollection(thisData) {
               "id": thisData[i]["ID Number"],
               "last_name": thisData[i]["Last Name"],
               "first_name": thisData[i]["First Name"],
-              "address": thisData[i]["TIGER/Line Matched Address"],
+              "address": thisData[i]["short_address"],
           },
         });
       }
@@ -73,8 +73,26 @@ function voterMarkerOnClick(event) {
   onSelectAction(event.layer.feature.properties.id);
 }
 
+// When showing on the map, we show only one marker per short_address
+// This function slices the data to only one voter per short_address
+function sliceByKey(data, key) {
+  let dataUniqueAddress = data.reduce((result, thisItem) => {
+    let thisCategory = thisItem[key];
+    // Add item if its key is not added yet
+    if(result.find(item => item[key] === thisCategory) == undefined) {
+        result.push(thisItem);
+    } else {
+      // empty
+    }
+    return result;
+  }, []);
+
+  return dataUniqueAddress;
+}
+
 function showVotersOnMap(thisData) {
-  let voterFeatures = makeVoterFeatureCollection(thisData);
+  let dataUniqueAddress = sliceByKey(thisData, "short_address");
+  let voterFeatures = makeVoterFeatureCollection(dataUniqueAddress);
   if(baseMap.voterLayers !== undefined) {
     baseMap.removeLayer(baseMap.voterLayers);
   }
@@ -82,14 +100,13 @@ function showVotersOnMap(thisData) {
     pointToLayer: (point, latLng) => L.circleMarker(latLng),
     style: {
       radius: 7,
-      color: "#aaaaaa",
+      color: "#999999",
       stroke: true,
       opacity: 0.5,
-      weight: 1,
+      weight: 2,
     },
   })
   .on("click", voterMarkerOnClick)
-  .bindPopup(point => point.feature.properties.last_name)
   .addTo(baseMap);
 }
 

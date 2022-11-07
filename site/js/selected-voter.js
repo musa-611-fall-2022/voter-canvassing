@@ -78,9 +78,12 @@ function highlightVoterOnMap(thisId) {
 
   let selectedFeature;
 
+  // As the map doesn't have every voter's ID, we need to find the same address
+  let thisAddress = data.find(item => item["ID Number"] === thisId).short_address;
+
   // Then remove the regular marker of the selected voter
   for(let entry of Object.entries(baseMap.voterLayers._layers)) {
-    if(entry[1].feature.properties.id == thisId) {
+    if(entry[1].feature.properties.address == thisAddress) {
       selectedFeature = entry[1].feature;
       baseMap.removeLayer(entry[1]);
       break;

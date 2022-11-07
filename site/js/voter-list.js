@@ -120,6 +120,7 @@ function showVotersInList(data) {
   voterList.innerHTML = '';
 
   let dataGroupedByAddress = groupByKey(data, "short_address");
+  window.test = data;
   let addressKeys = Object.keys(dataGroupedByAddress);
 
   for(const address of addressKeys) {
