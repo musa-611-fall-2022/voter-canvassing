@@ -61,7 +61,14 @@ function highlightVoterInList(thisId) {
   unhighlightVoterInList();
   // Highlight selected voter
   let thisListItem = Array.from(voterListItemsEl).find(item => item.title == thisId);
+
+  // Make this voter highlighted in color
   thisListItem.classList.add("list-selected");
+
+  thisListItem.scrollIntoView({
+    behavior: "smooth",
+    block: "center",
+  });
 }
 
 function highlightVoterOnMap(thisId) {
