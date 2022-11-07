@@ -15,20 +15,24 @@ function initializeMap () {
     attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
     }).addTo(map);
 
+    // layer for user location
+    map.positionLayer = L.geoJSON(null).addTo(map);
+
     return map;
 }
 
 function locateMe(){
 
     const successCallback = (pos) => {
-        myLocation = {
-            lat : pos.coords.longitude,
-            lng : pos.coords.latitude,
-        };
+        // TODO: remove existing location point from layer before updating DO THIS 11/7/22
+
+        map.positionLayer.addData({
+            'type': 'Point', 
+            'coordinates': [pos.coords.longitude, pos.coords.latitude]
+        });
+        map.setView([pos.coords.latitude, pos.coords.longitude], 19);
 
         console.log(myLocation);
-
-        L.marker([myLocation.lng, myLocation.lat]).addTo(map);
 
         return myLocation;
 
@@ -37,7 +41,7 @@ function locateMe(){
 
     const options = { enableHighAccuracy: true, timeout: 10000 };
 
-    const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
+    const id = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
 
     //navigator.geolocation.clearWatch(id); // will need this when we change location in real-time.
 
