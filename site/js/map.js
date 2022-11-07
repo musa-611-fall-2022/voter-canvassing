@@ -1,4 +1,5 @@
 import { makeVoterFeature } from './dataPull.js';
+import { populateVoterMenu } from './list.js';
 
 let map = []; // made map global so that other functions can addTo 'map'
 let myLocation = {}; // made a global myLocation variable that can be accessed when looking for other point features in the vicinity
@@ -20,13 +21,12 @@ function initializeMap () {
 function locateMe(){
 
     const successCallback = (pos) => {
-        
         myLocation = {
-            lat : pos.coords.longitude, 
-            lng : pos.coords.latitude
+            lat : pos.coords.longitude,
+            lng : pos.coords.latitude,
         };
 
-        console.log(myLocation); 
+        console.log(myLocation);
 
         L.marker([myLocation.lng, myLocation.lat]).addTo(map);
 
@@ -35,9 +35,9 @@ function locateMe(){
     }
     const errorCallback = (e) => console.log(e);
 
-    const options = { enableHighAccuracy: true, timeout: 10000,};
+    const options = { enableHighAccuracy: true, timeout: 10000 };
 
-    const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options); 
+    const id = navigator.geolocation.getCurrentPosition(successCallback, errorCallback, options);
 
     //navigator.geolocation.clearWatch(id); // will need this when we change location in real-time.
 
@@ -54,9 +54,8 @@ function populateVoterMap(data, map) { // receives data from makeVoterFeature an
         try{
         L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
         }
-         
         catch(e){
-
+            // pass
         }
     }
 
@@ -69,4 +68,3 @@ export {
   };
 
   window.myLocation = myLocation;
-  

@@ -4,7 +4,6 @@ import { populateVoterMenu } from './list.js';
 const voterList = [];
 
 function populateVoterList(listNum, map) {
-    
     fetch('data/voters_lists/' + listNum + '.csv')
     .then(function (resp) {
 
@@ -25,9 +24,27 @@ function populateVoterList(listNum, map) {
         populateVoterMap(data['data'], map);
         populateVoterMenu(data['data']);
     });
-    
-    
-    
+}
+
+function makeCoordinates(coords, id){
+
+    //console.log(parseFloat(coords.substring(19,36)));
+    //console.log(parseFloat(coords.substring(0,18)));
+
+    //console.log(id);
+
+    let x = 0, y = 0;
+    try{
+        x = parseFloat(coords.substring(0, 18));
+        y = parseFloat(coords.substring(19, 36));}
+        catch(e){
+            // pass
+        }
+
+    return {
+        latitude : x,
+        longitude : y,
+    };
 }
 
 function makeVoterFeature(data){
@@ -37,7 +54,6 @@ function makeVoterFeature(data){
     for (let v of voter){
 
         let geom = makeCoordinates(v['TIGER/Line Lng/Lat'], v['ID Number']);
-        
         // element can definitely have more properties. Just kept these for the time-being
 
        try
@@ -57,43 +73,17 @@ function makeVoterFeature(data){
                 county : v['County'],
                 state : v['State'],
                 zipCode : v['Zip']
-            }
-        }
-        
+            },
+        };
         voterList.push(element);}
 
         catch(e){
             continue;
-        }       
-
+        }
     }
 
     return voterList;
 }
-
-function makeCoordinates(coords, id){
-
-    //console.log(parseFloat(coords.substring(19,36)));
-    //console.log(parseFloat(coords.substring(0,18)));
-
-    //console.log(id);
-
-    let x = 0, y = 0;
-    try{
-        x = parseFloat(coords.substring(0,18));
-        y = parseFloat(coords.substring(19,36));}
-        catch(e){
-            
-        }
-
-    return {
-        latitude : x,
-        longitude : y,};
-    
-    }
-
-
-
 
 export {
     populateVoterList,

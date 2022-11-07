@@ -1,4 +1,4 @@
-function populateVoterMenu(data) {
+function populateVoterMenu(myLoocation, data) {
     //pass
 }
 
