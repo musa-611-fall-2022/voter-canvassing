@@ -20,12 +20,24 @@ import { showVotersOnMap } from "./map.js";
 export let filteredData;
 
 /*
+A function that includes all the filters
+*/
+
+function allFilters(data) {
+  let filtered = data;
+  filtered = filterByNameAddress(data);
+  // More filters to come...
+
+  return filtered;
+}
+
+/*
 Search box filter
 */
 
 import { voterInputBoxEl } from "./search-box.js";
 voterInputBoxEl.addEventListener("input", ( ) => {
-  filteredData = filterByNameAddress(data);
+  filteredData = allFilters(data);
   showVotersInList(filteredData);
   showVotersOnMap(filteredData);
 });
