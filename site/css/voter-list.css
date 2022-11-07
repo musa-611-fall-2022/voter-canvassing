@@ -54,11 +54,11 @@
   background-color: #eee;
 }
 
-#voter-list-component .list-selected {
+#voter-list-component .selected {
   background-color: #0d59a9;
 }
 
-#voter-list-component .list-selected:hover {
+#voter-list-component .selected:hover {
   background-color: #0d59a9;
 }
 
@@ -71,7 +71,7 @@
   vertical-align: center;
 }
 
-#voter-list-component .list-selected .list-name {
+#voter-list-component .selected .list-name {
   color: #fff;
 }
 

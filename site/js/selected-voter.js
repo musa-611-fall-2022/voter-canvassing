@@ -63,7 +63,7 @@ function highlightVoterInList(thisId) {
   let thisListItem = Array.from(voterListItemsEl).find(item => item.title == thisId);
 
   // Make this voter highlighted in color
-  thisListItem.classList.add("list-selected");
+  thisListItem.classList.add("selected");
 
   thisListItem.scrollIntoView({
     behavior: "smooth",
