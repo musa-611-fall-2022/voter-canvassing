@@ -100,14 +100,10 @@ function loadVoterData(text) {
   // Create new property: combine house number with street name
   data = makeShortAddress(data);
 
-  // Make a FeatureCollection
-  votersFeature = makeVoterFeatureCollection(data);
-
-  // Show voters on the map
+  // Show voters on the map and list
+  showVotersInList(data);
   showVotersOnMap(data);
   fitMap();
-
-  showVotersInList(data);
 
   // Store current list number to local storage to be loaded the next time
   localStorage.setItem("current-list", inputNumber);

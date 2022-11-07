@@ -36,6 +36,7 @@ function makeVoterFeatureCollection(thisData) {
   };
 
   // Write into geojson
+  console.log(thisData.length);
   for(let i = 0; i < thisData.length; i++) {
     let thisLngLat = thisData[i]["TIGER/Line Lng/Lat"];
     if(typeof(thisLngLat) == "string"){
@@ -74,7 +75,7 @@ function voterMarkerOnClick(event) {
 
 function showVotersOnMap(thisData) {
   let voterFeatures = makeVoterFeatureCollection(thisData);
-  if(baseMap.voterLayers != undefined) {
+  if(baseMap.voterLayers !== undefined) {
     baseMap.removeLayer(baseMap.voterLayers);
   }
   baseMap.voterLayers = L.geoJSON(voterFeatures, {

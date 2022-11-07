@@ -10,6 +10,7 @@
 import { voterListItemsEl } from "./voter-list.js";
 import { baseMap } from "./map.js";
 import { showVotersOnMap } from "./map.js";
+import { data } from "./list-loader.js";
 import { filteredData } from "./list-filters.js";
 import { voterMarkerOnClick } from "./map.js";
 
@@ -32,10 +33,17 @@ function unhighlightVoterOnMap() {
   // First remove the highlight layer
   // Then re-run showVotersOnMap
   // because previously when a voter was highlighted, its regular marker was removed
+
   if(baseMap.highlightLayer !== undefined) {
     baseMap.removeLayer(baseMap.highlightLayer);
   }
-  showVotersOnMap(filteredData);
+
+  // When rerun showVotersOnMap, either use data or filteredData (if it's defined)
+  if(filteredData !== undefined) {
+    showVotersOnMap(filteredData);
+  } else {
+    showVotersOnMap(data);
+  }
 }
 
 function unhighlightVoter() {

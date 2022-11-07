@@ -17,7 +17,7 @@ import { showVotersOnMap } from "./map.js";
 //import { makeVoterFeatureCollection } from "./map.js";
 
 // Initialize
-export let filteredData;
+export let filteredData = undefined;
 
 /*
 A function that includes all the filters

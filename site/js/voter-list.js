@@ -23,7 +23,7 @@ function groupByKey(data, key) {
 }
 
 // The output voters are grouped by their addresses
-// Show address
+// Function to show address
 function addAddressToList(address) {
   const addressEl = htmlToElement(`
     <li class="list-address">
@@ -32,7 +32,6 @@ function addAddressToList(address) {
   `);
   voterList.append(addressEl);
 }
-
 
 // Function: prepare the voterlist, i.e., add event listener
 function listPrepare(voterListItemsEl) {
@@ -144,3 +143,10 @@ The list's DOM element should be available on the global
 */
 
 window.voterList = voterList;
+
+/*
+Requirement:
+Wrap each voter's name in an element with the class `voter-name`.
+Wrap addresses in an element with the address `voter-address`.
+Make sure the class names match.
+*/
