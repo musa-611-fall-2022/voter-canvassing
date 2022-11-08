@@ -21,3 +21,10 @@ button {
     width: 100%; 
     display: block;
 }
+
+.voter-list-container {
+    width: 100%;
+    display: block;
+    height: 10rem;
+    overflow-y: scroll;
+}

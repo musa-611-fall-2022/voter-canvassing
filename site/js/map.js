@@ -1,12 +1,8 @@
 import { makeVoterFeature } from './dataPull.js';
 import { populateVoterMenu } from './list.js';
 
-let map = []; // made map global so that other functions can addTo 'map'
-let myLocation = {}; // made a global myLocation variable that can be accessed when looking for other point features in the vicinity
-
-
 function initializeMap () {
-    map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
+    let map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
     const mapboxAccount = 'mapbox';
     const mapboxStyle = 'light-v10';
     const mapboxToken = 'pk.eyJ1IjoibW9yZ2FuZ3IiLCJhIjoiY2w4dzF2bHZsMDJqdDN3czJwOGg0ZXBsbSJ9.tXRhvJAL-t7cJCrCyAEhUw';
@@ -21,18 +17,20 @@ function initializeMap () {
     return map;
 }
 
-function locateMe(){
+function locateMe(map){
 
     const successCallback = (pos) => {
-        // TODO: remove existing location point from layer before updating DO THIS 11/7/22
+        if (map.positionLayer !== undefined) {
+            map.removeLayer(map.positionLayer);
+        }
 
-        map.positionLayer.addData({
-            'type': 'Point', 
+        myLocation = {
+            'type': 'Point',
             'coordinates': [pos.coords.longitude, pos.coords.latitude]
-        });
-        map.setView([pos.coords.latitude, pos.coords.longitude], 19);
+        };
 
-        console.log(myLocation);
+        map.positionLayer = L.geoJSON(myLocation).addTo(map);
+        map.setView([pos.coords.latitude, pos.coords.longitude], 19);
 
         return myLocation;
 
@@ -43,13 +41,13 @@ function locateMe(){
 
     const id = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
 
+    console.log(id);
+
     //navigator.geolocation.clearWatch(id); // will need this when we change location in real-time.
 
 }
 
-function populateVoterMap(data, map) { // receives data from makeVoterFeature and plots them on the map
-
-    let people = makeVoterFeature(data);
+function populateVoterMap(people, map) { // receives data from makeVoterFeature and plots them on the map
 
     console.log("These are the voters");
 
@@ -70,5 +68,3 @@ export {
     locateMe,
     populateVoterMap,
   };
-
-  window.myLocation = myLocation;

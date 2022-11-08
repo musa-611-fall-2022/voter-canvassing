@@ -1,51 +1,7 @@
-import { initializeMap, populateVoterMap } from './map.js';
+import { initializeMap, locateMe, populateVoterMap } from './map.js';
 import { populateVoterMenu } from './list.js';
 
 const voterList = [];
-
-function populateVoterList(listNum, map) {
-    fetch('data/voters_lists/' + listNum + '.csv')
-    .then(function (resp) {
-
-        if(!resp.ok){
-            alert("Invalid List Number.");
-            }
-
-        else{
-            console.log("Working")
-            return resp.text();
-        }
-
-    } ) // can we handle the error right here? // now handled invalid list number issue in this promise 
-    .then(text => {
-        // TODO: try/catch HTTP error for nonexistent list number // done.
-        const data = Papa.parse(text, { header: true });
-        //console.log(data['data']);
-        populateVoterMap(data['data'], map);
-        populateVoterMenu(data['data']);
-    });
-}
-
-function makeCoordinates(coords, id){
-
-    //console.log(parseFloat(coords.substring(19,36)));
-    //console.log(parseFloat(coords.substring(0,18)));
-
-    //console.log(id);
-
-    let x = 0, y = 0;
-    try{
-        x = parseFloat(coords.substring(0, 18));
-        y = parseFloat(coords.substring(19, 36));}
-        catch(e){
-            // pass
-        }
-
-    return {
-        latitude : x,
-        longitude : y,
-    };
-}
 
 function makeVoterFeature(data){
 
@@ -68,7 +24,7 @@ function makeVoterFeature(data){
                 middleName : v['Middle Name'],
                 lastName : v['Last Name'],
                 gender : v['Gender'],
-                address : v['StrTIGER/Line Matched Addresseet Name'],
+                address : v['TIGER/Line Matched Address'],
                 city : v['City'],
                 county : v['County'],
                 state : v['State'],
@@ -83,6 +39,51 @@ function makeVoterFeature(data){
     }
 
     return voterList;
+}
+
+function populateVoterList(listNum, map, voterListObj) {
+    fetch('data/voters_lists/' + listNum + '.csv')
+    .then(function (resp) {
+
+        if(!resp.ok){
+            alert("Invalid List Number.");
+            }
+
+        else{
+            console.log("Working")
+            return resp.text();
+        }
+
+    } ) // can we handle the error right here? // now handled invalid list number issue in this promise 
+    .then(text => {
+        // TODO: try/catch HTTP error for nonexistent list number // done.
+        const data = Papa.parse(text, { header: true });
+        // console.log(data['data']);
+        let voterList = makeVoterFeature(data['data']);
+        populateVoterMap(voterList, map);
+        populateVoterMenu(voterList, voterListObj);
+    });
+}
+
+function makeCoordinates(coords, id){
+
+    //console.log(parseFloat(coords.substring(19,36)));
+    //console.log(parseFloat(coords.substring(0,18)));
+
+    //console.log(id);
+
+    let x = 0, y = 0;
+    try{
+        x = parseFloat(coords.substring(0, 18));
+        y = parseFloat(coords.substring(19, 36));}
+        catch(e){
+            // pass
+        }
+
+    return {
+        latitude : x,
+        longitude : y,
+    };
 }
 
 export {
