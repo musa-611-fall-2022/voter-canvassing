@@ -58,8 +58,9 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 
     for( let ppl of people ){
         try{
-        //L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
-        map.voterLayer.addData(ppl);
+        L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
+        // TODO: figure out how to get geoJSONs to work in new layer
+        // map.voterLayer.addData(ppl);
         }
         catch(e){
             // pass
