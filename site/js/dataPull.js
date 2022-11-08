@@ -66,18 +66,30 @@ function populateVoterList(listNum, map, voterListObj) {
 
 function makeCoordinates(coords, id){
 
+    //console.log(id);
     //console.log(parseFloat(coords.substring(19,36)));
     //console.log(parseFloat(coords.substring(0,18)));
 
-    //console.log(id);
-
     let x = 0, y = 0;
+
     try{
+
+    if(isNaN(parseFloat(coords.substring(19,36))) | parseFloat(coords.substring(19,36)) === undefined ){
+        x = 0;
+        y = 0;
+    }
+
+    else{
+
         x = parseFloat(coords.substring(0, 18));
         y = parseFloat(coords.substring(19, 36));}
-        catch(e){
-            // pass
-        }
+        
+    }
+
+    catch(e){
+        console.log(e);
+        //pass
+    }
 
     return {
         latitude : x,
@@ -98,3 +110,4 @@ window.voterList = voterList;
 "-75.15947777399998,39.93155817300004"
 
 "112545002-51" // problem element in list '0101' // eliminated in the try-catch block in makeCoordinates
+"015653961-51"
