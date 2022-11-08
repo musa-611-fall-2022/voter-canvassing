@@ -13,6 +13,8 @@ function initializeMap () {
 
     // layer for user location
     map.positionLayer = L.geoJSON(null).addTo(map);
+    // layer for voter locations
+    map.voterLayer = L.geoJSON(null).addTo(map);
 
     return map;
 }
@@ -49,10 +51,15 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 
     console.log("These are the voters");
 
-    for( let ppl of people ){
+    // if (map.voterLayer !== undefined) {
+    //     map.removeLayer(map.voterLayer);
+         map.voterLayer = L.geoJSON().addTo(map);
+    // }
 
+    for( let ppl of people ){
         try{
-        L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
+        //L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
+        map.voterLayer.addData(ppl);
         }
         catch(e){
             // pass
