@@ -13,8 +13,14 @@ function populateVoterMenu(voterList, voterListObj) {
 
 
     for (let voter of voterList) {
+
+        //TODO: figure out how to format span objects for voters in CSS
+
         const html = `
-        <li class="voter-list-item">Name: ${voter.properties['firstName']} ${voter.properties['lastName']} Address: ${voter.properties['address']}</li>
+        <span class="voter-list-item">
+            <span class="voter-name">${voter.properties['firstName']} ${voter.properties['lastName']}</span>
+            <span class="voter-address">${voter.properties['address']}</span>
+        </span>
         `;
         const li = htmlToElement(html);
         voterListObj.append(li);

@@ -58,7 +58,6 @@ function populateVoterList(listNum, map, voterListObj) {
     .then(text => {
         // TODO: try/catch HTTP error for nonexistent list number // done.
         const data = Papa.parse(text, { header: true });
-        // console.log(data['data']);
         let voterList = makeVoterFeature(data['data']);
         populateVoterMap(voterList, map);
         populateVoterMenu(voterList, voterListObj);

@@ -41,8 +41,6 @@ function locateMe(map){
 
     const id = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
 
-    console.log(id);
-
     //navigator.geolocation.clearWatch(id); // will need this when we change location in real-time.
 
 }

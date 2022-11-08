@@ -28,4 +28,6 @@ locateMe(map, myLocation); // runs function to return your location and mark it 
 //declares variables in Global Scope
 window.voterFileInput = voterFileInput;
 window.voterFileLoadButton = voterFileLoadButton;
+window.voterList = voterListObj;
+window.voterMap = map;
 window.myLocation = myLocation;
