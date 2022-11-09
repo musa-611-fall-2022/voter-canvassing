@@ -1,7 +1,6 @@
 import { showVotersOnMap } from "./map.js";
 import { fitMap } from "./map.js";
 import { showVotersInList }  from './voter-list.js';
-import { makeVoterFeatureCollection } from "./map.js";
 
 /*
 Hide and Show List Loader
@@ -130,6 +129,14 @@ loadByListNumber(autoList);
 
 // Add event listener to the load button
 loadButtonEl.addEventListener("click", onLoadButtonClick);
+
+// Simulate button click when press enter after input
+listNumberInputEl.addEventListener("keypress", (e) => {
+  if(e.key === "Enter") {
+    e.preventDefault();
+    loadButtonEl.click();
+  }
+});
 
 // Refresh tooltip text when mouse moves out
 loadButtonEl.addEventListener("mouseout", ( ) => {

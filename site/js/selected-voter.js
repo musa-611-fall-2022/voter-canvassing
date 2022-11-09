@@ -12,7 +12,6 @@ import { baseMap } from "./map.js";
 import { showVotersOnMap } from "./map.js";
 import { data } from "./list-loader.js";
 import { filteredData } from "./list-filters.js";
-import { voterMarkerOnClick } from "./map.js";
 import { listExpanded, onExpandButtonClick } from "./voter-list-expand.js";
 
 
