@@ -1,5 +1,6 @@
 {
   "transform": {},
   "testPathIgnorePatterns": ["__tests__/jest-extensions.js"],
-  "preset": "jest-puppeteer"
+  "preset": "jest-puppeteer",
+  "testEnvironment": "jsdom"
 }
