@@ -13,6 +13,8 @@ import { showVotersOnMap } from "./map.js";
 import { data } from "./list-loader.js";
 import { filteredData } from "./list-filters.js";
 import { voterMarkerOnClick } from "./map.js";
+import { listExpanded, onExpandButtonClick } from "./voter-list-expand.js";
+
 
 /*
 The unhighlight function is made of two parts:
@@ -73,6 +75,7 @@ function highlightVoterOnMap(thisId) {
   let thisAddress = data.find(item => item["ID Number"] === thisId).short_address;
 
   // Then find the marker to be highlighted
+  // And then highlight it
   for(let entry of Object.entries(baseMap.voterLayers._layers)) {
     if(entry[1].feature.properties.address == thisAddress) {
       entry[1].setStyle({
@@ -85,7 +88,9 @@ function highlightVoterOnMap(thisId) {
         weight: 2,
       })
       .bringToFront();
-      //baseMap.removeLayer(entry[1]);
+
+      // Pan to the selected feature marker
+      baseMap.panTo(entry[1]._latlng);
       break;
     }
   }
@@ -102,12 +107,18 @@ function highlightVoter(thisId) {
 // Either highlight new voter and update selectedVoter, or unhighlight current voter
 function onSelectAction(thisId) {
 
+  // If clicking on the same voter, unhighlight them
   if(selectedVoter != undefined && thisId == selectedVoter) {
     unhighlightVoter();
     selectedVoter = undefined;
   } else {
     highlightVoter(thisId);
+    // Update stored voter ID
     selectedVoter = thisId;
+    // If the list is currently expanded, unexpand it
+    if(listExpanded == 1) {
+      onExpandButtonClick();
+    }
   }
 }
 
