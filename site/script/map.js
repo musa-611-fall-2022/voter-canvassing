@@ -61,7 +61,12 @@ function loadList() {
                     }
                 }
             }
-            showVotersOnMap(data)
+            let addressList = $("#addressList");
+
+            $("#address-container").css("display", "block");
+            showAddressesInList(data, addressList);
+
+            showVotersOnMap(data);
         },
 
         error: (err) => {

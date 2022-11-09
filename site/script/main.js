@@ -1,5 +1,6 @@
 import {initMap, loadList} from "./map.js";
 import {showVotersInList} from "./voterList.js";
+import {showAddressesInList} from "./addressList.js";
 
 
 let app = {
@@ -68,6 +69,8 @@ voterNameFilter.addEventListener('input', () => {
 
 
 
+
 window.app = app;
 window.map = map;
 window.loadList = loadList;
+window.showAddressesInList = showAddressesInList;

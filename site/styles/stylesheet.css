@@ -17,6 +17,9 @@ body {
     overflow: auto;
     height: 100px;
 }
+.address-group{
+    overflow: auto;
+}
 
 .map {
     display: block;
@@ -35,4 +38,14 @@ button {
 
 .list-details{
     height: 30%;
+}
+
+.address-container {
+    position: absolute;
+    bottom: 0;
+    height: 30%;
+    width: 100%;
+    overflow: auto;
+    z-index: 2;
+    display: none;
 }
