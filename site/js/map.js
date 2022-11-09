@@ -1,3 +1,16 @@
+/*
+MODULE 3: Voters display (on the map)
+==================================================
+Every time a new list is loaded, or when the filter(s) are changed
+voters need to be updated both on the map and in the list
+This script deals with the map
+1. Create geo features from data coming from MODULE 1: LIST-LOADER
+   or MODULE 2: LIST FILTERS
+   The created features are ONE MARKER PER ADDRESS
+2. Put the geo features on the map, and prepare them with event listeners
+   The event listeners are to prepare for MODULE 4: VOTER SELECTION
+*/
+
 import { onSelectAction } from "./selected-voter.js";
 
 /*

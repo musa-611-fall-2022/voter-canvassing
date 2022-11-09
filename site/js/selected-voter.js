@@ -1,10 +1,14 @@
 /*
+MODULE 4: VOTER SELECTION
+==================================================
 1. Use global variable selectedVoter to store the currently voter selected.
    If no voter is selected at the moment, variable is undefined
 2. Whenever a click on the voter list or on the map happens:
    2.1 Check if newly selected is the same as the current.
      2.1.1 If same, update selectedVoter to undefined -> use unhighlightVoter function
      2.1.2 If same, update selectedVoter. unhighlight current voter, highlight new voter
+
+Also does miscellaneous work, i.e., pan to voter on selection
 */
 
 import { voterListItemsEl } from "./voter-list.js";

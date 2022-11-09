@@ -1,3 +1,14 @@
+/*
+MODULE 4: Voters display (on the map)
+==================================================
+Every time a new list is loaded, or when the filter(s) are changed
+voters need to be updated both on the map and in the list
+This script deals with the list
+1. Create HTML elements of the voters to be added to the voter list
+2. Note that these are group by ADDRESS
+3. Add event listener to prepare for MODULE 4: VOTER SELECTION
+*/
+
 import { htmlToElement } from './htmlelement.js';
 import { changeRecord } from "./save-edit.js";
 import { onSelectAction } from "./selected-voter.js";

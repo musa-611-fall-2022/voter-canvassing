@@ -1,4 +1,6 @@
 /*
+MODULE 2: LIST FILTERS (MAIN)
+===================================================
 This script contains the links to all the filters.
 Every time a filter is applied, changed, or taken off,
 we should calculate a new filtered data by applying all the filters.

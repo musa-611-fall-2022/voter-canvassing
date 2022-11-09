@@ -1,3 +1,10 @@
+/*
+MISCELLANEOUS
+This script hides or shows the filter window on click
+When clicking on filter button, the filter window appears
+Then, clicking on the areas outside the filter window, the window closes
+*/
+
 const filterOverlayEl = document.querySelector("#filter-overlay");
 const filterWindowEl = document.querySelector("#filter-window");
 const filterButtonEl = document.querySelector("#filter-popup-button");

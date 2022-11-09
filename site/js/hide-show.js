@@ -1,4 +1,11 @@
-/* This chunk controls whether the hidable chunk is hidden at the moment
+/*
+MISCELLANEOUS
+This script hides or shows
+1. list loader component
+2. search box component
+3. voter list component
+when clicking on the hide-show button.
+It is not essential to the core functionalities of the app
 */
 
 import { listExpanded, onExpandButtonClick } from "./voter-list-expand.js";

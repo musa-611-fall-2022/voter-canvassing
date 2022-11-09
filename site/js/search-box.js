@@ -1,3 +1,9 @@
+/*
+MODULE 2: LIST FILTERS (COMPONENT)
+==================================================
+This script contains the functions to filter voters by search box input
+Refer to [list-filters.js] to see how all the filters work together
+*/
 export let voterInputBoxEl = document.querySelector('#search-box-input');
 
 // Step in filter by search box; match if an individual voter fulfills the filter

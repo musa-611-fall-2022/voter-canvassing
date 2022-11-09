@@ -21,6 +21,8 @@ There are two ways to load the data.
 
 - [ ] **To Be Created.** Load data using geolocation API. By calculating the spatial scope of each voter list, the app can identify which scope the user is currently in using a geolocation API, and load the corresponding voter list.
 
+The list loader is triggered either on **button click** or on **Enter keypress**.
+
 ### **Module 2: `list-filters`**
 
 This filter filters voters after a particular voter list is loaded. The kernel script for the function resides in `list-filters.js`. This script workds as follows:
