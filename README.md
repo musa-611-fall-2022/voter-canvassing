@@ -1,5 +1,5 @@
 # Voter Canvassing App 
-### team members:
+### Team members:
 * Yifei Sun
 * Xuening Zhang 
 * Tom Sun 
