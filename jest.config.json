@@ -1,6 +1,6 @@
 {
   "transform": {},
   "testPathIgnorePatterns": ["__tests__/jest-extensions.js"],
-  "preset": "jest-puppeteer",
-  "testEnvironment": "jsdom"
+  "setupFilesAfterEnv": ["@wordpress/jest-puppeteer-axe"],
+  "preset": "jest-puppeteer"
 }
