@@ -3,6 +3,37 @@ import { populateVoterMenu } from './list.js';
 
 const voterList = [];
 
+function makeCoordinates(coords, id){
+
+    //console.log(id);
+    //console.log(parseFloat(coords.substring(19,36)));
+    //console.log(parseFloat(coords.substring(0,18)));
+
+    let x = 0, y = 0;
+
+    try {
+
+    if (isNaN(parseFloat(coords.substring(19, 36))) || parseFloat(coords.substring(19, 36)) === undefined ){
+        x = 0;
+        y = 0;
+    } else {
+        x = parseFloat(coords.substring(0, 18));
+        y = parseFloat(coords.substring(19, 36));
+    }
+
+    }
+
+    catch(e){
+        console.log(e);
+        //pass
+    }
+
+    return {
+        latitude : x,
+        longitude : y,
+    };
+}
+
 function makeVoterFeature(data){
 
     const voter = data;
@@ -17,7 +48,7 @@ function makeVoterFeature(data){
             type : "Feature",
             geometry : {
                 type : "Point",
-                coordinates : [geom.longitude, geom.latitude],
+                coordinates : [geom.latitude, geom.longitude],
             },
             properties : {
                 firstName : v['First Name'],
@@ -62,39 +93,6 @@ function populateVoterList(listNum, map, voterListObj) {
         populateVoterMap(voterList, map);
         populateVoterMenu(voterList, voterListObj);
     });
-}
-
-function makeCoordinates(coords, id){
-
-    //console.log(id);
-    //console.log(parseFloat(coords.substring(19,36)));
-    //console.log(parseFloat(coords.substring(0,18)));
-
-    let x = 0, y = 0;
-
-    try{
-
-    if(isNaN(parseFloat(coords.substring(19,36))) | parseFloat(coords.substring(19,36)) === undefined ){
-        x = 0;
-        y = 0;
-    }
-
-    else{
-
-        x = parseFloat(coords.substring(0, 18));
-        y = parseFloat(coords.substring(19, 36));}
-        
-    }
-
-    catch(e){
-        console.log(e);
-        //pass
-    }
-
-    return {
-        latitude : x,
-        longitude : y,
-    };
 }
 
 export {
