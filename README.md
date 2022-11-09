@@ -1,4 +1,6 @@
 # Voter Canvassing App 
+### team members:
+    Yifei Sun, Xuening Zhang, Tom 
 ## Core Interface Elements
 
 ### Layout
