@@ -5,29 +5,44 @@ let listContainerEl = document.querySelector("#voter-list-component").querySelec
 export let listExpanded;
 listExpanded = 0;
 
-expandButtonEl.addEventListener("click", ( ) => {
+function expandList() {
+  const mediaQuery = window.matchMedia("(min-width: 1200px)");
+  // If a wide screen, expand to longer
+  if(mediaQuery.matches) {
+    listContainerEl.classList.add("scroll-container-expanded-long"); // Expand to 75vh
+  } else {
+    listContainerEl.classList.add("scroll-container-expanded"); // Expand to 42vh
+  }
 
+  // Update button icon
+  expandButtonEl.innerHTML = `<span class="material-symbols-outlined">expand_less</span>`;
+
+  // Update state
+  listExpanded = 1;
+}
+
+function unExpandList() {
+  // Unexpand
+  listContainerEl.className = "scroll-container";
+
+  // Update button icon
+  expandButtonEl.innerHTML = `<span class="material-symbols-outlined">expand_more</span>`;
+
+  // Update state
+  listExpanded = 0;
+}
+
+function onExpandButtonClick() {
   // If currently not expanded, expand it
   if(listExpanded == 0) {
-    const mediaQuery = window.matchMedia("(min-width: 1200px)");
-
-    if(mediaQuery.matches) {
-      listContainerEl.classList.add("scroll-container-expanded-long"); // Expand to 75vh
-    } else {
-      listContainerEl.classList.add("scroll-container-expanded"); // Expand to 42vh
-    }
-
-    // Turn expand button upside down
-    expandButtonEl.innerHTML = `<span class="material-symbols-outlined">expand_less</span>`;
-
-    listExpanded = 1;
-
+    expandList();
   } else {
-    listContainerEl.className = "scroll-container";
-
-    // Turn expand button upside down
-    expandButtonEl.innerHTML = `<span class="material-symbols-outlined">expand_more</span>`;
-
-    listExpanded = 0;
+    unExpandList();
   }
-});
+}
+
+expandButtonEl.addEventListener("click", onExpandButtonClick);
+
+export {
+  onExpandButtonClick,
+};

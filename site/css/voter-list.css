@@ -6,6 +6,7 @@ Voter list component overall setting
   position: relative;
   display: flex;
   flex-direction: column;
+  transition: transform 0.5s;
 }
 
 #voter-list-component .panel {

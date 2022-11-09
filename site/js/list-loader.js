@@ -8,8 +8,6 @@ Hide and Show List Loader
 */
 
 // DOM elements
-let hideButtonEl = document.querySelector("#list-loader-hide");
-let hidableChunkEl = document.querySelector("#list-loader-hidable-chunk");
 let listNumberInputEl = document.querySelector("#list-loader-input");
 let loadButtonEl = document.querySelector("#list-loader-load");
 let toolTipEl = document.querySelector("#list-loader-load").querySelector(".tooltiptext");
@@ -17,29 +15,9 @@ let toolTipEl = document.querySelector("#list-loader-load").querySelector(".tool
 // Create a global object to store current input number
 let inputNumber;
 
-// A variable to store whether the list loader component is currently hidden
-let loaderElIsHidden = 0;
-
 // This is a global object to store the current list of voters
 export let data;
 export let votersFeature;
-
-// The list loader thing can be hidden (not very important)
-hideButtonEl.addEventListener("click", ( ) => {
-  if(loaderElIsHidden == 0) {
-    hidableChunkEl.style.transform = "translateX(-16em)";
-    hideButtonEl.innerHTML = `
-    <span class="material-symbols-outlined">chevron_right</span>
-    `;
-    loaderElIsHidden = 1;
-  } else {
-    hidableChunkEl.style.transform = "translateX(0em)";
-    hideButtonEl.innerHTML = `
-    <span class="material-symbols-outlined">chevron_left</span>
-    `;
-    loaderElIsHidden = 0;
-  }
-});
 
 /*
 Load List

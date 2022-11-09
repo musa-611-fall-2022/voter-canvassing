@@ -2,6 +2,7 @@
   position: relative;
   height: 6.5em;
   z-index: 999;
+  transition: transform 0.5s;
 }
 
 #search-box-component .input-container {
