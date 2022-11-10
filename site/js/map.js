@@ -69,6 +69,12 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 
 }
 
+function onEachFeature(feature, layer) {
+    layer.on('click', function (e) {
+                alert(feature.properties.id);
+    });
+}
+
 export {
     initializeMap,
     locateMe,
