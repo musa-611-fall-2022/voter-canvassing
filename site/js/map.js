@@ -32,7 +32,9 @@ function locateMe(map){
         };
 
         map.positionLayer = L.geoJSON(myLocation).addTo(map);
-        map.setView([pos.coords.latitude, pos.coords.longitude], 19);
+
+        // un-comment following line if we want the map to zoom to user location on startup: 
+        //map.setView([pos.coords.latitude, pos.coords.longitude], 19);
 
         return myLocation;
 
@@ -54,6 +56,7 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
     // if (map.voterLayer !== undefined) {
     //     map.removeLayer(map.voterLayer);
          map.voterLayer = L.geoJSON(people).addTo(map);
+         //map.flyTo(map.voterLayer, 16);
     // }
 
     for( let ppl of people ){
