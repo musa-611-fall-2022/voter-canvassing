@@ -10,6 +10,7 @@ This script has the main functionalities of the list loader module
 import { showVotersOnMap } from "./map.js";
 import { fitMap } from "./map.js";
 import { showVotersInList }  from './voter-list.js';
+import { loadListNum, saveListNum } from "./main.js";
 
 /*
 Hide and Show List Loader
@@ -90,8 +91,8 @@ function loadVoterData(text) {
   showVotersOnMap(data);
   fitMap();
 
-  // Store current list number to local storage to be loaded the next time
-  localStorage.setItem("current-list", inputNumber);
+  // Save current list number to be loaded the next time
+  saveListNum(inputNumber);
   window.data = data;
 }
 
@@ -100,11 +101,13 @@ function loadVoterData(text) {
 2. Check fetch status using checkFetchStatus
 3. If check success, load data using loadVoterData; otherwise, show error tooltip
 */
-function loadByListNumber(inputNumber) {
-  let path = './data/voters_lists/' + inputNumber + '.csv';
+function loadByListNumber(number) {
+  // Update input number, if loading from cloud and it is undefined
+  inputNumber = number;
+  let path = './data/voters_lists/' + number + '.csv';
 
   // Set the input box placeholder
-  listNumberInputEl.placeholder = `${inputNumber}`;
+  listNumberInputEl.placeholder = `${number}`;
 
   // Fetch the particular CSV file
   fetch(path)
@@ -128,13 +131,22 @@ function onLoadButtonClick() {
 Automatically load list from local storage
 */
 
-let autoList = localStorage.getItem("current-list") || "{}";
-if(autoList == "{}" || autoList == undefined || autoList.length != 4) {
-  autoList = "0101";
+// First try to load data from local storage
+// inputNumber = localStorage.getItem("current-list") || "{}";
+// loadListNum();
+
+// }
+
+// First try to load list number from local storage
+inputNumber = localStorage.getItem("current-list") || "{}";
+// When local storage has a valid number, use that
+if(inputNumber != undefined & inputNumber.length != 4) {
+  loadByListNumber(inputNumber);
+} else {
+  // If success, load that list from fire store
+  // If not success, load list 0101
+  loadListNum(loadByListNumber, loadByListNumber);
 }
-
-loadByListNumber(autoList);
-
 
 // Add event listener to the load button
 loadButtonEl.addEventListener("click", onLoadButtonClick);
