@@ -2,7 +2,7 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-10 05:49:08
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-10 05:55:08
+ * @LastEditTime: 2022-11-11 10:54:10
  * @FilePath: \voter-canvassing\site\index.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -12,12 +12,32 @@
     <head>
     <meta name="voter canvassing" content="width=device-width, initial-scale=1" />
 
-
-    <link rel="stylesheet" href="css/styles.css">
+    <!--leaflet's css-->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+    integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="
+    crossorigin=""/>
+    <!--my css-->
+    <link rel="stylesheet" href="css\style.css">
     </head>
 
     <body>
+        <h1>Voter Canvassing</h1>
+        <div id="voter-Map" class="voter-Map"></div>
+        <div id="load-overlay" class="load-overlay">Loading...</div>
 
-    <script type="module" src="js/main.js"></script>
+        <div id="voterFileInput" class="voterFileInput">
+        <h2 id="voter file number"></h2>
+        <textarea id="voter-notes" class="voter-notes" placeholder="enter a voter file number..."></textarea>
+        <button id="voterFileLoadButton" class="voterFileLoadButton">Save</button>
+        </div>
+
+    <!--leaflet's js-->
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+    integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
+    crossorigin=""></script>
+    <!--load papaparse library-->
+    <script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
+    <!--my js-->
+    <script type="module" src="js\main.js"></script>
     </body>
 </html>
