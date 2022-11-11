@@ -46,17 +46,15 @@ voterInputBoxEl.addEventListener("input", ( ) => {
   showVotersOnMap(filteredData);
 });
 
-
-
 const democratFilter = document.querySelector('#democrat');
 democratFilter.addEventListener("click", () => {
-    // filteredData = filterByDemocrat();
-      // showVotersInList(filteredData);
-      // showVotersOnMap(filteredData);
+  filteredData = allFilters(data);
+      showVotersInList(filteredData);
+      showVotersOnMap(filteredData);
       // const democratic = filterByDemocrat();
-      // democratList(democratic);
-      const child = document.getElementsByClassName("list-icon icon-democrat-color");
-      console.log(child);
+      // // democratList(democratic);
+      // // const child = document.getElementsByClassName("list-voter");
+      console.log(filteredData);
   });
 
 const republicanFilter = document.querySelector('#republican');

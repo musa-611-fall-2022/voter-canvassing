@@ -34,12 +34,12 @@ function groupByKey(data, key) {
   return dataGroupedByAddress;
 }
 
-function democratList(democrat) {
-  const demList = document.querySelector('#voter-list');
-  for( const voter of democrat){
-    demList.appendChild(voter);
-    }
-}
+// function democratList(democrat) {
+//   const demList = document.querySelector('#voter-list');
+//   for(const voter of democrat){
+//     demList.appendChild(voter);
+//     }
+// }
 
 // The output voters are grouped by their addresses
 // Function to show address
@@ -173,7 +173,6 @@ function showVotersInList(data) {
 export {
   showVotersInList,
   voterList,
-  democratList,
 };
 
 /*

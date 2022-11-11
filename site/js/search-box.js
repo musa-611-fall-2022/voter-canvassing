@@ -39,12 +39,11 @@ function filterByNameAddress(data) {
   return filtered;
 }
 
-function filterByDemocrat() {
-  const demClass = document.getElementsByClassName('list-icon icon-democrat-color');
-  return demClass;
-}
+// function filterByDemocrat() {
+//   const demClass = document.getElementsByClassName('list-icon icon-democrat-color');
+//   return demClass;
+// }
 
 export {
   filterByNameAddress,
-  filterByDemocrat,
 };
