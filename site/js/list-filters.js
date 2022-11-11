@@ -13,6 +13,8 @@ eventlistener -> function: 1. apply all filters on by one, 2. update voter list 
 
 import { data } from "./list-loader.js";
 import { filterByNameAddress } from "./search-box.js";
+// import { filterByDemocrat } from "./search-box.js";
+// import { democratList } from "./voter-list.js";
 import { showVotersInList } from "./voter-list.js";
 import { showVotersOnMap } from "./map.js";
 
@@ -43,3 +45,49 @@ voterInputBoxEl.addEventListener("input", ( ) => {
   showVotersInList(filteredData);
   showVotersOnMap(filteredData);
 });
+
+
+
+const democratFilter = document.querySelector('#democrat');
+democratFilter.addEventListener("click", () => {
+    // filteredData = filterByDemocrat();
+      // showVotersInList(filteredData);
+      // showVotersOnMap(filteredData);
+      // const democratic = filterByDemocrat();
+      // democratList(democratic);
+      const child = document.getElementsByClassName("list-icon icon-democrat-color");
+      console.log(child);
+  });
+
+const republicanFilter = document.querySelector('#republican');
+republicanFilter.addEventListener("click", () => {
+    filteredData = allFilters(data);
+      // showVotersInList(filteredData);
+      // showVotersOnMap(filteredData);
+      console.log('hello');
+  });
+
+  const noPartyFilter = document.querySelector('#no-party');
+  noPartyFilter.addEventListener("click", () => {
+      filteredData = allFilters(data);
+        // showVotersInList(filteredData);
+        // showVotersOnMap(filteredData);
+        console.log('hello');
+  });
+
+  const activeFilter = document.querySelector('#active');
+  activeFilter.addEventListener("click", () => {
+      filteredData = allFilters(data);
+        // showVotersInList(filteredData);
+        // showVotersOnMap(filteredData);
+        console.log('hello');
+  });
+
+  const inactiveFilter = document.querySelector('#inactive');
+  inactiveFilter.addEventListener("click", () => {
+      filteredData = allFilters(data);
+        // showVotersInList(filteredData);
+        // showVotersOnMap(filteredData);
+        console.log('hello');
+  });
+
