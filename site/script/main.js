@@ -2,9 +2,10 @@ import {initMap, loadList} from "./map.js";
 import {showVotersInList} from "./voterList.js";
 import {showAddressesInList} from "./addressList.js";
 
-
+//creating global trackers for the active list and Address for other functions
 let app = {
-
+    currentList: null,
+    currentAddress: null,
 };
 
 let map = initMap();
