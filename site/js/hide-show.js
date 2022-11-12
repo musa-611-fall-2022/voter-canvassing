@@ -18,11 +18,14 @@ let listLoaderHidableEl = document.querySelector("#list-loader-hidable-chunk");
 let searchBoxHidableEl = document.querySelector("#search-box-component");
 let voterListHidableEl = document.querySelector("#voter-list-component");
 
+let topComponentEl = document.querySelector("#top-component");
+
 function hideChunk() {
   // Hide chunk by moving
   listLoaderHidableEl.style.transform = "translateX(-16em)";
-  searchBoxHidableEl.style.transform = "translateX(-23em)";
-  voterListHidableEl.style.transform = "translateX(-23em)";
+  searchBoxHidableEl.style.transform = "translateX(-28em)";
+  voterListHidableEl.style.transform = "translateX(-28em)";
+  topComponentEl.style.pointerEvents = "none";
 
   // If the list is currently expanded, unexpand
   if(listExpanded == 1) {
@@ -43,6 +46,7 @@ function showChunk() {
   listLoaderHidableEl.style.transform = "translateX(0em)";
   searchBoxHidableEl.style.transform = "translateX(0em)";
   voterListHidableEl.style.transform = "translateX(0em)";
+  topComponentEl.style.pointerEvents = "auto";
 
   // Update button icon
   hideButtonEl.innerHTML = `

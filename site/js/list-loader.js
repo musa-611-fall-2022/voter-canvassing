@@ -29,7 +29,7 @@ export let data;
 export let votersFeature;
 
 /*
-Load List
+FUNCTIONS
 */
 
 // Function to change button tooltip depending on input
@@ -46,7 +46,7 @@ function errorTooltip(inputNumber) {
 }
 
 /* Function to check if fetch is successful.
-If so, do fetch; if not, show on tooltip */
+If so, do fetch; if not, show error on tooltip */
 function checkFetchStatus(resp) {
   if(resp.ok) {
     return resp.text();
@@ -58,6 +58,7 @@ function checkFetchStatus(resp) {
 }
 
 // Function to add short address to each voter in data
+// Function is called after data is fetched
 function makeShortAddress(data) {
   for(let voter of data) {
     voter["short_address"] = `${voter["House Number"]} ${voter["Street Name"]}`;
@@ -127,26 +128,25 @@ function onLoadButtonClick() {
   loadByListNumber(inputNumber);
 }
 
-/*
-Automatically load list from local storage
-*/
 
-// First try to load data from local storage
-// inputNumber = localStorage.getItem("current-list") || "{}";
-// loadListNum();
-
-// }
+// Automatically load list from local storage
 
 // First try to load list number from local storage
 inputNumber = localStorage.getItem("current-list") || "{}";
+
 // When local storage has a valid number, use that
-if(inputNumber != undefined & inputNumber.length != 4) {
+if(inputNumber != undefined & inputNumber.length === 4) {
   loadByListNumber(inputNumber);
 } else {
   // If success, load that list from fire store
   // If not success, load list 0101
   loadListNum(loadByListNumber, loadByListNumber);
 }
+
+
+/*
+MAIN
+*/
 
 // Add event listener to the load button
 loadButtonEl.addEventListener("click", onLoadButtonClick);
@@ -163,6 +163,10 @@ listNumberInputEl.addEventListener("keypress", (e) => {
 loadButtonEl.addEventListener("mouseout", ( ) => {
   toolTipEl.innerHTML = `<div class="tooltip-content">Load List</div>`;
 });
+
+/*
+FULFILL TEST REQUIREMENT
+*/
 
 /*
 Requirement:
