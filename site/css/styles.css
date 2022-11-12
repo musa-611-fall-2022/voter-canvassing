@@ -21,8 +21,8 @@ textarea {
 }
 
 button {
-    width: 100%; 
-    display: block;
+    display:inline-block;
+    margin-right:5px;
     z-index: -1;
 }
 
