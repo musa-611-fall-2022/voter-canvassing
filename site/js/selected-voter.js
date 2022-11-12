@@ -17,6 +17,7 @@ import { showVotersOnMap } from "./map.js";
 import { data } from "./list-loader.js";
 import { filteredData } from "./list-filters.js";
 import { voterListExpandButtonEl, voterListContainerEl, onExpandButtonClick } from "./list-expand.js";
+import { bottomComponentEl } from "./hide-show.js";
 
 
 /*
@@ -114,6 +115,9 @@ function onSelectAction(thisId) {
   if(selectedVoter != undefined && thisId == selectedVoter) {
     unhighlightVoter();
     selectedVoter = undefined;
+    // Show info edit panel
+    bottomComponentEl.style.transform = "translateX(-30em)";
+
   } else {
     // If the list is currently expanded, unexpand it
     if(voterListExpandButtonEl.expandStatus == 1) {
@@ -122,6 +126,9 @@ function onSelectAction(thisId) {
     highlightVoter(thisId);
     // Update stored voter ID
     selectedVoter = thisId;
+
+    // Show info edit panel
+    bottomComponentEl.style.transform = "translateX(0em)";
   }
 }
 

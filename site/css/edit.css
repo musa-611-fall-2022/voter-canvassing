@@ -3,6 +3,15 @@
   height: 10em;
 }
 
+/*
+The bottom component is originally not showing until you select a voter
+*/
+
+#bottom-component {
+  transform: translateX(-30em);
+  transition: all 0.5s ease-in-out;
+}
+
 #bottom-component .edit-button {
   background-color: var(--main-color);
   float: left;
@@ -23,4 +32,25 @@
   display: grid;
   grid-template: repeat(6, 1fr) / repeat(5, 1fr);
   margin-bottom: 1rem;
+}
+
+.basic-info-panel {
+  height: 16vh;
+}
+
+#edit-component {
+  transform: translateX(-30em);
+  transition: transform 0.5s ease-in-out;
+}
+
+.voter-history-panel {
+  min-height: 15vh;
+}
+
+.this-visit-panel {
+  min-height: 25vh;
+}
+
+.last-visit-panel {
+  min-height: 15vh;
 }

@@ -21,10 +21,10 @@ let hideButtonEl = document.querySelector("#list-loader-hide");
 let listLoaderHidableEl = document.querySelector("#list-loader-hidable-chunk");
 let searchBoxHidableEl = document.querySelector("#search-box-component");
 let voterListHidableEl = document.querySelector("#voter-list-component");
-let bottomComponentEl = document.querySelector("#bottom-component");
+export let bottomComponentEl = document.querySelector("#bottom-component");
 let navComponentEl = document.querySelector("#nav-component");
-
 let topComponentEl = document.querySelector("#top-component");
+let editComponentEl = document.querySelector("#edit-component");
 
 function hideChunk() {
   // Hide chunk by moving
@@ -92,6 +92,9 @@ function switchToEdit() {
   // Move the whole thing up
   bottomComponentEl.style.top = "7vh";
 
+  // Make the other panels show
+  editComponentEl.style.transform = "translateX(0em)";
+
   // Change the icon
   setTimeout(() => {
     editButtonEl.querySelector("span").innerHTML = "chevron_left";
@@ -105,7 +108,10 @@ function switchToNormal() {
   topComponentEl.style.transform = "translateX(0em)";
   navComponentEl.style.transform = "translateX(0em)";
 
-  // Move the whole thing up
+  // Hide the other panels
+  editComponentEl.style.transform = "translateX(-30em)";
+
+  // Move the whole thing down
   bottomComponentEl.style.top = "72vh";
 
   // Change the icon
