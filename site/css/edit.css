@@ -3,7 +3,7 @@
   height: 10em;
 }
 
-#basic-panel-component .edit-button {
+#bottom-component .edit-button {
   background-color: var(--main-color);
   float: left;
   color: #fff;
@@ -22,8 +22,5 @@
   padding: 0.5rem 0.5rem 0;
   display: grid;
   grid-template: repeat(6, 1fr) / repeat(5, 1fr);
-}
-
-.bottom-coponent-lifted {
-  
+  margin-bottom: 1rem;
 }

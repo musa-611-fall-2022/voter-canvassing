@@ -12,7 +12,7 @@ This script deals with the list
 import { htmlToElement } from './htmlelement.js';
 import { changeRecord } from "./save-edit.js";
 import { onSelectAction } from "./selected-voter.js";
-import { expandButtonEl } from "./voter-list-expand.js";
+import { voterListExpandButtonEl } from "./list-expand.js";
 
 // DOM obj of voter list
 let voterList = document.querySelector('#voter-list');
@@ -33,13 +33,6 @@ function groupByKey(data, key) {
 
   return dataGroupedByAddress;
 }
-
-// function democratList(democrat) {
-//   const demList = document.querySelector('#voter-list');
-//   for(const voter of democrat){
-//     demList.appendChild(voter);
-//     }
-// }
 
 // The output voters are grouped by their addresses
 // Function to show address
@@ -139,9 +132,9 @@ function showHideExpandButton() {
   let voterListHeight = document.querySelector("#voter-list").offsetHeight;
   let voterContainerHeight = document.querySelector("#voter-list-component").querySelector(".scroll-container").offsetHeight;
   if(voterListHeight > voterContainerHeight){
-    expandButtonEl.style.display = "block";
+    voterListExpandButtonEl.style.display = "block";
   } else {
-    expandButtonEl.style.display = "none";
+    voterListExpandButtonEl.style.display = "none";
   }
 }
 
