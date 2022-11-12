@@ -2,13 +2,12 @@ import { htmlToElement } from './template-tools.js';
 import { showDetails } from './detailsList.js';
 
 function onAddressClicked(evt) {
-    console.log(evt);
     const home = evt.target.id;
-    console.log(home)
+    
     const addressSelectedEvent = new CustomEvent('address-selected', { detail: { home } });
     window.dispatchEvent(addressSelectedEvent);
-}
 
+}
 
 function showAddressesInList(addresses) {
     const addressList = document.getElementById("addressList");
@@ -21,12 +20,11 @@ function showAddressesInList(addresses) {
 
     for (const address of addresses["features"]) {
         if (address !== undefined) {
-            let firstName = address["properties"]["First Name"];
-            let lastName = address["properties"]["Last Name"];
-            let Name = `${firstName} ${lastName}`;
+            //replaced name concatenation with function, used in other modules
+            let Name = compileName(address)
             
             //specify the full address and save it for checking whether others live there
-            let fullAddress = `${address.properties['House Number']} ${address.properties['Street Name']} ${address.properties['Apartment Number']}`
+            let fullAddress = compileAddress(address);
             let id = fullAddress;
 
             //check if the last house added matches the current one
@@ -81,6 +79,10 @@ function showAddressesInList(addresses) {
     addressList.insertBefore(li, addressList.firstChild);
 }
 
+function compileName(data){
+    return `${data["properties"]["First Name"]} ${data["properties"]["Last Name"]}`
+}
+
 //check if there is an apartment number in the line and assign type based on result
 function typeOfHouse(address){
     let string = "";
@@ -98,6 +100,32 @@ function listHouseVoters(array){
     return string
 }
 
+//compile addresses from the file properties. Eliminates extra spaces
+function compileAddress(data){
+    if (data.properties['House Number Suffix'] == "" 
+    && data.properties['Apartment Number'] == ""
+    && data.properties['Address Line 2'] == ""){
+        //Base case
+        return `${data.properties['House Number']} ${data.properties['Street Name']}`
+    } else if (data.properties['House Number Suffix'] == "" 
+    && data.properties['Address Line 2'] == "") {
+        //Apartments, no address line 2
+        return `${data.properties['House Number']} ${data.properties['Street Name']} ${data.properties['Apartment Number']}`
+    } else if (data.properties['Address Line 2'] == "" 
+    && data.properties['Apartment Number'] == "") {
+        //House number suffix
+        return `${data.properties['House Number']} ${data.properties['House Number Suffix']} ${data.properties['Street Name']} `
+    } else if (data.properties['House Number Suffix'] == ""){
+        //Apartment Number and Address Line 2. Later because this search term is more general.
+        return `${data.properties['House Number']} ${data.properties['Street Name']} ${data.properties['Apartment Number']} ${data.properties['Address Line 2']}`
+    } else {
+        //catch all
+        return `${data.properties['House Number']} ${data.properties['House Number Suffix']} ${data.properties['Street Name']} ${data.properties['Apartment Number']} ${data.properties['Address Line 2']}`
+    }
+}
+
 export {
     showAddressesInList,
+    compileAddress,
+    compileName,
 };

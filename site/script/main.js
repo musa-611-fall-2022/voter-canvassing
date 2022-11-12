@@ -1,6 +1,7 @@
 import {initMap, loadList} from "./map.js";
 import {showVotersInList} from "./voterList.js";
 import {showAddressesInList} from "./addressList.js";
+import {showDetails} from "./detailsList.js";
 
 //creating global trackers for the active list and Address for other functions
 let app = {
@@ -71,7 +72,6 @@ voterNameFilter.addEventListener('input', () => {
 function onAddressSelected(evt) {
     const home = evt.detail.home;
     app.currentAddress = home;
-    console.log(app.currentAddress);
 }
 
 window.addEventListener('address-selected', onAddressSelected);

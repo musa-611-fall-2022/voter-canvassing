@@ -47,12 +47,9 @@ button {
     width: 100%;
     z-index: 2;
     overflow: auto;
-
     display: none;
 }
 
-.address-list{
-}
 
 h3 {
     font-size: 1em;
