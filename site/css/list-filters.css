@@ -16,6 +16,8 @@ Top right button to initiate filter window
   margin: 0 0.1rem;
   border-bottom-width: 3px;
   border-radius: 0 0 0.5rem 0.5rem;
+  background-color: var(--main-color);
+  border-color: var(--main-color);
 }
 
 /* ------------

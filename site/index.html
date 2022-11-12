@@ -19,11 +19,13 @@
     <link rel="stylesheet" href="css/main.css">
     <link rel="stylesheet" href="css/banner.css">
     <link rel="stylesheet" href="css/list-loader.css">
+    <link rel="stylesheet" href="css/scroll-list.css">
     <link rel="stylesheet" href="css/voter-list.css">
     <link rel="stylesheet" href="css/list-filters.css">
     <link rel="stylesheet" href="css/search-box.css">
     <link rel="stylesheet" href="css/main-box.css">
-    <link rel="stylesheet" href="css/basic-info-panel.css">
+    <link rel="stylesheet" href="css/edit.css">
+
 
   </head>
 
@@ -71,7 +73,7 @@
             </div>
     
             <div class="button" id="list-loader-load">
-              <span class="material-symbols-outlined">done_all</span>
+              <span class="material-symbols-outlined">done_all</span>Load
               <div class="tooltiptext">
                 <div class="tooltip-content">Load List</div>
               </div>             
@@ -108,11 +110,10 @@
             <ul id="voter-list">
             </ul>
           </div>
-
         </div>
 
         <!-- This is the hide/show button -->
-        <div id="list-expand-button" class="button">
+        <div id="voter-list-expand-button" class="button list-expand-button">
           <span class="material-symbols-outlined">expand_more</span>
         </div>
 
@@ -120,29 +121,22 @@
 
     </div>
 
-    <div id="bottom-component" class="main-box">
-      <!-- Show voter residences in a list -->
-      <div id="basic-panel-component">
-        <div id="edit-button">Edit</div>
-        <div class="panel">
-          <div id="panel-name">
-            THIS PERSON HAS A LONG NAME
-          </div>
-          <div id="panel-status">
-            <div class="button button-short"></div>
-            <div class="button button-long"></div>
-            <div class="button button-short"></div>
-            <div class="button button-long"></div>
-            <div class="button button-long"></div>
-          </div>
-          <div id="panel-address">
-            3600 Market Street, Philadelphia PA
-            <span></span>
-          </div>
-          <div id="panel-add-to-list" class="button">Add To </div>
-        </div>
+    <div id="bottom-component" class="bottom-component main-box">
+      <div class="edit-button">
+        <span class="material-symbols-outlined">
+          edit
+        </span>
+      </div>
+      <div class="panel info-panel basic-info-panel">
+      </div>
+      <div id="edit-component">
+        <div class="panel info-panel voter-history-panel"></div>
+        <div class="panel info-panel this-visit-panel"></div>
+        <div class="panel info-panel last-visit-panel"></div>
       </div>
     </div>
+
+
 
 
     <!-- Leaflet JavaScript -->
@@ -166,7 +160,7 @@
     <script type="module" src="js/search-box.js"></script>
     <script type="module" src="js/save-edit.js"></script>
     <script type="module" src="js/list-filters.js"></script>
-    <script type="module" src="js/voter-list-expand.js"></script>
+    <script type="module" src="js/list-expand.js"></script>
     <script type="module" src="js/filter-window.js"></script>
     <script type="module" src="js/hide-show.js"></script>
     

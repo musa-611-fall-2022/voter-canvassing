@@ -8,7 +8,7 @@
 }
 
 #list-loader-hidable-chunk {
-  transition: transform 0.5s;
+  transition: transform 0.5s ease-in-out;
   z-index: 1;
   height: 100%;
 }
@@ -33,12 +33,19 @@
   font-size: 0.9rem;
 }
 
+#list-loader-load .material-symbols-outlined {
+  font-size: 1.2rem;
+  line-height: 0.9;
+}
+
 #list-loader-load {
   border-right-width: 3px;
   border-radius: 0 0.5rem 0.5rem 0;
-  width: 1.7rem;
+  width: 2rem;
   float: left;
   margin-left: 0.2em;
+  font-size: 0.8rem;
+  line-height: 0.8;
 }
 
 #list-loader-load .tooltiptext {

@@ -1,0 +1,18 @@
+/* -------
+Default scroll container height
+-------- */
+
+.scroll-container {
+  max-height: 18vh;
+  overflow: auto;
+  transition: max-height 0.75s;
+}
+
+/* ----------
+Expand-list button
+---------- */
+
+.list-expand-button {
+  margin-left: auto;
+  margin-right: auto;
+}

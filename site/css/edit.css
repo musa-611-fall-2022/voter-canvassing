@@ -1,0 +1,26 @@
+#basic-panel-component {
+  position: relative;
+  height: 10em;
+}
+
+#bottom-component .edit-button {
+  background-color: var(--main-color);
+  float: left;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.edit-button .material-symbols-outlined {
+  font-size: 1.2rem;
+  line-height: 1.2;
+}
+
+.info-panel {
+  clear: left;
+  background-color: white;
+  padding: 0.5rem 0.5rem 0;
+  display: grid;
+  grid-template: repeat(6, 1fr) / repeat(5, 1fr);
+  margin-bottom: 1rem;
+}

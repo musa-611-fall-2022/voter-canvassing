@@ -1,5 +1,5 @@
 /* -------
-Voter list component overall setting 
+Voter list component overall setting
 -------- */
 
 #voter-list-component {
@@ -14,30 +14,20 @@ Voter list component overall setting
   padding: 0 0.5rem 0.05rem;
 }
 
-/* -------
-Default scroll container height
--------- */
-
-#voter-list-component .scroll-container {
-  max-height: 18vh;
-  overflow: auto;
-  transition: max-height 0.75s;
-}
-
 /* ----------
 Change scroll container height based when clicked
 ---------- */
 
 /* ---- Normally, expand to 42vh ------ */
 
-#voter-list-component .scroll-container-expanded {
+.scroll-container-expanded {
   max-height: 42vh;
   transition: max-height 0.5s;
 }
 
 /* ---- With wide screen, when basic info panel is on the other side, use 75vh ------ */
 
-#voter-list-component .scroll-container-expanded-long {
+.scroll-container-expanded-long {
   max-height: 75vh;
   transition: max-height 1s;
 }
@@ -48,7 +38,7 @@ Voter list items
 
 /* ---- Overall adjustment; overwrite list defaults ------ */
 
-#voter-list-component ul {
+.scroll-container ul {
   display: block;
   margin-right: 0.5rem;
   padding: 0.1rem 0.4rem 0 0.2rem;
@@ -56,7 +46,7 @@ Voter list items
 
 /* ---- Each component: overall setting ------ */
 
-#voter-list-component li {
+.scroll-container li {
   padding: 0.3rem;
   border-bottom: 1px solid #bbb;
   height: 1.5rem;
@@ -68,7 +58,7 @@ Voter list items
 
 /* ---- Overwrite some settings for address items ------ */
 
-#voter-list-component .list-address {
+#voter-list-component .scroll-container .list-address {
   margin-right: 1rem;
   font-size: 0.8rem;
   padding-top: 1rem;
@@ -79,17 +69,17 @@ Voter list items
 
 /* ---- Hover ------ */
 
-#voter-list-component .list-voter:hover {
+#voter-list-component .scroll-container .list-voter:hover {
   background-color: #eee;
 }
 
 /* ---- Highlight voter ------ */
 
-#voter-list-component .selected {
+#voter-list-component .scroll-container .selected {
   background-color: #0d59a9;
 }
 
-#voter-list-component .selected:hover {
+#voter-list-component .scroll-container .selected:hover {
   background-color: #0d59a9;
 }
 
@@ -97,17 +87,17 @@ Voter list items
 Text and icons inside voter list item
 ---------- */
 
-#voter-list-component li .list-name {
+#voter-list-component .selected .list-name {
+  color: #fff;
+}
+
+#voter-list-component .scroll-container li .list-name {
   position: relative;
   font-weight: 600;
   float: left;
   margin-right: 1rem;
   font-size: 1rem;
   vertical-align: center;
-}
-
-#voter-list-component .selected .list-name {
-  color: #fff;
 }
 
 #voter-list-component .button {
@@ -163,15 +153,6 @@ For each voter, color of displayed icons
 
 .icon-oth-party-color {
   color: #c1c1c1;
-}
-
-/* ----------
-Expand-list button
----------- */
-
-#voter-list-component #list-expand-button {
-  margin-left: auto;
-  margin-right: auto;
 }
 
 #voter-list-component .panel .button {
