@@ -1,15 +1,17 @@
 .main-box {
   position: relative;
   top: 8vh;
-  height: 30vh;
   z-index: 9999;
-  margin: 0 1rem;
+  padding: 0 1rem;
+  margin-right: 0.5rem;
 }
 
-@media only screen and (max-width: 400px) {
-  .main-box {
-    margin: 0 0.5rem;
-  }
+#nav-component {
+  height: 5vh;
+}
+
+#top-component {
+  height: 25vh;
 }
 
 @media only screen and (min-width: 600px) {
