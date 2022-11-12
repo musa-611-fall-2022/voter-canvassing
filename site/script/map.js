@@ -21,58 +21,11 @@ function initMap() {
     return map;
 }
 
-function loadList() {
-    let listName = document.querySelector('#voterFileInput').value;
-    const url = '../site/data/voters_lists/' + listName + '.csv'
-    $.ajax(url, {
-        success: (record) => {
-            //Split according to \n
-            record = record.split("\r\n");
-
-            //First line is title
-            var title = record[0].split(",");
-            //Delete the first line
-            record.shift();
-
-            let data = {
-                "type": "FeatureCollection",
-                "features": []
-            }
-
-            for (var i = 0; i < record.length - 1; i++) {
-                if (record[i]) {
-                    var t = record[i].split(/,s*(?![^"]*"\,)/);
-                    for (var y = 0; y < t.length; y++) {
-                        if (!data["features"][i])
-                            data["features"][i] = {"type": "Feature", "properties": {}, "geometry": { "type": "Point", "coordinates": []}};
-                        data["features"][i]["properties"][title[y]] = t[y];
-                    }
-
-                    let lonlat = [];
-                    lonlat = data["features"][i]["properties"]["TIGER/Line Lng/Lat"].split(',');
-
-                    // If the lonlat list is not NULL
-                    if (lonlat.length === 2) {
-                        data["features"][i]["geometry"]["coordinates"][0] = parseFloat(lonlat[0].substring(1,));
-                        data["features"][i]["geometry"]["coordinates"][1] = parseFloat(lonlat[1].substring(0,lonlat[1].length - 1));
-                    }
-                    else {
-                        data["features"].pop();
-                    }
-                }
-            }
-            let addressList = $("#addressList");
-
-            $("#address-container").css("display", "block");
-            showAddressesInList(data, addressList);
-
-            showVotersOnMap(data);
-        },
-
-        error: (err) => {
-            alert('Oh no, I failed to download the data.');
-        }
-    });
+function loadList(data) {
+    let addressList = $("#addressList");
+    $("#address-container").css("display", "block");
+    showAddressesInList(data, addressList);
+    showVotersOnMap(data);
 }
 
 

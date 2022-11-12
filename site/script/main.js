@@ -35,6 +35,64 @@ function listFilter() {
     return filteredVoters;
 }
 
+// Get current input box's list address data
+function getListData(url) {
+    let data = {
+        "type": "FeatureCollection",
+        "features": []
+    }
+    $.ajax({
+        url,
+        async: false,
+        success: (record) => {
+            //Split according to \n
+            record = record.split("\r\n");
+
+            //First line is title
+            var title = record[0].split(",");
+            //Delete the first line
+            record.shift();
+
+            for (var i = 0; i < record.length - 1; i++) {
+                if (record[i]) {
+                    var t = record[i].split(/,s*(?![^"]*"\,)/);
+                    for (var y = 0; y < t.length; y++) {
+                        if (!data["features"][i])
+                            data["features"][i] = {"type": "Feature", "properties": {}, "geometry": { "type": "Point", "coordinates": []}};
+                        data["features"][i]["properties"][title[y]] = t[y];
+                    }
+
+                    let lonlat = [];
+                    lonlat = data["features"][i]["properties"]["TIGER/Line Lng/Lat"].split(',');
+
+                    // If the lonlat list is not NULL
+                    if (lonlat.length === 2) {
+                        data["features"][i]["geometry"]["coordinates"][0] = parseFloat(lonlat[0].substring(1,));
+                        data["features"][i]["geometry"]["coordinates"][1] = parseFloat(lonlat[1].substring(0,lonlat[1].length - 1));
+                    }
+                    else {
+                        data["features"].pop();
+                    }
+                }
+            }
+        },
+        error: (err) => {
+            alert('Oh no, I failed to download the data.');
+        }
+    });
+    return data;
+}
+
+let currentListData;
+
+// When click the "Load List" button, load the address
+$("#voterFileLoadButton").click(function() {
+    let listName = document.querySelector('#voterFileInput').value;
+    const url = '../site/data/voters_lists/' + listName + '.csv';
+    currentListData = getListData(url);;
+    loadList(currentListData);
+});
+
 voterNameFilter.addEventListener('input', () => {
     const text = voterNameFilter.value;
 
@@ -78,5 +136,6 @@ window.addEventListener('address-selected', onAddressSelected);
 
 window.app = app;
 window.map = map;
+window.currentListData = currentListData;
 window.loadList = loadList;
 window.showAddressesInList = showAddressesInList;
