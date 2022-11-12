@@ -1,6 +1,27 @@
 import { makeVoterFeature } from './dataPull.js';
 import { populateVoterMenu } from './list.js';
 
+const responseContainer = document.getElementById("response-container");
+responseContainer.style.display = "none";
+
+let people = document.createElement("ul");
+let voterAddress = document.createElement("b");
+
+let closeVoterInfoButton = document.createElement("button");
+
+let openVoterNotesButton = document.createElement("button");
+
+let voterNotes = document.createElement("div");
+
+let saveVoterNotesButton = document.createElement("button");
+
+let closeVoterNotesButton = document.createElement("button");
+
+let loadNotes = document.createElement("p");
+loadNotes.style.height = "10%";
+let writeNotes = document.createElement("textarea");
+writeNotes.style.height = "10%";
+
 function initializeMap () {
     let map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
     const mapboxAccount = 'mapbox';
@@ -75,11 +96,68 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 }
 
 function onEachFeature(feature, layer) {
+
     layer.on('click', function (e) {
         console.log("Voter clicked")
-        alert(feature.properties.address);
+        //alert(feature.properties.address);
+        responseContainer.style.display = "flex";
+        people.innerHTML = "";
+        voterAddress.innerHTML = feature.properties.address;
+        responseContainer.appendChild(voterAddress);
+        let residents = feature.voters;
+        for( let r = 0; r < residents.length; r++ ){
+            console.log(residents[r].name)
+            let person = document.createElement("li");
+            person.innerHTML = residents[r].name;
+
+            people.appendChild(person);
+        }
+
+        responseContainer.appendChild(people);
+
+        closeVoterInfoButton.textContent = "Close";
+        responseContainer.appendChild(closeVoterInfoButton);
+
+        openVoterNotesButton.textContent = "Open Voter Notes";
+        responseContainer.appendChild(openVoterNotesButton);
+
+        console.log(residents)
+        
     });
 }
+
+closeVoterInfoButton.addEventListener('click',() =>{
+    responseContainer.style.display = "none";
+})
+
+
+
+openVoterNotesButton.addEventListener('click', () =>{
+
+    voterNotes.style.zIndex = "2";
+
+    voterNotes.appendChild(loadNotes);
+    voterNotes.appendChild(writeNotes);
+
+    saveVoterNotesButton.textContent = "Save Voter Notes";
+    voterNotes.appendChild(saveVoterNotesButton);
+
+    closeVoterNotesButton.textContent = "Close Voter Notes";
+    voterNotes.appendChild(closeVoterNotesButton);
+
+    voterNotes.style.display = "flex";
+
+    responseContainer.appendChild(voterNotes);
+
+    openVoterNotesButton.style.display = "none";
+
+    closeVoterNotesButton.addEventListener('click', ()=>{
+        voterNotes.innerHTML = " ";
+        openVoterNotesButton.style.display = "flex";
+    })
+
+
+})
 
 export {
     initializeMap,
