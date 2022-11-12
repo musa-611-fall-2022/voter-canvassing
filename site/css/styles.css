@@ -17,10 +17,11 @@ textarea {
     height: 1rem;
 }
 
-button {
-    width: 100%; 
-    display: block;
-}
+.button {
+    display:inline-block;
+    margin-right:5px;
+    height: 1rem;
+ }  
 
 .voter-list-container {
     width: 100%;
