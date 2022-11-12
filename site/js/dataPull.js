@@ -38,6 +38,7 @@ function constructVoter(v) {
     let voterElement;
     try {
         voterElement = {
+            name : v['First Name'].concat(" ", v['Middle Name'], " ", v['Last Name']),
             firstName : v['First Name'],
             middleName : v['Middle Name'],
             lastName : v['Last Name'],
