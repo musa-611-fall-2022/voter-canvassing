@@ -13,8 +13,6 @@ eventlistener -> function: 1. apply all filters on by one, 2. update voter list 
 
 import { data } from "./list-loader.js";
 import { filterByNameAddress } from "./search-box.js";
-// import { filterByDemocrat } from "./search-box.js";
-// import { democratList } from "./voter-list.js";
 import { showVotersInList } from "./voter-list.js";
 import { showVotersOnMap } from "./map.js";
 
@@ -46,25 +44,16 @@ voterInputBoxEl.addEventListener("input", ( ) => {
   showVotersOnMap(filteredData);
 });
 
-// const democratFilter = document.querySelector('#democrat');
-// democratFilter.addEventListener("click", () => {
-//   filteredData = allFilters(data);
-//       showVotersInList(filteredData);
-//       showVotersOnMap(filteredData);
-//       // const democratic = filterByDemocrat();
-//       // // democratList(democratic);
-//       // // const child = document.getElementsByClassName("list-voter");
-//       console.log(filteredData);
-//   });
+/*
+Function for voter party
+*/
+ let partyFilter = document.querySelectorAll('.party-checkbox');
 
-
- let democratFilterOne = document.querySelectorAll('.party-checkbox');
-
- function shouldShowDemocrat () {
-    let filteredDemocrat = data;
-    for (const checkbox of democratFilterOne) {
+ function shouldShowParty () {
+    let filteredParty = data;
+    for (const checkbox of partyFilter) {
         if (checkbox.checked) {
-          filteredDemocrat = filteredDemocrat.filter(function (voter) {
+          filteredParty = filteredParty.filter(function (voter) {
                 const partyType = checkbox.value;
                 if (voter['Party Code'] === partyType) {
                     return true;
@@ -76,32 +65,49 @@ voterInputBoxEl.addEventListener("input", ( ) => {
         }
     }
 
-    return filteredDemocrat;
+    return filteredParty;
 }
 
-for (const cb of democratFilterOne) {
+for (const cb of partyFilter) {
   cb.addEventListener('change', () => {
-      const filteredDemocrat = shouldShowDemocrat();
-      showVotersOnMap(filteredDemocrat);
-      showVotersInList(filteredDemocrat);
+      const filteredParty = shouldShowParty();
+      showVotersOnMap(filteredParty);
+      showVotersInList(filteredParty);
   });
 }
 
-const republicanFilter = document.querySelector('#republican');
-republicanFilter.addEventListener("click", () => {
-    filteredData = allFilters(data);
-      // showVotersInList(filteredData);
-      // showVotersOnMap(filteredData);
-      console.log('hello');
-  });
+/*
+Function for voter status
+*/
+let statusFilter = document.querySelectorAll('.status-checkbox');
 
-  const noPartyFilter = document.querySelector('#no-party');
-  noPartyFilter.addEventListener("click", () => {
-      filteredData = allFilters(data);
-        // showVotersInList(filteredData);
-        // showVotersOnMap(filteredData);
-        console.log('hello');
-  });
+function shouldShowStatus () {
+   let filteredStatus = data;
+   for (const checkbox of statusFilter) {
+       if (checkbox.checked) {
+        filteredStatus = filteredStatus.filter(function (voter) {
+               const statusType = checkbox.value;
+               if (voter['Voter Status'] === statusType) {
+                   return true;
+               } else {
+                   return false;
+               }
+
+           });
+       }
+   }
+
+   return filteredStatus;
+}
+
+for (const cb of statusFilter) {
+ cb.addEventListener('change', () => {
+     const filteredStatus = shouldShowStatus();
+     showVotersOnMap(filteredStatus);
+     showVotersInList(filteredStatus);
+ });
+}
+
 
   const activeFilter = document.querySelector('#active');
   activeFilter.addEventListener("click", () => {
