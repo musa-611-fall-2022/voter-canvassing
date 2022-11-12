@@ -1,6 +1,15 @@
 import { htmlToElement } from './template-tools.js';
 import { showDetails } from './detailsList.js';
 
+function onAddressClicked(evt) {
+    console.log(evt);
+    const home = evt.target.id;
+    console.log(home)
+    const addressSelectedEvent = new CustomEvent('address-selected', { detail: { home } });
+    window.dispatchEvent(addressSelectedEvent);
+}
+
+
 function showAddressesInList(addresses) {
     const addressList = document.getElementById("addressList");
     addressList.innerHTML = '';
@@ -18,6 +27,7 @@ function showAddressesInList(addresses) {
             
             //specify the full address and save it for checking whether others live there
             let fullAddress = `${address.properties['House Number']} ${address.properties['Street Name']} ${address.properties['Apartment Number']}`
+            let id = fullAddress;
 
             //check if the last house added matches the current one
             //If it does...
@@ -29,14 +39,15 @@ function showAddressesInList(addresses) {
                 
                 //add text to the element and append it to the list
                 const html = `
-                <a href="#" class="list-group-item list-group-item-action"">
+                <a href="#" class="list-group-item list-group-item-action" id="${id}">
                     <h3>${fullAddress}</h3>
                     ${typeOfHouse(address)} - ${voters.length} Voter(s) <br>
                     ${voters[0]}
                 </a>` ;
                 const li = htmlToElement(html);
-                li.addEventListener('click', showDetails); //add clicking event listener
                 addressList.append(li);
+                li.addEventListener('click', onAddressClicked); //add clicking event listener
+
                 lastHouse = fullAddress; //change variable for next house match check
                 count++; //add to count for the total number of residences
             } else { //if if doesn't match...
@@ -45,13 +56,13 @@ function showAddressesInList(addresses) {
                 //remove the last entry on the list and add a new one with the modified voter list
                 addressList.removeChild(addressList.lastChild); 
                 const html = `
-                <a href="#" class="list-group-item list-group-item-action"">
+                <a href="#" class="list-group-item list-group-item-action" id="${id}">
                     <h3>${fullAddress}</h3>
                     <p>${typeOfHouse(address)} - ${voters.length} Voter(s)</p>
                     <p>${listHouseVoters(voters)}</p>
                 </a>` ;
                 const li = htmlToElement(html);
-                li.addEventListener('click', showDetails);
+                li.addEventListener('click', onAddressClicked);
                 addressList.append(li);
                 lastHouse = fullAddress;  //change variable for next house match check
                 //no count bc it has already been done for this residence
@@ -86,8 +97,6 @@ function listHouseVoters(array){
     let string = array.reduce((x, y) => x + "<br>" + y)
     return string
 }
-
-
 
 export {
     showAddressesInList,

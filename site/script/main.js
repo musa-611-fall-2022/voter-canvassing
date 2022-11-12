@@ -68,8 +68,13 @@ voterNameFilter.addEventListener('input', () => {
     }
 });
 
+function onAddressSelected(evt) {
+    const home = evt.detail.home;
+    app.currentAddress = home;
+    console.log(app.currentAddress);
+}
 
-
+window.addEventListener('address-selected', onAddressSelected);
 
 window.app = app;
 window.map = map;
