@@ -108,9 +108,13 @@ function onEachFeature(feature, layer) {
         for( let r = 0; r < residents.length; r++ ){
             console.log(residents[r].name)
             let person = document.createElement("li");
+            let personLink = (document.createElement("button"));
+            personLink.textContent = (residents[r].name)
+
+            person.appendChild(personLink);
             person.innerHTML = residents[r].name;
 
-            people.appendChild(person);
+            people.appendChild(personLink);
         }
 
         responseContainer.appendChild(people);
@@ -135,6 +139,7 @@ closeVoterInfoButton.addEventListener('click',() =>{
 openVoterNotesButton.addEventListener('click', () =>{
 
     voterNotes.style.zIndex = "2";
+    voterNotes.style.display = "flex";
 
     voterNotes.appendChild(loadNotes);
     voterNotes.appendChild(writeNotes);
@@ -145,7 +150,6 @@ openVoterNotesButton.addEventListener('click', () =>{
     closeVoterNotesButton.textContent = "Close Voter Notes";
     voterNotes.appendChild(closeVoterNotesButton);
 
-    voterNotes.style.display = "flex";
 
     responseContainer.appendChild(voterNotes);
 
