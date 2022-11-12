@@ -107,21 +107,3 @@ for (const cb of statusFilter) {
      showVotersInList(filteredStatus);
  });
 }
-
-
-  const activeFilter = document.querySelector('#active');
-  activeFilter.addEventListener("click", () => {
-      filteredData = allFilters(data);
-        // showVotersInList(filteredData);
-        // showVotersOnMap(filteredData);
-        console.log('hello');
-  });
-
-  const inactiveFilter = document.querySelector('#inactive');
-  inactiveFilter.addEventListener("click", () => {
-      filteredData = allFilters(data);
-        // showVotersInList(filteredData);
-        // showVotersOnMap(filteredData);
-        console.log('hello');
-  });
-
