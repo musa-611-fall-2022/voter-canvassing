@@ -55,7 +55,9 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 
     // if (map.voterLayer !== undefined) {
     //     map.removeLayer(map.voterLayer);
-         map.voterLayer = L.geoJSON(people).addTo(map);
+         map.voterLayer = L.geoJSON(people, {
+            onEachFeature : onEachFeature,
+         }).addTo(map);
          //map.flyTo(map.voterLayer, 16);
     // }
 
@@ -74,7 +76,8 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 
 function onEachFeature(feature, layer) {
     layer.on('click', function (e) {
-                alert(feature.properties.id);
+        console.log("Voter clicked")
+        alert(feature.properties.address);
     });
 }
 
