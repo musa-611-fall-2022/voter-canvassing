@@ -59,16 +59,16 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
          //map.flyTo(map.voterLayer, 16);
     // }
 
-    for( let ppl of people ){
-        try{
-        //L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
-        // TODO: figure out how to get geoJSONs to work in new layer
-        // map.voterLayer.addData(ppl);
-        }
-        catch(e){
-            // pass
-        }
-    }
+    // for( let ppl of people ){
+    //     try{
+    //     //L.marker(ppl.geometry.coordinates).bindPopup(ppl.properties['address']).addTo(map);
+    //     // TODO: figure out how to get geoJSONs to work in new layer
+    //     // map.voterLayer.addData(ppl);
+    //     }
+    //     catch(e){
+    //         // pass
+    //     }
+    // }
 
 }
 

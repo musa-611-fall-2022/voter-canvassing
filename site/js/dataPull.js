@@ -3,7 +3,7 @@ import { populateVoterMenu } from './list.js';
 
 const voterList = [];
 
-function makeCoordinates(coords, id){
+function makeCoordinates(coords){
 
     //console.log(id);
     //console.log(parseFloat(coords.substring(19,36)));
@@ -34,41 +34,55 @@ function makeCoordinates(coords, id){
     };
 }
 
-function makeVoterFeature(data){
-
-    const voter = data;
-
-    for (let v of voter){
-
-        let geom = makeCoordinates(v['TIGER/Line Lng/Lat'], v['ID Number']);
-        // element can definitely have more properties. Just kept these for the time-being
-
-       try
-       { let element = {
-            type : "Feature",
-            geometry : {
-                type : "Point",
-                coordinates : [geom.latitude, geom.longitude],
-            },
-            properties : {
-                firstName : v['First Name'],
-                middleName : v['Middle Name'],
-                lastName : v['Last Name'],
-                gender : v['Gender'],
-                address : v['TIGER/Line Matched Address'],
-                city : v['City'],
-                county : v['County'],
-                state : v['State'],
-                zipCode : v['Zip']
-            },
+function constructVoter(v) {
+    let voterElement;
+    try {
+        voterElement = {
+            firstName : v['First Name'],
+            middleName : v['Middle Name'],
+            lastName : v['Last Name'],
+            gender : v['Gender'],
+            address : v['TIGER/Line Matched Address'],
+            city : v['City'],
+            county : v['County'],
+            state : v['State'],
+            zipCode : v['Zip'],
         };
-        voterList.push(element);}
+        return voterElement;
+    } catch(e) {
+        voterElement = null;
+        return voterElement;
+    }
+}
 
-        catch(e){
-            continue;
+function makeVoterFeature(data){
+    const voter = data;
+    for (let v of voter){
+        let addressIndex = voterList.findIndex(element => element.properties.address === v['TIGER/Line Matched Address']);
+        if (addressIndex !== -1) {
+            let voterObj = constructVoter(v);
+            if (voterObj) {
+                voterList[addressIndex].voters.push(voterObj);
+            }
+        } else {
+            let geom = makeCoordinates(v['TIGER/Line Lng/Lat']);
+            let addressElement = {
+                type : "Feature",
+                geometry : {
+                    type : "Point",
+                    coordinates : [geom.latitude, geom.longitude],
+                },
+                properties : {
+                    address : v['TIGER/Line Matched Address'],
+                },
+            };
+            let voterObj = constructVoter(v);
+            if (voterObj) {
+                addressElement['voters'] = [voterObj];
+            }
+            voterList.push(addressElement);
         }
     }
-
     return voterList;
 }
 
@@ -88,7 +102,7 @@ function populateVoterList(listNum, map, voterListObj) {
     } ) // can we handle the error right here? // now handled invalid list number issue in this promise 
     .then(text => {
         // TODO: try/catch HTTP error for nonexistent list number // done.
-        const data = Papa.parse(text, { header: true });
+        const data = Papa.parse(text, { header: true, skipEmptyLines: true });
         let voterList = makeVoterFeature(data['data']);
         populateVoterMap(voterList, map);
         populateVoterMenu(voterList, voterListObj);
