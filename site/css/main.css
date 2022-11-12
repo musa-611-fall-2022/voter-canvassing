@@ -1,4 +1,13 @@
 /* --------
+Overall colors
+-------- */
+
+:root {
+  --main-color: #0d59a9;
+  --aux-color: #fad03c;
+}
+
+/* --------
 Overall framework setting
 -------- */
 
@@ -51,18 +60,19 @@ Defining some universal classes
 -------- */
 
 .button {
-  background-color: #0d59a9;
+  background-color: var(--main-color);
   width: 2rem;
   height: 2rem;
   font-size: 1.8rem;
   float: left;
   color: #fff;
-  border: 1.5px solid #0d59a9;
+  border: 1.5px solid var(--main-color);
   cursor: pointer;
   text-align: center;
   vertical-align: middle;
   border-bottom-width: 3px;
   border-radius: 0 0 0.5rem 0.5rem;
+  box-shadow: 10px 10px 10px var(-main-color);
 }
 
 .hide-show {
@@ -72,9 +82,9 @@ Defining some universal classes
 
 input[type="text"] {
   width: 100%;
-  border: 1.5px solid #0d59a9;
+  border: 1.5px solid var(--main-color);
   padding-left: 0.5rem;
-  color: #0d59a9;
+  color: var(--main-color);
   border-bottom-width: 3px;
   border-radius: 0 0 0.5em 0.5em;
   font-size: 1rem;
@@ -82,7 +92,7 @@ input[type="text"] {
 
 input:focus {
   background-color: #fff;
-  border: 3px solid #0d59a9;
+  border: 3px solid var(--aux-color);
   outline: none;
   border-bottom-width: 3px;
   border-radius: 0 0 0.5em 0.5em;
@@ -112,9 +122,9 @@ input:focus {
 
 .panel {
   height: 100%;
-  border: 1.5px solid #0d59a9;
+  border: 1.5px solid var(--main-color);
   padding-left: 0.5rem;
-  color: #0d59a9;
+  color: var(--main-color);
   border-bottom-width: 3px;
   border-radius: 0 0 0.5em 0.5em;
   font-size: 1rem;

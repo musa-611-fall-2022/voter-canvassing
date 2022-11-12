@@ -1,12 +1,16 @@
 /*
 MISCELLANEOUS
-This script hides or shows
-1. list loader component
-2. search box component
-3. voter list component
-when clicking on the hide-show button.
-It is not essential to the core functionalities of the app
+1. Shows or hide
+  1. list loader component
+  2. search box component
+  3. voter list component
+  when clicking on the hide-show button aside the list loader
+2. Shows or hides components when clicking on the edit or go-back button
+
 */
+
+// FIRST
+// Top component show-hide
 
 import { listExpanded, onExpandButtonClick } from "./voter-list-expand.js";
 
@@ -67,3 +71,8 @@ function onHideChunkClick() {
 
 // The list loader thing can be hidden (not very important)
 hideButtonEl.addEventListener("click", onHideChunkClick);
+
+// THEN
+// Edit button
+
+let 
