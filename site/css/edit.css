@@ -7,6 +7,11 @@
 The bottom component is originally not showing until you select a voter
 */
 
+.panel-title {
+  padding: 0.3rem 0.5rem 0;
+  font-weight: 800;
+}
+
 #bottom-component {
   transform: translateX(-30em);
   transition: all 0.5s ease-in-out;
@@ -18,6 +23,11 @@ The bottom component is originally not showing until you select a voter
   color: #fff;
   padding: 0.2rem 0.5rem;
   border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.edit-container {
+  max-height: 65vh;
+  overflow-y: auto;
 }
 
 .edit-button .material-symbols-outlined {
@@ -42,8 +52,77 @@ The bottom component is originally not showing until you select a voter
   transition: transform 0.5s ease-in-out;
 }
 
+#edit-component .scroll-container li {
+  width: 100%;
+}
+
+/* Voting History */
+
 .voter-history-panel {
-  min-height: 15vh;
+  min-height: 12.5vh;
+}
+
+.voting-history-title {
+  width: 100%;
+  padding: 1rem 0.5rem 0;
+  margin-bottom: -0.3rem;
+}
+
+#edit-component .list-expand-button {
+  margin-top: -1rem;
+  margin-bottom: 1rem;
+  height: 1.4rem;
+  width: 2rem;
+  line-height: 0.8;
+  margin-left: calc(50% - 1rem);
+}
+
+.voting-history-title > div {
+  font-size: 0.7rem;
+  float: left;
+}
+
+.voting-history-title-date {
+  width: 20%;
+}
+
+.voting-history-title-name {
+  width: 48%;
+}
+
+.voting-history-title-party {
+  width: 15%;
+}
+
+.voting-history-title-method {
+  width: 12%;
+}
+
+#edit-component .scroll-container {
+  clear: left;
+}
+
+.voting-history-item {
+  float: left;
+  font-size: 0.8rem;
+}
+
+.voting-history-date {
+  width: 22%;
+  font-size: 0.7rem;
+}
+
+.voting-history-name {
+  width: 53%;
+  font-weight: 800;
+}
+
+.voting-history-party {
+  width: 18%;
+}
+
+.voting-history-method {
+  width: 12%;
 }
 
 .this-visit-panel {

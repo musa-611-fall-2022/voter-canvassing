@@ -16,3 +16,15 @@ Expand-list button
   margin-left: auto;
   margin-right: auto;
 }
+
+/* ---- Each component: overall setting ------ */
+
+.scroll-container li {
+  padding: 0.3rem;
+  border-bottom: 1px solid #bbb;
+  height: 1.5rem;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 28rem;
+}

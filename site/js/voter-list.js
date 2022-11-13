@@ -10,7 +10,6 @@ This script deals with the list
 */
 
 import { htmlToElement } from './htmlelement.js';
-import { changeRecord } from "./save-edit.js";
 import { onSelectAction } from "./selected-voter.js";
 import { voterListExpandButtonEl } from "./list-expand.js";
 
@@ -57,7 +56,7 @@ function listPrepare(voterListItemsEl) {
 
 // Function to get the canvassing status (visited, pendign, etc.) for each voter
 function getCanvassStatusIcon(voterId) {
-  const canvassStatus = changeRecord[voterId] || "pending";
+  const canvassStatus = "pending";
 
   // Default icon: pending hourglass
   let canvassStatusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
@@ -78,13 +77,13 @@ function getVoterStatusIcon(voter) {
 }
 
 // Function to get the party for each voter
-function getPartyColor(voter) {
+function getPartyColor(party) {
   const democratColor = "icon-democrat-color";
   const republicanColor = "icon-republican-color";
   const otherPartyColor = "icon-oth-party-color";
 
   let partyColor;
-  switch(voter["Party Code"]) {
+  switch(party) {
     case "D":
       partyColor = democratColor;
       break;
@@ -113,7 +112,7 @@ function addVotersByAddress(votersByThisAddress) {
 
     // Check party affiliation
     const party = voter["Party Code"];
-    const partyColor = getPartyColor(voter);
+    const partyColor = getPartyColor(voter["Party Code"]);
 
     const voterEl = htmlToElement(`
       <li class="list-voter" value=0 title="${voter["ID Number"]}">
@@ -128,13 +127,15 @@ function addVotersByAddress(votersByThisAddress) {
 }
 
 // Function to decide whether to show voter list's expand button
-function showHideExpandButton() {
-  let voterListHeight = document.querySelector("#voter-list").offsetHeight;
-  let voterContainerHeight = document.querySelector("#voter-list-component").querySelector(".scroll-container").offsetHeight;
+function showHideExpandButton(innerSelector, outerSelector, buttonEl) {
+  let voterListHeight = document.querySelector(innerSelector).offsetHeight;
+  console.log("inner height is ", voterListHeight);
+  let voterContainerHeight = document.querySelector(outerSelector).querySelector(".scroll-container").offsetHeight;
+  console.log("outer height is ", voterContainerHeight);
   if(voterListHeight > voterContainerHeight){
-    voterListExpandButtonEl.style.display = "block";
+    buttonEl.style.display = "block";
   } else {
-    voterListExpandButtonEl.style.display = "none";
+    buttonEl.style.display = "none";
   }
 }
 
@@ -152,11 +153,10 @@ function showVotersInList(data) {
     addVotersByAddress(votersByThisAddress);
   }
   voterListItemsEl = document.querySelectorAll(".list-voter");
-  window.voterListItemsEl = voterListItemsEl;
   listPrepare(voterListItemsEl);
 
   // Only show expand button when necessary
-  showHideExpandButton();
+  showHideExpandButton("#voter-list", "#voter-list-component", voterListExpandButtonEl);
 
   // Scroll back to top
   let scrollContainer = document.querySelector("#voter-list-component").querySelector(".scroll-container");
@@ -166,6 +166,8 @@ function showVotersInList(data) {
 export {
   showVotersInList,
   voterList,
+  getPartyColor,
+  showHideExpandButton,
 };
 
 /*

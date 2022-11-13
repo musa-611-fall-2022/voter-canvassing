@@ -128,14 +128,35 @@
         </span>
       </div>
       <div class="panel info-panel basic-info-panel">
-        <div class="info-panel-name">A name</div>
-        <div class="info-panel-address">some address</div>
-        <div class="info-panel-party">Republican</div>
+        <div class="info-panel-name"></div>
+        <div class="info-panel-address"></div>
+        <div class="info-panel-party"></div>
+        <div class="info-panel-canvass-status"></div>
+        <div class="info-panel-voter-status"></div>
       </div>
-      <div id="edit-component">
-        <div class="panel info-panel voter-history-panel"></div>
-        <div class="panel info-panel this-visit-panel"></div>
-        <div class="panel info-panel last-visit-panel"></div>
+      <div class="edit-container">
+        <div id="edit-component">
+          <div class="panel info-panel voter-history-panel">
+            <div class="panel-title">VOTING HISTORY</div>
+            <div class="voting-history-title">
+              <div class="voting-history-title-date">Date</div>
+              <div class="voting-history-title-name">Election</div>
+              <div class="voting-history-title-party">Party</div>
+              <div class="voting-history-title-method">Method</div>
+            </div>
+            <div class="scroll-container">
+              <ul id="voting-history">
+              </ul>
+            </div>
+          </div>
+          <!-- This is the hide/show button for the vote history panel -->
+          <div id="election-list-expand-button" class="button list-expand-button">
+            <span class="material-symbols-outlined">expand_more</span>
+          </div>
+
+          <div class="panel info-panel this-visit-panel"></div>
+          <div class="panel info-panel last-visit-panel"></div>
+        </div>
       </div>
     </div>
 
@@ -161,7 +182,6 @@
     <script type="module" src="js/list-loader.js"></script>
     <script type="module" src="js/voter-list.js"></script>
     <script type="module" src="js/search-box.js"></script>
-    <script type="module" src="js/save-edit.js"></script>
     <script type="module" src="js/list-filters.js"></script>
     <script type="module" src="js/list-expand.js"></script>
     <script type="module" src="js/filter-window.js"></script>

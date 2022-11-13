@@ -4,7 +4,8 @@ MODULE 1: LIST LOADER
 This script has the main functionalities of the list loader module
 1. Load list on demand
 2. Store loaded data in a global variable
-3. Export data to be used in other scripts
+3. Update data by getting additional info from the cloud
+4. Export data to be used in other scripts
 */
 
 import { showVotersOnMap } from "./map.js";

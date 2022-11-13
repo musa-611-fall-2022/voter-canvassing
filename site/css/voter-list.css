@@ -44,18 +44,6 @@ Voter list items
   padding: 0.1rem 0.4rem 0 0.2rem;
 }
 
-/* ---- Each component: overall setting ------ */
-
-.scroll-container li {
-  padding: 0.3rem;
-  border-bottom: 1px solid #bbb;
-  height: 1.5rem;
-  display: flex;
-  justify-content: flex-start;
-  align-items: center;
-  width: 28rem;
-}
-
 /* ---- Overwrite some settings for address items ------ */
 
 #voter-list-component .scroll-container .list-address {
@@ -105,7 +93,7 @@ Text and icons inside voter list item
   height: 1.3rem;
 }
 
-#voter-list-component .list-icon {
+.list-icon {
   background-color: #fff;
   float: left;
   height: 1.1rem;
