@@ -120,13 +120,21 @@ Text and icons inside voter list item
 }
 
 /* ----------
-For each voter, color of displayed icons
+COLOR
 ---------- */
 
-/* ---- Voter status ------ */
+/* ---- Some colors ------ */
 
 .icon-ok-color {
   color: #15b88a;
+}
+
+.icon-notify-color {
+  color: #e96a46;
+}
+
+.icon-gray-color {
+  color: #bbb;
 }
 
 /* ---- Registered party ------ */

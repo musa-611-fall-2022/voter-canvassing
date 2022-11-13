@@ -44,7 +44,7 @@ function addAddressToList(address) {
   voterList.append(addressEl);
 }
 
-// Function: prepare the voterlist, i.e., add event listener
+// Function: prepare the voterlist for the next module (voter selection)
 function listPrepare(voterListItemsEl) {
   for(const thisListItem of voterListItemsEl) {
     thisListItem.addEventListener("click", () => {
@@ -55,20 +55,22 @@ function listPrepare(voterListItemsEl) {
 }
 
 // Function to get the canvassing status (visited, pendign, etc.) for each voter
-function getCanvassStatusIcon(voterId) {
-  const canvassStatus = "pending";
-
-  // Default icon: pending hourglass
-  let canvassStatusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
-  if(canvassStatus == "pending") {
-    canvassStatusIcon = `<span class="material-symbols-outlined">hourglass_top</span>`;
-  } // Other icons to be added
-  return(canvassStatusIcon);
+function getCanvassStatusIcon(voter) {
+  // Default to hourglass (pending)
+  let canvassStatusIcon = `<span class="material-symbols-outlined icon-gray-color">hourglass_top</span>`;
+  if(voter["canvass-status"]) {
+    if(voter["canvass-status"] === "completed") {
+      canvassStatusIcon = `<span class="material-symbols-outlined icon-ok-color">task_alt</span>`;
+    } else if(voter["canvass-status"] === "awaits-followup") {
+      canvassStatusIcon = `<span class="material-symbols-outlined icon-notify-color">timeline</span>`;
+    }
+  }
+  return canvassStatusIcon;
 }
 
 // Function to get the voter status (active or inactive) for each voter
 function getVoterStatusIcon(voter) {
-  const activeVoterIcon = `<span class="material-symbols-outlined icon-ok-color">check_circle</span>`;
+  const activeVoterIcon = `<span class="material-symbols-outlined icon-ok-color">ballot</span>`;
   const inactiveVoterIcon = `<span class="material-symbols-outlined icon-no-color">close</span>`;
 
   const voterStatusIcon = voter["Voter Status"] == "A" ? activeVoterIcon : inactiveVoterIcon;
@@ -102,13 +104,13 @@ function addVotersByAddress(votersByThisAddress) {
   for(const voter of votersByThisAddress) {
 
     // Get current voter ID
-    const voterId = voter["ID Number"];
+    // const voterId = voter["ID Number"];
 
     // Get voter status icon
     const voterStatusIcon = getVoterStatusIcon(voter);
 
     // Check canvassing status of this voter and get the icon
-    const canvassStatusIcon = getCanvassStatusIcon(voterId);
+    const canvassStatusIcon = getCanvassStatusIcon(voter);
 
     // Check party affiliation
     const party = voter["Party Code"];

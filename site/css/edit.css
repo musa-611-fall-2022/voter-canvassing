@@ -7,6 +7,23 @@
 The bottom component is originally not showing until you select a voter
 */
 
+/* Basic info panel */
+
+.info-panel-name-address {
+  float: left;
+  width: 65%;
+}
+
+.info-panel-name {
+  padding: 0.5rem;
+  font-weight: 800;
+}
+
+.info-panel-address {
+  font-size: 0.85rem;
+  padding: 0 0.5rem;
+}
+
 .panel-title {
   padding: 0.3rem 0.5rem 0;
   font-weight: 800;

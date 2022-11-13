@@ -92,9 +92,7 @@ async function updateAdditionalInfo(listNumber, data, showOnMap, showInList) {
     const voterNotesDoc = doc(firestoreDb, "voter-info", listNumber);
     const result = await getDoc(voterNotesDoc);
     additionalData.info = result.data();
-    console.log("Got additional data from cloud!", additionalData.info);
     updateVoters(result.data(), data);
-    console.log("Updated data!", data);
     showOnMap(data);
     showInList(data);
     fitMap();

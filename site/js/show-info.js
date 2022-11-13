@@ -128,9 +128,9 @@ function displayInfo(thisId) {
   // Display in the basic info panel
   displayName(thisVoter);
   displayAddress(thisVoter);
-  displayActiveness(thisVoter);
-  displayParty(thisVoter);
-  displayCanvassStatus(thisVoter);
+  // displayActiveness(thisVoter);
+  // displayParty(thisVoter);
+  // displayCanvassStatus(thisVoter);
 
   // Voting history part
   displayVotingHistory(thisVoter);
