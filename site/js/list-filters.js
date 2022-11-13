@@ -108,3 +108,7 @@ for (const cb of statusFilter) {
      showVotersInList(filteredStatus);
  });
 }
+
+export {
+  allFilters,
+};

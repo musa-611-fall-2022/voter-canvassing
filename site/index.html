@@ -129,11 +129,40 @@
       </div>
       <!-- Basic info panel -->
       <div class="panel info-panel basic-info-panel">
+        <!-- Name and Address -->
         <div class="info-panel-name-address">
           <div class="info-panel-name"></div>
           <div class="info-panel-address"></div>
         </div>
-        <div class="info-panel-canvass-status"></div>
+
+        <!-- Most Important: Canvass Status -->
+        <div id="info-panel-canvass-status" class="info-panel-canvass-status">
+          <div id="icon-canvass" class="icon-group">
+            <div id="icon-canvass-pending" class="icon-set">
+              <div class="list-icon">
+                <span class="material-symbols-outlined">hourglass_top</span>
+              </div>
+              <div class="icon-subtitle">Pending</div>
+            </div>
+            <div id="icon-canvass-awaits" class="icon-set">
+              <div class="list-icon">
+                <span class="material-symbols-outlined">timeline</span>
+              </div>
+              <div class="icon-subtitle">Awaits followup</div>
+            </div>
+            <div id="icon-canvass-completed" class="icon-set">
+              <div class="list-icon">
+                <span class="material-symbols-outlined">task_alt</span>
+              </div>
+              <div class="icon-subtitle">Completed</div>
+            </div>
+          </div>
+
+          <div id="canvass-status-save" class="canvass-status-save">
+            Update status
+          </div>
+
+        </div>
         <div class="info-panel-party"></div>
         
         <div class="info-panel-voter-status"></div>
@@ -195,6 +224,7 @@
     <script type="module" src="js/filter-window.js"></script>
     <script type="module" src="js/hide-show.js"></script>
     <script type="module" src="js/show-info.js"></script>
+    <script type="module" src="js/update-info.js"></script>
     
     <!-- Firebase cloud storage -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>

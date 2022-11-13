@@ -70,9 +70,10 @@ Save or Load Edited Voter Info
 */
 
 import { fitMap } from "./map.js";
+import { data } from "./list-loader.js";
 
-// Update the data loaded from the csv
-function updateVoters(additionalInfo, data) {
+// Update the data loaded from the csv with additional info
+function updateVoters(additionalInfo) {
   for(let voter of data) {
     let thisId = voter["ID Number"];
     if(additionalInfo[thisId]) {
@@ -101,8 +102,21 @@ async function updateAdditionalInfo(listNumber, data, showOnMap, showInList) {
   }
 }
 
+// Function to save the updated additional info to Firebase
+async function saveAdditionalInfo(listNumber, additionalInfo) {
+  try {
+    const voterNotesDoc = doc(firestoreDb, "voter-info", listNumber);
+    await setDoc(voterNotesDoc, additionalInfo);
+    console.log("Saved edited info to the cloud!");
+  } catch(error) {
+    console.log(error);
+  }
+}
+
 export {
   loadListNum,
   saveListNum,
   updateAdditionalInfo,
+  updateVoters,
+  saveAdditionalInfo,
 };

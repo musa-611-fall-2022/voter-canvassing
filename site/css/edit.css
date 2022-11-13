@@ -7,21 +7,11 @@
 The bottom component is originally not showing until you select a voter
 */
 
-/* Basic info panel */
+/* Some overall setting */
 
-.info-panel-name-address {
-  float: left;
-  width: 65%;
-}
-
-.info-panel-name {
-  padding: 0.5rem;
-  font-weight: 800;
-}
-
-.info-panel-address {
-  font-size: 0.85rem;
-  padding: 0 0.5rem;
+.edit-button .material-symbols-outlined {
+  font-size: 1.2rem;
+  line-height: 1.2;
 }
 
 .panel-title {
@@ -47,11 +37,6 @@ The bottom component is originally not showing until you select a voter
   overflow-y: auto;
 }
 
-.edit-button .material-symbols-outlined {
-  font-size: 1.2rem;
-  line-height: 1.2;
-}
-
 .info-panel {
   clear: left;
   background-color: white;
@@ -61,7 +46,139 @@ The bottom component is originally not showing until you select a voter
 }
 
 .basic-info-panel {
-  height: 16vh;
+  min-height: 16vh;
+}
+
+/* Icon set */
+
+.info-panel-canvass-status {
+  width: 50%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-group {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-set {
+  width: 3rem;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-set .list-icon {
+  border-color: #bbb;
+}
+
+.icon-set .material-symbols-outlined {
+  font-size: 1.2rem;
+  color: #bbb;
+}
+
+.icon-subtitle {
+  font-size: 0.65rem;
+  text-align: center;
+  color: #bbb;
+}
+
+.canvass-status-save {
+  clear: left;
+  width: 8rem;
+  border: 1px solid var(--main-color);
+  margin-top: 0.25rem;
+  padding: 0.1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  border-radius: 0 0 0.4rem 0.4rem;
+  border-bottom-width: 2.5px;
+}
+
+.canvass-status-save-toast {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+/* Dealing with highlighted items */
+
+.highlighted .material-symbols-outlined {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+#icon-canvass-pending.highlighted .list-icon {
+  background-color: #999;
+  border-color: #999;
+}
+
+#icon-canvass-pending.highlighted .icon-subtitle {
+  color: #999;
+  font-weight: 800;
+}
+
+#icon-canvass-awaits.highlighted .list-icon {
+  background-color: var(--red-color);
+  border-color: var(--red-color);
+}
+
+#icon-canvass-awaits.highlighted .icon-subtitle {
+  color: var(--red-color);
+  font-weight: 800;
+}
+
+#icon-canvass-completed.highlighted .list-icon {
+  background-color: var(--ok-color);
+  border-color: var(--ok-color);
+}
+
+#icon-canvass-completed.highlighted .icon-subtitle {
+  color: var(--ok-color);
+  font-weight: 800;
+}
+
+/* When screen too small, don't display subtitles */
+
+@media only screen and (max-width: 340px) {
+  .icon-set {
+    width: 2rem;
+  }
+
+  .icon-subtitle {
+    display: none;
+  }
+}
+
+/* Basic info panel name and address */
+
+.info-panel-name-address {
+  float: left;
+  width: 50%;
+}
+
+.info-panel-name {
+  padding: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.info-panel-address {
+  font-size: 0.85rem;
+  padding: 0 0.5rem;
+}
+
+@media only screen and (max-width: 340px) {
+  .info-panel-name {
+    font-size: 1rem;
+  }
+
+  .info-panel-address {
+    font-size: 0.75rem;
+  }
 }
 
 #edit-component {

@@ -22,7 +22,7 @@ let loadButtonEl = document.querySelector("#list-loader-load");
 let toolTipEl = document.querySelector("#list-loader-load").querySelector(".tooltiptext");
 
 // Create a global object to store current input number
-let inputNumber;
+export let inputNumber;
 
 // This is a global object to store the current list of voters
 export let data;

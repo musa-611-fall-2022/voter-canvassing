@@ -61,7 +61,7 @@ function getCanvassStatusIcon(voter) {
   if(voter["canvass-status"]) {
     if(voter["canvass-status"] === "completed") {
       canvassStatusIcon = `<span class="material-symbols-outlined icon-ok-color">task_alt</span>`;
-    } else if(voter["canvass-status"] === "awaits-followup") {
+    } else if(voter["canvass-status"] === "awaits") {
       canvassStatusIcon = `<span class="material-symbols-outlined icon-notify-color">timeline</span>`;
     }
   }
@@ -131,9 +131,7 @@ function addVotersByAddress(votersByThisAddress) {
 // Function to decide whether to show voter list's expand button
 function showHideExpandButton(innerSelector, outerSelector, buttonEl) {
   let voterListHeight = document.querySelector(innerSelector).offsetHeight;
-  console.log("inner height is ", voterListHeight);
   let voterContainerHeight = document.querySelector(outerSelector).querySelector(".scroll-container").offsetHeight;
-  console.log("outer height is ", voterContainerHeight);
   if(voterListHeight > voterContainerHeight){
     buttonEl.style.display = "block";
   } else {
@@ -146,7 +144,6 @@ function showVotersInList(data) {
   voterList.innerHTML = '';
 
   let dataGroupedByAddress = groupByKey(data, "short_address");
-  window.test = data;
   let addressKeys = Object.keys(dataGroupedByAddress);
 
   for(const address of addressKeys) {

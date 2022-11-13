@@ -139,4 +139,5 @@ function onSelectAction(thisId) {
 
 export {
   onSelectAction,
+  highlightVoter,
 };

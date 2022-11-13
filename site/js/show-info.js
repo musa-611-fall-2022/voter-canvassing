@@ -8,6 +8,7 @@ import { getPartyColor  } from "./voter-list.js";
 import { htmlToElement } from './htmlelement.js';
 import { showHideExpandButton  } from "./voter-list.js";
 import { electionListExpandButtonEl } from "./list-expand.js";
+import { highlightOption, prepareOption } from "./update-info.js";
 
 const electionDict = electionLookup[0];
 
@@ -35,11 +36,21 @@ function displayParty(thisVoter) {
 }
 
 function displayCanvassStatus(thisVoter) {
+  // Get the canvass state
+  let thisStatus = "pending";
   if(thisVoter["canvass-status"]) {
-    basicInfoCanvassStatusEl.innerHTML = thisVoter["canvass-status"];
-  } else {
-    basicInfoCanvassStatusEl.innerHTML = "Pending";
+    thisStatus = thisVoter["canvass-status"];
   }
+  let optionIdSelector = `#icon-canvass-${thisStatus}`;
+
+  // Store current voter id in the container DOM object
+  document.querySelector("#icon-canvass").currentVoterId = thisVoter["ID Number"];
+
+  // Highlight option
+  highlightOption("#icon-canvass", optionIdSelector);
+
+  // Prepare: add event listeners for them to be clicked on
+  prepareOption("#icon-canvass");
 }
 
 function displayActiveness(thisVoter) {
@@ -130,7 +141,7 @@ function displayInfo(thisId) {
   displayAddress(thisVoter);
   // displayActiveness(thisVoter);
   // displayParty(thisVoter);
-  // displayCanvassStatus(thisVoter);
+  displayCanvassStatus(thisVoter);
 
   // Voting history part
   displayVotingHistory(thisVoter);
@@ -138,4 +149,5 @@ function displayInfo(thisId) {
 
 export {
   displayInfo,
+  highlightOption,
 };
