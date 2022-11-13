@@ -8,9 +8,8 @@ This script has the main functionalities of the list loader module
 */
 
 import { showVotersOnMap } from "./map.js";
-import { fitMap } from "./map.js";
 import { showVotersInList }  from './voter-list.js';
-import { loadListNum, saveListNum } from "./main.js";
+import { loadListNum, saveListNum, updateAdditionalInfo } from "./main.js";
 
 /*
 Hide and Show List Loader
@@ -27,6 +26,11 @@ let inputNumber;
 // This is a global object to store the current list of voters
 export let data;
 export let votersFeature;
+
+// A global object to store additional voter data from firebase
+export let additionalData = {
+  info: null,
+};
 
 /*
 FUNCTIONS
@@ -87,10 +91,14 @@ function loadVoterData(text) {
   // Create new property: combine house number with street name
   data = makeShortAddress(data);
 
-  // Show voters on the map and list
-  showVotersInList(data);
-  showVotersOnMap(data);
-  fitMap();
+  // Load additional voter data from firebase, and update data
+  // And then display the data on the map and in the list
+  updateAdditionalInfo(inputNumber, data, showVotersInList, showVotersOnMap);
+
+  // // Show voters on the map and list
+  // showVotersInList(data);
+  // showVotersOnMap(data);
+
 
   // Save current list number to be loaded the next time
   saveListNum(inputNumber);

@@ -29,8 +29,7 @@ The bottom component is originally not showing until you select a voter
   clear: left;
   background-color: white;
   padding: 0.5rem 0.5rem 0;
-  display: grid;
-  grid-template: repeat(6, 1fr) / repeat(5, 1fr);
+  display: block;
   margin-bottom: 1rem;
 }
 

@@ -40,6 +40,7 @@ Search box filter
 import { voterInputBoxEl } from "./search-box.js";
 voterInputBoxEl.addEventListener("input", ( ) => {
   filteredData = allFilters(data);
+  window.filteredData = filteredData;
   showVotersInList(filteredData);
   showVotersOnMap(filteredData);
 });

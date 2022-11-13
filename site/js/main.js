@@ -9,7 +9,6 @@ This part is inspired by Mjumbe Poe
 // https://firebase.google.com/docs/web/setup#available-libraries for libraries to use
 import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-app.js';
 import { getFirestore, doc, setDoc, getDoc } from 'https://www.gstatic.com/firebasejs/9.13.0/firebase-firestore.js';
-
 // My web app's Firebase config
 const firebaseConfig = {
   apiKey: "AIzaSyDL11M21sMZ6wJ1SxFvEqEvQkipD7DFKjk",
@@ -24,6 +23,10 @@ const firebaseConfig = {
 // Initialize firebase
 const firebaseApp = initializeApp(firebaseConfig);
 const firestoreDb = getFirestore(firebaseApp);
+
+/*
+Save or Load List Number
+*/
 
 // LOAD LIST NUMBER FROM LAST TIME FROM CLOUD
 // This function is called when starting the page and the local storage has no list number stored
@@ -45,6 +48,9 @@ async function loadListNum(onSuccess, onFailure) {
 // SAVE CURRENT LIST NUMBER LOCALLY AND TO CLOUD
 // This function is called whenever a voter list gets loaded [list-loader.js]
 // Current list number automatically saved
+
+import { additionalData } from "./list-loader.js";
+
 async function saveListNum(inputNumber) {
   // Save locally
   localStorage.setItem("current-list", inputNumber);
@@ -53,13 +59,52 @@ async function saveListNum(inputNumber) {
   try {
     const notesDoc = doc(firestoreDb, "voter-canvassing", "current-list");
     await setDoc(notesDoc, { inputNumber });
-    console.log("Saved number to cloud");
+    console.log("Saved current list number to cloud!");
   } catch(error) {
     console.log(error);
+  }
+}
+
+/*
+Save or Load Edited Voter Info
+*/
+
+import { fitMap } from "./map.js";
+
+// Update the data loaded from the csv
+function updateVoters(additionalInfo, data) {
+  for(let voter of data) {
+    let thisId = voter["ID Number"];
+    if(additionalInfo[thisId]) {
+      let thisAdditionalInfo = additionalInfo[thisId];
+      let keys = Object.keys(thisAdditionalInfo);
+      for(let key of keys){
+        voter[key] = thisAdditionalInfo[key];
+      }
+    }
+  }
+}
+
+// Function called to get additional voter data from the cloud
+// And then use the updated data to update the map and list
+async function updateAdditionalInfo(listNumber, data, showOnMap, showInList) {
+  try {
+    const voterNotesDoc = doc(firestoreDb, "voter-info", listNumber);
+    const result = await getDoc(voterNotesDoc);
+    additionalData.info = result.data();
+    console.log("Got additional data from cloud!", additionalData.info);
+    updateVoters(result.data(), data);
+    console.log("Updated data!", data);
+    showOnMap(data);
+    showInList(data);
+    fitMap();
+  } catch {
+    additionalData.info = {};
   }
 }
 
 export {
   loadListNum,
   saveListNum,
+  updateAdditionalInfo,
 };

@@ -6,7 +6,6 @@ MISCELLANEOUS
   3. voter list component
   when clicking on the hide-show button aside the list loader
 2. Shows or hides components when clicking on the edit or go-back button
-
 */
 
 // FIRST
@@ -24,7 +23,7 @@ let voterListHidableEl = document.querySelector("#voter-list-component");
 export let bottomComponentEl = document.querySelector("#bottom-component");
 let navComponentEl = document.querySelector("#nav-component");
 let topComponentEl = document.querySelector("#top-component");
-let editComponentEl = document.querySelector("#edit-component");
+export let editComponentEl = document.querySelector("#edit-component");
 
 function hideChunk() {
   // Hide chunk by moving

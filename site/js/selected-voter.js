@@ -7,6 +7,7 @@ MODULE 4: VOTER SELECTION
    2.1 Check if newly selected is the same as the current.
      2.1.1 If same, update selectedVoter to undefined -> use unhighlightVoter function
      2.1.2 If same, update selectedVoter. unhighlight current voter, highlight new voter
+   2.2 Show this voter's information on the edit panels
 
 Also does miscellaneous work, i.e., pan to voter on selection
 */
@@ -18,6 +19,7 @@ import { data } from "./list-loader.js";
 import { filteredData } from "./list-filters.js";
 import { voterListExpandButtonEl, voterListContainerEl, onExpandButtonClick } from "./list-expand.js";
 import { bottomComponentEl } from "./hide-show.js";
+import { displayInfo } from "./show-info.js";
 
 
 /*
@@ -127,8 +129,11 @@ function onSelectAction(thisId) {
     // Update stored voter ID
     selectedVoter = thisId;
 
-    // Show info edit panel
+    // Show info edit panel (if not already)
     bottomComponentEl.style.transform = "translateX(0em)";
+
+    // Display voter info
+    displayInfo(thisId);
   }
 }
 
