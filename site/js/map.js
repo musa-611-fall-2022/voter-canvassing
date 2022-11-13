@@ -7,24 +7,27 @@ responseContainer.style.display = "none";
 let address = "";
 
 let people = document.createElement("ul");
-let voterAddress = document.createElement("b");
+let voterAddress = document.createElement("h3");
 
 let closeVoterInfoButton = document.createElement("button");
 
 let openVoterNotesButton = document.createElement("button");
 
 let voterNotes = document.createElement("div");
+voterNotes.id = "voter-notes"
 
 let saveVoterNotesButton = document.createElement("button");
 
 let closeVoterNotesButton = document.createElement("button");
 
 let loadNotes = document.createElement("p");
-loadNotes.style.height = "30%";
+loadNotes.style.height = "50px";
 loadNotes.style.border = "10px black";
+loadNotes.innerHTML = "No notes for the residents of this building so far..."
 
 let writeNotes = document.createElement("textarea");
-writeNotes.style.height = "10%";
+writeNotes.style.height = "100px";
+writeNotes.style.width = "250px";
 
 let clearMapButton = document.querySelector('#clear-map-button') 
 
@@ -100,6 +103,16 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
         },
         onEachFeature : onEachFeature,
      }).addTo(map);
+
+     function onClearMapButtonClicked () {
+        map.removeLayer(map.voterLayer);
+        console.log ("Map cleared")
+      }
+      
+      function clearMap() {
+          clearMapButton.addEventListener('click', onClearMapButtonClicked)
+      }
+      clearMap() 
          //map.flyTo(map.voterLayer, 16);
     // }
 
@@ -126,6 +139,10 @@ function onEachFeature(feature, layer) {
         //residence.notes = localStorage.getItem(residence.currentResidence);
         console.log(localStorage.getItem(address));
 
+        residence.currentResidence = feature.properties.address;
+        residence.notes = localStorage.getItem(residence.currentResidence);
+        voterNotes.style.display = "none";
+
         //alert(feature.properties.address);
         responseContainer.style.display = "flex";
         people.innerHTML = "";
@@ -148,6 +165,7 @@ function onEachFeature(feature, layer) {
         responseContainer.appendChild(closeVoterInfoButton);
 
         openVoterNotesButton.textContent = "Open Voter Notes";
+        openVoterNotesButton.style.display = "block";
         responseContainer.appendChild(openVoterNotesButton);
 
         console.log(residents)
@@ -163,14 +181,23 @@ closeVoterInfoButton.addEventListener('click',() =>{
 
 openVoterNotesButton.addEventListener('click', () =>{
 
+    openVoterNotesButton.style.display = "none";
+
     voterNotes.style.zIndex = "2";
     voterNotes.style.display = "flex";
+    voterNotes.style.alignContent = "column";
 
     address = residence.currentResidence;
 
     console.log(residence.notes);
 
-    loadNotes.innerText = localStorage.getItem(address);
+    if(localStorage.getItem(address) === null){
+        loadNotes.innerText = "No notes for this building so far..."
+    }
+
+    else{
+        loadNotes.innerText = localStorage.getItem(address);
+    }
 
     voterNotes.appendChild(loadNotes);
     voterNotes.appendChild(writeNotes);
@@ -181,10 +208,7 @@ openVoterNotesButton.addEventListener('click', () =>{
     closeVoterNotesButton.textContent = "Close Voter Notes";
     voterNotes.appendChild(closeVoterNotesButton);
 
-
     responseContainer.appendChild(voterNotes);
-
-    openVoterNotesButton.style.display = "none";
 
     closeVoterNotesButton.addEventListener('click', ()=>{
         voterNotes.innerHTML = " ";
@@ -196,6 +220,7 @@ openVoterNotesButton.addEventListener('click', () =>{
         console.log(notes)
         residence.notes = notes;
         address = residence.currentResidence;
+        console.log(residence)
 
         localStorage.setItem(address , notes);
 
@@ -204,15 +229,7 @@ openVoterNotesButton.addEventListener('click', () =>{
 
 })
 
-function onClearMapButtonClicked () {
-  map.removeLayer(map.voterLayer);
-  console.log ("Map cleared")
-};
 
-function clearMap() {
-    clearMapButton.addEventListener('click', onClearMapButtonClicked)
-};
-clearMap() 
 //Tried to create a function to clear the voterLayer markers from the map, but it's not working!
 
 export {
