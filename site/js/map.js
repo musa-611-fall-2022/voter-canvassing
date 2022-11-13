@@ -22,6 +22,16 @@ loadNotes.style.height = "10%";
 let writeNotes = document.createElement("textarea");
 writeNotes.style.height = "10%";
 
+//default-icon
+
+let residenceIcon = L.Icon.extend({
+    iconUrl: '../res/default_home.png',
+    iconSize: [5, 5],
+    iconAnchor: [5, 5],
+    popupAnchor: [-3, -76]
+    
+});
+
 function initializeMap () {
     let map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
     const mapboxAccount = 'mapbox';
@@ -76,9 +86,16 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 
     // if (map.voterLayer !== undefined) {
     //     map.removeLayer(map.voterLayer);
-         map.voterLayer = L.geoJSON(people, {
-            onEachFeature : onEachFeature,
-         }).addTo(map);
+    map.voterLayer = L.geoJSON(people, {pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+        style: {
+            fillColor: "orange",
+            stroke: null,
+            fillOpacity: 0.9,
+            radius: 7,
+            
+        },
+        onEachFeature : onEachFeature,
+     }).addTo(map);
          //map.flyTo(map.voterLayer, 16);
     // }
 
@@ -98,7 +115,9 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 function onEachFeature(feature, layer) {
 
     layer.on('click', function (e) {
-        console.log("Voter clicked")
+        console.log(feature.geometry)
+        //L.marker(feature.geometry.coordinates).addTo(map);
+        
         //alert(feature.properties.address);
         responseContainer.style.display = "flex";
         people.innerHTML = "";
