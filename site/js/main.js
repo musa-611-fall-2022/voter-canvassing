@@ -2,7 +2,7 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-10 05:49:08
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-11 11:10:11
+ * @LastEditTime: 2022-11-13 06:33:11
  * @FilePath: \voter-canvassing\site\js\main.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -16,5 +16,6 @@ fetch('data/voters_lists/3927.csv')
     return voters;
 });
 
-let voterMap = basemap();
+var voterMap = basemap();
 showVotersOnMap(voters, voterMap);
+

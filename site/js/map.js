@@ -2,13 +2,13 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-11 03:00:55
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-11 10:55:29
+ * @LastEditTime: 2022-11-12 08:06:59
  * @FilePath: \voter-canvassing\site\js\map.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 
 function basemap () {
-    let voterMap = L.map('voter-Map').setView([39.99893891432174, -75.13162463991333], 13);
+    let voterMap = L.map('map').setView([39.99893891432174, -75.13162463991333], 13);
 
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
