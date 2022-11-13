@@ -1,14 +1,14 @@
 const voterListFilter = document.querySelector('#voter-list-input');
-const saveVoterListEl = document.getElementById('save-voter-list')
+const saveVoterListEl = document.getElementById('save-voter-list');
 
-function voterListInput(){
+function voterListInput() {
 
 
-voterListFilter.addEventListener('input', () => {
-  let voterList = voterListFilter.value;
-  console.log('the text box contains: ' +  voterList);
-});
-};
+    voterListFilter.addEventListener('input', () => {
+        let voterList = voterListFilter.value;
+        console.log('the text box contains: ' + voterList);
+    });
+}
 
 function saveVoterList() {
     const voterList = voterListFilter.value;
@@ -20,7 +20,10 @@ function saveVoterListClicked() {
     saveVoterListEl.addEventListener('click', saveVoterList);
 }
 
-export{
+
+
+
+export {
     voterListInput,
     saveVoterListClicked,
-}
+};
