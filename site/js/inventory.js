@@ -15,7 +15,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const firestoreDb = getFirestore(firebaseApp);
 
 function downloadInventory(onSuccess, onFailure) {
-  fetch('data/tree-inventory.geojson')
+  fetch(`data/tree-inventory.geojson`)
     .then(resp => {
       if (resp.status === 200) {
         const data = resp.json();
