@@ -48,6 +48,10 @@ function constructVoter(v) {
             county : v['County'],
             state : v['State'],
             zipCode : v['Zip'],
+            id: v['ID Number'],
+            stillLivesThere: "",
+            votingPlan: "",
+            languageAssistance: "",
         };
         return voterElement;
     } catch(e) {
@@ -59,6 +63,7 @@ function constructVoter(v) {
 function makeVoterFeature(data){
     const voter = data;
     for (let v of voter){
+        console.log(v);
         let addressIndex = voterList.findIndex(element => element.properties.address === v['TIGER/Line Matched Address']);
         if (addressIndex !== -1) {
             let voterObj = constructVoter(v);
