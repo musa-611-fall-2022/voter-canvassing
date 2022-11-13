@@ -4,6 +4,8 @@ import { populateVoterMenu } from './list.js';
 const responseContainer = document.getElementById("response-container");
 responseContainer.style.display = "none";
 
+let address = "";
+
 let people = document.createElement("ul");
 let voterAddress = document.createElement("b");
 
@@ -18,7 +20,9 @@ let saveVoterNotesButton = document.createElement("button");
 let closeVoterNotesButton = document.createElement("button");
 
 let loadNotes = document.createElement("p");
-loadNotes.style.height = "10%";
+loadNotes.style.height = "30%";
+loadNotes.style.border = "10px black";
+
 let writeNotes = document.createElement("textarea");
 writeNotes.style.height = "10%";
 
@@ -31,6 +35,11 @@ let residenceIcon = L.Icon.extend({
     popupAnchor: [-3, -76]
     
 });
+
+const residence = {
+    currentResidence: null,
+    notes: null,
+  };
 
 function initializeMap () {
     let map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
@@ -115,25 +124,27 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 function onEachFeature(feature, layer) {
 
     layer.on('click', function (e) {
-        console.log(feature.geometry)
+        //console.log(feature.geometry)
         //L.marker(feature.geometry.coordinates).addTo(map);
-        
+
+        //residence.currentResidence = feature.properties.address;
+        //residence.notes = localStorage.getItem(residence.currentResidence);
+        console.log(localStorage.getItem(address));
+
         //alert(feature.properties.address);
         responseContainer.style.display = "flex";
         people.innerHTML = "";
         voterAddress.innerHTML = feature.properties.address;
         responseContainer.appendChild(voterAddress);
         let residents = feature.voters;
+
         for( let r = 0; r < residents.length; r++ ){
             console.log(residents[r].name)
             let person = document.createElement("li");
-            let personLink = (document.createElement("button"));
-            personLink.textContent = (residents[r].name)
-
-            person.appendChild(personLink);
+            
             person.innerHTML = residents[r].name;
 
-            people.appendChild(personLink);
+            people.appendChild(person);
         }
 
         responseContainer.appendChild(people);
@@ -160,6 +171,12 @@ openVoterNotesButton.addEventListener('click', () =>{
     voterNotes.style.zIndex = "2";
     voterNotes.style.display = "flex";
 
+    address = residence.currentResidence;
+
+    console.log(residence.notes);
+
+    loadNotes.innerText = localStorage.getItem(address);
+
     voterNotes.appendChild(loadNotes);
     voterNotes.appendChild(writeNotes);
 
@@ -177,6 +194,16 @@ openVoterNotesButton.addEventListener('click', () =>{
     closeVoterNotesButton.addEventListener('click', ()=>{
         voterNotes.innerHTML = " ";
         openVoterNotesButton.style.display = "flex";
+    });
+
+    saveVoterNotesButton.addEventListener('click', (e) =>{
+        const notes = writeNotes.value;
+        console.log(notes)
+        residence.notes = notes;
+        address = residence.currentResidence;
+
+        localStorage.setItem(address , notes);
+
     })
 
 
@@ -187,3 +214,5 @@ export {
     locateMe,
     populateVoterMap,
   };
+
+  window.people = people;
