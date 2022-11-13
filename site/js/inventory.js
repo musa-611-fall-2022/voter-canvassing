@@ -16,16 +16,16 @@ const firestoreDb = getFirestore(firebaseApp);
 
 function downloadInventory(onSuccess, onFailure) {
   fetch('data/tree-inventory.geojson')
-  .then(resp => {
-    if (resp.status === 200) {
-      const data = resp.json();
-      return data;
-    } else {
-      alert('Oh no, I failed to download the data.');
-      if (onFailure) { onFailure() }
-    }
-  })
-  .then(onSuccess);
+    .then(resp => {
+      if (resp.status === 200) {
+        const data = resp.json();
+        return data;
+      } else {
+        alert('Oh no, I failed to download the data.');
+        if (onFailure) { onFailure() }
+      }
+    })
+    .then(onSuccess);
 }
 
 

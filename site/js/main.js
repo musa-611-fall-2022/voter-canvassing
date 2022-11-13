@@ -112,3 +112,7 @@ loadNotes(notes => {
 downloadInventory(onInventoryLoadSuccess);
 
 window.app = app;
+
+
+var readDir = fs.readdirSync("./data/voters_lists");
+console.log(readDir);
