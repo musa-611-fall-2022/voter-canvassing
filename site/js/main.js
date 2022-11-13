@@ -14,6 +14,7 @@ let voterListObj = document.querySelector("#voter-list"); // get list we'll put 
 
 let clearInputTextButton = document.querySelector('#clear-text-button') //saves clear input text button as a DOM
 
+
 function onButtonClicked(evt) { // maybe add functionality that listens for enter button pressed
     listNum = voterFileInput.value;
     console.log(listNum);
@@ -41,6 +42,8 @@ function clearInputTextBox () {
 };
 clearInputTextBox(); 
 //adds an event listener that clears the voter list input text box when the user clicks the Clear Input Text button
+
+
 
 locateMe(map, myLocation); // runs function to return your location and mark it on a map. Have to use localhost:8080 for the location to be accessed though.
 
