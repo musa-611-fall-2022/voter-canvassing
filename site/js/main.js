@@ -11,6 +11,7 @@
 //   of tree inventory and notes
 
 import { initMap, updateUserPositionOn } from './map.js';
+import { voterListInput, saveVoterListClicked } from './voter-list.js';
 import { initTreeInfoForm, showTreeDataInForm } from './tree-info-form.js';
 import { initToast, showToast } from './toast.js';
 import { downloadInventory, loadNotes, saveNotes } from './inventory.js';
@@ -105,35 +106,16 @@ initToast();
 initTreeInfoForm();
 setupGeolocationEvent();
 
-const voterList = document.getElementById('voters-list');
+voterListInput();
+saveVoterListClicked();
 
-fetch('./data/filenamelist.json')
+/*fetch('./data/filenamelist.json')
 .then(response => {
   return response.json();
 })
 .then(data => {
-  let voterListArray = data;
-  window.voterListArray = voterListArray;
-});
-
-
-function makeVoterList(array) {
-   // voterList.innerHTML = "";
-
-     for(let i = 0; i < array.length; i++) {
-         // Create the list item:
-         const school = array[i];
-         let item = document.createElement('li');
-         // Set its contents:
-         item.appendChild(document.createTextNode("hello"));
-         // Add it to the list:
-         schoolList.appendChild(item);
-     }
-}
-
-console.log(window.voterListArray);
-
-//makeVoterList(window.voterListArray);
+  window.voterListArray = data;
+});*/
 
 
 loadNotes(notes => {
