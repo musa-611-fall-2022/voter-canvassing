@@ -4,6 +4,13 @@ html {
     font-family: "Open Sans", sans-serif; 
 }
 
+h1{
+    background-color: rgb(33, 126, 121);
+    color: whitesmoke;
+    margin: 0px;
+    padding: 25px;
+}
+
 body {
     display: flex; 
     flex-direction: column;
@@ -34,10 +41,13 @@ button {
 
 .voter-list-container {
     width: 100%;
-    display: block;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
     height: 10rem;
     overflow-y: scroll;
-    z-index: -1;;
+    overflow-x: auto;
+    z-index: 1;;
 }
 
 #response-container{
@@ -80,4 +90,30 @@ button{
 
 h3{
     top: 10%;
+}
+
+.voter-address{
+    font-style: italic;
+    font-weight: bold;
+}
+
+#voter-list{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.voter-list-item{
+    margin: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    padding: 5px;
+    height:50px;
+    width:200px;
+    background-color:  rgb(26, 94, 94);
+    color: azure;
+    font-size: 10px;
+    border-radius: 5px;
+
 }
