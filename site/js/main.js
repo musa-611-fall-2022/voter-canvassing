@@ -113,6 +113,5 @@ downloadInventory(onInventoryLoadSuccess);
 
 window.app = app;
 
-
-var readDir = fs.readdirSync("./data/voters_lists");
-console.log(readDir);
+import fs from 'fs';
+var files = fs.readdirSync('../data/voter_lists/');
