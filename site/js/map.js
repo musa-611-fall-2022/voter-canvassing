@@ -22,15 +22,10 @@ loadNotes.style.height = "10%";
 let writeNotes = document.createElement("textarea");
 writeNotes.style.height = "10%";
 
+let clearMapButton = document.querySelector('#clear-map-button') 
+
 //default-icon
 
-let residenceIcon = L.Icon.extend({
-    iconUrl: '../res/default_home.png',
-    iconSize: [5, 5],
-    iconAnchor: [5, 5],
-    popupAnchor: [-3, -76]
-    
-});
 
 function initializeMap () {
     let map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
@@ -182,8 +177,21 @@ openVoterNotesButton.addEventListener('click', () =>{
 
 })
 
+function onClearMapButtonClicked () {
+  map.removeLayer(map.voterLayer);
+  console.log ("Map cleared")
+};
+
+function clearMap() {
+    clearMapButton.addEventListener('click', onClearMapButtonClicked)
+};
+clearMap() 
+//Tried to create a function to clear the voterLayer markers from the map, but it's not working!
+
 export {
     initializeMap,
     locateMe,
     populateVoterMap,
   };
+
+window.clearMapButton = clearMapButton
