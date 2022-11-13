@@ -105,6 +105,37 @@ initToast();
 initTreeInfoForm();
 setupGeolocationEvent();
 
+const voterList = document.getElementById('voters-list');
+
+fetch('./data/filenamelist.json')
+.then(response => {
+  return response.json();
+})
+.then(data => {
+  let voterListArray = data;
+  window.voterListArray = voterListArray;
+});
+
+
+function makeVoterList(array) {
+   // voterList.innerHTML = "";
+
+     for(let i = 0; i < array.length; i++) {
+         // Create the list item:
+         const school = array[i];
+         let item = document.createElement('li');
+         // Set its contents:
+         item.appendChild(document.createTextNode("hello"));
+         // Add it to the list:
+         schoolList.appendChild(item);
+     }
+}
+
+console.log(window.voterListArray);
+
+//makeVoterList(window.voterListArray);
+
+
 loadNotes(notes => {
   app.notes = notes;
   setupInteractionEvents();
@@ -112,6 +143,3 @@ loadNotes(notes => {
 downloadInventory(onInventoryLoadSuccess);
 
 window.app = app;
-
-import fs from 'fs';
-var files = fs.readdirSync('../data/voter_lists/');
