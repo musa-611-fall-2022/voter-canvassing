@@ -2,20 +2,34 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-10 05:49:08
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-13 06:33:11
+ * @LastEditTime: 2022-11-14 10:56:31
  * @FilePath: \voter-canvassing\site\js\main.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-import { basemap,showVotersOnMap } from './map.js';
+import { initMap, showVotersOnMap }  from './map.js';
 
-//convert voters' csv files to json files
-fetch('data/voters_lists/3927.csv')
-.then(resp=>resp.text())
-.then(text=>{
-    const voters=Papa.parse(text,{header:true});
-    return voters;
-});
+let voterMap=initMap;
 
-var voterMap = basemap();
-showVotersOnMap(voters, voterMap);
+//convert csv to json
+function cvstojson (map, neighbor, onFailure){
+    fetch(`./data/voters_lists/${neighbor}.csv`)
+    .then(response => {
+        if (response.status === 200) {
+        const data = response.text();
+        return data;
+        } else {
+        alert('Oh no, I failed to download the data.');
+        if (onFailure) { onFailure() }
+        }
+    })
+    .then(v => Papa.parse(v, { delimiter:"," }))
+    .catch(err => console.log(err))
+    .then(result => {
+        let v = result.data.slice(1, result.data.length-1);
+        return v;
+    })
+    .then(result => showVotersOnMap(map, result));
+    }
+
+window.voterMap=voterMap;
 
