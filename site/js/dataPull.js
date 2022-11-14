@@ -63,7 +63,7 @@ function constructVoter(v) {
 function makeVoterFeature(data){
     const voter = data;
     for (let v of voter){
-        console.log(v);
+        //console.log(v);
         let addressIndex = voterList.findIndex(element => element.properties.address === v['TIGER/Line Matched Address']);
         if (addressIndex !== -1) {
             let voterObj = constructVoter(v);

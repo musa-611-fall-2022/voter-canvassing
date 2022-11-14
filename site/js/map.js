@@ -1,10 +1,16 @@
 import { makeVoterFeature } from './dataPull.js';
 import { populateVoterMenu } from './list.js';
 
-const responseContainer = document.getElementById("response-container");
+let responseContainer = document.getElementById("response-container");
 responseContainer.style.display = "none";
 
+let firstStage = responseContainer;
+
+let blank = document.createElement("div");
+blank.id = "blank";
+
 let address = "";
+let ID = "";
 
 let people = document.createElement("ul");
 let voterAddress = document.createElement("h3");
@@ -34,9 +40,13 @@ let clearMapButton = document.querySelector('#clear-map-button')
 //default-icon
 
 
-const residence = {
-    currentResidence: null,
-    notes: null,
+const voter = {
+    currentAddress: null,
+    currentID: null,
+    currentNotes: null,
+    stillLivesThere: null,
+    votingPlan: null,
+    languageAssistance: null,
   };
 
 function initializeMap () {
@@ -139,36 +149,46 @@ function onEachFeature(feature, layer) {
         //residence.notes = localStorage.getItem(residence.currentResidence);
         console.log(localStorage.getItem(address));
 
-        residence.currentResidence = feature.properties.address;
-        residence.notes = localStorage.getItem(residence.currentResidence);
+        voter.currentAddress = feature.properties.address;
+        //voter.currentID = feature.voters
+        //voter.currentNotes = localStorage.getItem(voter.currentID);
         voterNotes.style.display = "none";
 
         //alert(feature.properties.address);
         responseContainer.style.display = "flex";
         people.innerHTML = "";
         voterAddress.innerHTML = feature.properties.address;
-        responseContainer.appendChild(voterAddress);
+
+        firstStage = responseContainer;
+
+        firstStage.appendChild(voterAddress);
         let residents = feature.voters;
 
         for( let r = 0; r < residents.length; r++ ){
+
             console.log(residents[r].name)
-            let person = document.createElement("li");
-            
+
+            let person = document.createElement("button");
+            person.textContent = residents[r].name
             person.innerHTML = residents[r].name;
+            person.value = residents[r].name;
+
+            person.style.display = "flex";
+
+            person.addEventListener('click', ()=>{
+                openVoterNotes(person.value, residents[r]);
+            });
 
             people.appendChild(person);
         }
 
-        responseContainer.appendChild(people);
+        firstStage.appendChild(people);
 
         closeVoterInfoButton.textContent = "Close";
-        responseContainer.appendChild(closeVoterInfoButton);
+        firstStage.appendChild(closeVoterInfoButton);
 
-        openVoterNotesButton.textContent = "Open Voter Notes";
-        openVoterNotesButton.style.display = "block";
-        responseContainer.appendChild(openVoterNotesButton);
-
-        console.log(residents)
+        console.log(residents);
+        responseContainer = firstStage;
         
     });
 }
@@ -179,24 +199,27 @@ closeVoterInfoButton.addEventListener('click',() =>{
 
 
 
-openVoterNotesButton.addEventListener('click', () =>{
+function openVoterNotes(id, v){
 
-    openVoterNotesButton.style.display = "none";
+    //openVoterNotesButton.style.display = "none";
+    //responseContainer = blank ;
 
     voterNotes.style.zIndex = "2";
     voterNotes.style.display = "flex";
     voterNotes.style.alignContent = "column";
 
-    address = residence.currentResidence;
+    let voterInfoQuestions = ['stillLivesThere', 'votingPlan', 'languageAssistance'];
 
-    console.log(residence.notes);
+    voter.currentID = id;
 
-    if(localStorage.getItem(address) === null){
-        loadNotes.innerText = "No notes for this building so far..."
+    console.log(voter.currentID);
+
+    if(localStorage.getItem(voter.currentID) === null){
+        loadNotes.innerText = "No notes for this ID so far..."
     }
 
     else{
-        loadNotes.innerText = localStorage.getItem(address);
+        loadNotes.innerText = localStorage.getItem(voter.currentID);
     }
 
     voterNotes.appendChild(loadNotes);
@@ -208,26 +231,68 @@ openVoterNotesButton.addEventListener('click', () =>{
     closeVoterNotesButton.textContent = "Close Voter Notes";
     voterNotes.appendChild(closeVoterNotesButton);
 
+    for( let t of voterInfoQuestions ){
+
+        let tag = document.createElement("h4");
+        tag.textContent = t;
+        tag.style.color = "white";
+        tag.style.backgroundColor = setTag(v[t]);
+        tag.style.padding = "5px";
+        tag.style.fontSize = "10px";
+
+        voterNotes.appendChild(tag);
+        }
+    
+
+    function setTag(status){
+
+        if(status === true){
+            return "green";
+        }
+        else{
+            return "red";
+        }
+    }
+
+    for( let q of voterInfoQuestions ){
+
+        
+        let questionCheckbox = document.createElement("input");
+        let checkboxLabel = document.createElement("label");
+        questionCheckbox.type = "checkbox";
+        questionCheckbox.id = q;
+        questionCheckbox.value = q;
+
+        checkboxLabel.htmlFor = q;
+        checkboxLabel.appendChild(document.createTextNode(q));
+        v[q] = questionCheckbox.checked ? true : false ;
+
+        voterNotes.appendChild(questionCheckbox);
+        voterNotes.appendChild(checkboxLabel);
+        voterNotes.appendChild(document.createElement("br"));
+
+    }
+
     responseContainer.appendChild(voterNotes);
 
     closeVoterNotesButton.addEventListener('click', ()=>{
-        voterNotes.innerHTML = " ";
-        openVoterNotesButton.style.display = "flex";
+        voterNotes = blank;
+        responseContainer = firstStage;
+        //openVoterNotesButton.style.display = "flex";
+
     });
 
     saveVoterNotesButton.addEventListener('click', (e) =>{
         const notes = writeNotes.value;
         console.log(notes)
-        residence.notes = notes;
-        address = residence.currentResidence;
-        console.log(residence)
-
-        localStorage.setItem(address , notes);
+        voter.currentNotes = notes;
+        
+        localStorage.setItem(voter.currentID , voter.currentNotes);
 
     })
 
 
-})
+}
 
 
 //Tried to create a function to clear the voterLayer markers from the map, but it's not working!
