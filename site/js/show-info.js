@@ -156,6 +156,8 @@ function displayVotingHistory(thisVoter) {
 /* PER CANVASSING RECORD */
 
 function displayLanguage(thisVoter) {
+  let langInput = document.querySelector("#icon-lang-input").getElementsByTagName("input")[0];
+  langInput.placeholder = "Other...";
   // Get the canvass state
   let thisStatus = undefined;
   // Store current voter id in the container DOM object
@@ -168,11 +170,10 @@ function displayLanguage(thisVoter) {
   highlightOption("#icon-lang", optionIdSelector);
 
   // If not the three languages, show in the input box
-  if(thisStatus != undefined && ["english", "spanish", "chinese"].includes(thisStatus)) {
-    let langInput = document.querySelector("#icon-lang-input").getElementsByTagName("input")[0];
+  if(thisStatus != undefined && !["english", "spanish", "chinese"].includes(thisStatus)) {
     langInput.placeholder = thisStatus;
   }
-  
+
   // Prepare: add event listeners for them to be clicked on
   prepareOption("#icon-lang");
 }

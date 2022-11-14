@@ -33,7 +33,7 @@ The bottom component is originally not showing until you select a voter
 }
 
 .edit-container {
-  max-height: 65vh;
+  max-height: 59vh;
   overflow-y: auto;
 }
 
@@ -346,4 +346,20 @@ The bottom component is originally not showing until you select a voter
 
 .record-item input::placeholder {
   color: #bbb;
+}
+
+.final-save {
+  height: 2rem;
+  background-color: var(--main-color);
+  color: #fff;
+  width: 100%;
+  border: 1.5px solid var(--main-color);
+  border-bottom-width: 3px;
+  border-radius: 0 0 0.6rem 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 800;
 }

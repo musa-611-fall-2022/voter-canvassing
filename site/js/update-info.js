@@ -5,6 +5,7 @@ import { showVotersOnMap } from "./map.js";
 import { highlightVoter } from "./selected-voter.js";
 import { allFilters } from "./list-filters.js";
 import { inputNumber } from "./list-loader.js";
+import { showVotersInList } from "./voter-list.js";
 
 // Function to highlight an option given selectors on click
 function highlightOption(groupIdSelector, optionIdSelector) {
@@ -43,16 +44,13 @@ function prepareOption(groupIdSelector) {
       // Then, record the click
       let storageEl = document.querySelector(groupIdSelector);
       storageEl.unsavedSelection = item.id.substring(lastDashLocation + 1);
-
-      console.log("The voter is ", storageEl.currentVoterId);
-      console.log("The language is", storageEl.unsavedSelection);
     });
   }
 }
 
 // After saving data, update Filtered data
 // At the same time, update display on the map and in the list
-function updateData(data, currentVoterId, status) {
+function updateDataOnStatusSave(data, currentVoterId, status) {
   let filteredData = allFilters(data);
   // showVotersInList(filteredData);
   showVotersOnMap(filteredData);
@@ -79,6 +77,16 @@ function updateData(data, currentVoterId, status) {
   highlightVoter(currentVoterId);
 }
 
+function updateDataOnFinalSave(data, currentVoterId) {
+  let filteredData = allFilters(data);
+  // showVotersInList(filteredData);
+  showVotersOnMap(filteredData);
+
+  showVotersInList(filteredData);
+  // Then rehighlight this voter
+  highlightVoter(currentVoterId);
+}
+
 // Called on success of updating voter canvass status
 function onUpdateStatusSuccess(canvassStatusSaveButtonEl) {
   canvassStatusSaveButtonEl.classList.add("canvass-status-save-toast");
@@ -91,7 +99,6 @@ function onUpdateStatusSuccess(canvassStatusSaveButtonEl) {
 
 // Save current canvass status on click
 const canvassStatusSaveButtonEl = document.querySelector("#canvass-status-save");
-
 canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
   let unsavedSelection = document.querySelector("#icon-canvass").unsavedSelection;
   let currentVoterId = document.querySelector("#icon-canvass").currentVoterId;
@@ -106,15 +113,59 @@ canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
     updateVoters(additionalData.info);
 
     // Then, update map and list
-    updateData(data, currentVoterId, unsavedSelection);
+    updateDataOnStatusSave(data, currentVoterId, unsavedSelection);
 
     // Then, send the updated info to the cloud
-    // and do a toast on success
     saveAdditionalInfo(inputNumber, additionalData.info);
 
     // Then, show a toast on the button
     onUpdateStatusSuccess(canvassStatusSaveButtonEl);
   }
+});
+
+// Initiate properties on DOM elements to store unsaved information
+let saveItemsSelectorsList = ["#icon-canvass", "#icon-lang", "#icon-plan", "#icon-mail", "#icon-who"];
+let recordItemsList = ["canvass-status", "language", "plan", "mail"];
+
+for(let i = 0; i < saveItemsSelectorsList.length; i++) {
+  let selector = saveItemsSelectorsList[i];
+  let name = recordItemsList[i];
+  let itemEl = document.querySelector(selector);
+  itemEl.recordItemName = name;
+  itemEl.currentVoterId = undefined;
+  itemEl.unsavedSelection = undefined;
+}
+
+// Save all on click
+const finalSaveButtonEl = document.querySelector("#final-save");
+finalSaveButtonEl.addEventListener("click", ( ) => {
+  let currentVoterId;
+
+  for(let selector of saveItemsSelectorsList) {
+    let itemEl = document.querySelector(selector);
+    let recordItemName = itemEl.recordItemName;
+    currentVoterId = itemEl.currentVoterId;
+    let unsavedSelection = itemEl.unsavedSelection;
+
+    if(currentVoterId && unsavedSelection) {
+      // Initiate, if no additional info has been recorded for this voter
+      if(!additionalData.info[currentVoterId]) {
+        additionalData.info[currentVoterId] = {};
+      }
+      // Add to temp save data
+      additionalData.info[currentVoterId][recordItemName] = unsavedSelection;
+    }
+  }
+
+  // Update data
+  updateVoters(additionalData.info);
+
+  // Update display
+  // updateDataOnFinalSave(data, currentVoterId);
+
+  // Then, send the updated info to the cloud
+  saveAdditionalInfo(inputNumber, additionalData.info);
+
 });
 
 export {
