@@ -38,7 +38,7 @@ const map = initMap();
 // `onInventoryLoadSuccess` will be called if and when `downloadInventory`
 // function completes the download of the tree inventory file successfully.
 function onInventoryLoadSuccess(data) {
-  map.treeLayer.addData(data);
+  //map.treeLayer.addData(data);
   loadOverlayEl.classList.add('hidden');
 }
 
@@ -49,6 +49,19 @@ function onSaveClicked(evt) {
   app.notes[treeId] = note;
   saveNotes(app.notes);
   showToast('Saved!', 'toast-success');
+}
+
+//const data = fetch('')
+//.then(function(data) {return data});
+
+function onSaveVoteClicked(evt) {
+  const listID = evt.detail.voterList;
+  showToast('Saved!', 'toast-success');
+  console.log(listID);
+
+  map.treeLayer.addData('../site/data/tree-inventory.geojson');
+
+
 }
 
 // takes the tree that is clicked on and making it currentTree
@@ -91,6 +104,7 @@ function setupGeolocationEvent() {
 function setupInteractionEvents() {
   window.addEventListener('tree-selected', onTreeSelected);
   window.addEventListener('save-clicked', onSaveClicked);
+  window.addEventListener('save-vote-clicked', onSaveVoteClicked);
 }
 
 // Initialize the app components and events

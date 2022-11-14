@@ -12,7 +12,7 @@ function voterListInput() {
 
 function saveVoterList() {
     const voterList = voterListFilter.value;
-    const saveClickedEvent = new CustomEvent('save-clicked', { detail: { voterList } });
+    const saveClickedEvent = new CustomEvent('save-vote-clicked', { detail: { voterList } });
     window.dispatchEvent(saveClickedEvent);
 }
 
