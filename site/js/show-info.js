@@ -4,13 +4,15 @@ SHOW INFO WHEN A VOTER IS SELECTED
 
 import { data } from "./list-loader.js";
 import electionLookup from "../data/election_lookup.js";
-import { getPartyColor  } from "./voter-list.js";
 import { htmlToElement } from './htmlelement.js';
-import { showHideExpandButton  } from "./voter-list.js";
+import { showHideExpandButton, getVoterStatusIcon  } from "./voter-list.js";
 import { electionListExpandButtonEl } from "./list-expand.js";
 import { highlightOption, prepareOption } from "./update-info.js";
+import partyDict from '../data/political_party_lookup.json' assert {type: "json"};
+import { getPartyColor } from "./voter-list.js";
 
 const electionDict = electionLookup[0];
+console.log(partyDict);
 
 let basicInfoNameEl = document.querySelector(".info-panel-name");
 let basicInfoAddressEl = document.querySelector(".info-panel-address");
@@ -28,11 +30,22 @@ function displayName(thisVoter) {
 function displayAddress(thisVoter) {
   const address = thisVoter.short_address;
   basicInfoAddressEl.innerHTML = address;
+
 }
 
 function displayParty(thisVoter) {
-  const party = thisVoter["Party Code"];
-  basicInfoPartyEl.innerHTML = party;
+  const partyCode = thisVoter["Party Code"];
+  const party = partyDict[partyCode];
+  const partyCodeEl = document.querySelector("#info-panel-party-set").getElementsByClassName("list-icon")[0];
+  partyCodeEl.innerHTML = partyCode;
+
+  const partyColor = getPartyColor(partyCode);
+
+  partyCodeEl.classList.remove(partyCodeEl.classList.item(1));
+  partyCodeEl.classList.add(partyColor);
+
+  const partyNameEl = document.querySelector("#info-panel-party-set").getElementsByClassName("icon-subtitle")[0];
+  partyNameEl.innerHTML = party;
 }
 
 function displayCanvassStatus(thisVoter) {
@@ -54,8 +67,19 @@ function displayCanvassStatus(thisVoter) {
 }
 
 function displayActiveness(thisVoter) {
-  const active = thisVoter["Voter Status"];
-  basicInfoVoterStatusEl.innerHTML = active;
+  const activeCode = thisVoter["Voter Status"];
+  const activeName = activeCode == "A" ? "ACTIVE" : "INACTIVE";
+  const activeCodeEl = document.querySelector("#info-panel-active-set").getElementsByClassName("list-icon")[0];
+  const activeNameEl = document.querySelector("#info-panel-active-set").getElementsByClassName("icon-subtitle")[0];
+
+  const activeVoterIcon = `<span class="material-symbols-outlined icon-ok-color">ballot</span>`;
+  const inactiveVoterIcon = `<span class="material-symbols-outlined icon-no-color">close</span>`;
+  const voterStatusIcon = activeCode == "A" ? activeVoterIcon : inactiveVoterIcon;
+
+
+  activeCodeEl.innerHTML = voterStatusIcon;
+
+  activeNameEl.innerHTML = activeName;
 }
 
 // Function to construct an array sorted by date, with all the election info regarding this voter
@@ -94,6 +118,7 @@ function getVotingHistory(thisVoter) {
   return thisVotingHistory.sort((a, b) => (a["date-compare"] > b["date-compare"]) ? -1 : 1);
 }
 
+// Voting history on the second panel
 function displayVotingHistory(thisVoter) {
   let thisVotingHistory = getVotingHistory(thisVoter);
 
@@ -124,6 +149,7 @@ function displayVotingHistory(thisVoter) {
   showHideExpandButton("#voting-history", "#edit-component", electionListExpandButtonEl);
 }
 
+// Find voter: takes voter ID and outputs comprehensive voter data
 function findThisVoter(thisId) {
   for(let voter of data) {
     if(voter["ID Number"] === thisId) {
@@ -139,8 +165,8 @@ function displayInfo(thisId) {
   // Display in the basic info panel
   displayName(thisVoter);
   displayAddress(thisVoter);
-  // displayActiveness(thisVoter);
-  // displayParty(thisVoter);
+  displayActiveness(thisVoter);
+  displayParty(thisVoter);
   displayCanvassStatus(thisVoter);
 
   // Voting history part

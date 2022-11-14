@@ -1,6 +1,5 @@
 #basic-panel-component {
   position: relative;
-  height: 10em;
 }
 
 /*
@@ -17,6 +16,7 @@ The bottom component is originally not showing until you select a voter
 .panel-title {
   padding: 0.3rem 0.5rem 0;
   font-weight: 800;
+  margin-bottom: 1.5rem;
 }
 
 #bottom-component {
@@ -46,7 +46,7 @@ The bottom component is originally not showing until you select a voter
 }
 
 .basic-info-panel {
-  min-height: 16vh;
+  height: auto;
 }
 
 /* Icon set */
@@ -74,11 +74,11 @@ The bottom component is originally not showing until you select a voter
 
 .icon-set .list-icon {
   border-color: #bbb;
+  color: #bbb;
 }
 
 .icon-set .material-symbols-outlined {
   font-size: 1.2rem;
-  color: #bbb;
 }
 
 .icon-subtitle {
@@ -102,6 +102,35 @@ The bottom component is originally not showing until you select a voter
 .canvass-status-save-toast {
   background-color: var(--main-color);
   color: #fff;
+}
+
+/* Other overview icons */
+
+.overview-display {
+  padding: 0.4rem;
+  clear: left;
+  margin-top: 0.5rem;
+  display: flex;
+}
+
+#overview-display .icon-set {
+  margin-right: 0.8rem;
+}
+
+#overview-display .icon-set .icon-subtitle {
+  color: var(--main-color);
+}
+
+#overview-display .icon-set .list-icon {
+  border-color: var(--main-color);
+}
+
+#overview-display .icon-set .material-symbols-outlined {
+  font-size: 1.2rem;
+}
+
+#overview-display .icon-set {
+  max-width: 5rem;
 }
 
 /* Dealing with highlighted items */
@@ -198,7 +227,7 @@ The bottom component is originally not showing until you select a voter
 
 .voting-history-title {
   width: 100%;
-  padding: 1rem 0.5rem 0;
+  padding: 0rem 0.5rem 0;
   margin-bottom: -0.3rem;
 }
 
@@ -260,9 +289,46 @@ The bottom component is originally not showing until you select a voter
 }
 
 .this-visit-panel {
-  min-height: 25vh;
+  height: auto;
+  padding-bottom: 1rem;
 }
 
 .last-visit-panel {
   min-height: 15vh;
+}
+
+.record-item {
+  padding-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.record-item-name {
+  float: left;
+  font-size: 0.85rem;
+  width: 30%;
+  position: relative;
+  top: 0.75rem;
+}
+
+.record-item .icon-group {
+  justify-content: flex-start;
+  width: 70%;
+}
+
+.record-item .input-container {
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
+  width: 3rem;
+}
+
+.record-item input {
+  border-color: #bbb;
+  border-width: 1px 1px 2.5px;
+  font-size: 0.8rem;
+  height: 1.2rem;
+  color: #bbb;
+}
+
+.record-item input::placeholder {
+  color: #bbb;
 }

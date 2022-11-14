@@ -12,6 +12,7 @@ function highlightOption(groupIdSelector, optionIdSelector) {
   let iconGroupEl  = document.querySelector(groupIdSelector).querySelectorAll(".icon-set");
   for(let item of iconGroupEl) {
     item.classList.remove("highlighted");
+    item.classList.add("icon-no-color");
   }
 
   // DOM object of the icon to be highlighted

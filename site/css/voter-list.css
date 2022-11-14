@@ -137,13 +137,29 @@ COLOR
   color: #bbb;
 }
 
+.icon-main-color {
+  color: #0d59a9;
+}
+
 /* ---- Registered party ------ */
 
 .icon-democrat-color {
   color: #0d59a9;
 }
 
+#overview-display .icon-set .icon-democrat-color {
+  color: #0d59a9;
+}
+
 .icon-republican-color {
+  color: #e96a46;
+}
+
+.icon-set .icon-republican-color {
+  color: #e96a46;
+}
+
+#overview-display .icon-republican-color {
   color: #e96a46;
 }
 

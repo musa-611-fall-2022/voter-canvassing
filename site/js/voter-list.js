@@ -167,6 +167,7 @@ export {
   voterList,
   getPartyColor,
   showHideExpandButton,
+  getVoterStatusIcon,
 };
 
 /*

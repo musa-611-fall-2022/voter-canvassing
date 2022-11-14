@@ -134,7 +134,6 @@
           <div class="info-panel-name"></div>
           <div class="info-panel-address"></div>
         </div>
-
         <!-- Most Important: Canvass Status -->
         <div id="info-panel-canvass-status" class="info-panel-canvass-status">
           <div id="icon-canvass" class="icon-group">
@@ -163,8 +162,24 @@
           </div>
 
         </div>
-        <div class="info-panel-party"></div>
-        
+
+        <!-- Some overview icon display at the bottom -->
+        <div id="overview-display" class="overview-display">
+          <div id="info-panel-party-set" class="icon-set">
+            <div class="info-panel-party">
+              <div class="list-icon icon-democrat-color"></div>
+            </div>
+            <div class="icon-subtitle"></div>
+          </div>
+          <div id="info-panel-active-set" class="icon-set">
+            <div class="info-panel-active">
+              <div class="list-icon"></div>
+            </div>
+            <div class="icon-subtitle"></div>
+          </div>
+
+        </div>
+
         <div class="info-panel-voter-status"></div>
       </div>
 
@@ -191,8 +206,106 @@
             <span class="material-symbols-outlined">expand_more</span>
           </div>
 
-          <div class="panel info-panel this-visit-panel"></div>
-          <div class="panel info-panel last-visit-panel"></div>
+          <div class="panel info-panel this-visit-panel">
+            <div class="panel-title">PER CANVASSING RECORDING</div>
+
+            <div class="record-item">
+              <div class="record-item-name">Language</div>
+                <div id="icon-lang" class="icon-group">
+                  <div id="icon-lang-english" class="icon-set">
+                    <div class="list-icon">
+                      EN
+                    </div>
+                    <div class="icon-subtitle">English</div>
+                  </div>
+                  <div id="icon-lang-spanish" class="icon-set">
+                    <div class="list-icon">
+                      ES
+                    </div>
+                    <div class="icon-subtitle">Needs Spanish help</div>
+                  </div>
+                  <div id="icon-lang-chinese" class="icon-set">
+                    <div class="list-icon">
+                      CN
+                    </div>
+                    <div class="icon-subtitle">Needs Chinise help</div>
+                  </div>
+                  <div id="icon-lang-input">
+                    <div class="input-container">
+                      <input type="text" class="text-input" id="other-lang" placeholder="Other...">
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="record-item">
+              <div class="record-item-name">Planned to vote</div>
+                <div id="icon-plan" class="icon-group">
+                  <div id="icon-plan-yes" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">task_alt</span>
+                    </div>
+                    <div class="icon-subtitle">Yes</div>
+                  </div>
+                  <div id="icon-plan-awaits" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">unpublished</span>
+                    </div>
+                    <div class="icon-subtitle">No</div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="record-item">
+              <div class="record-item-name">Mail ballot</div>
+                <div id="icon-mail" class="icon-group">
+                  <div id="icon-mail-received" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">mark_email_read</span>
+                    </div>
+                    <div class="icon-subtitle">Received</div>
+                  </div>
+                  <div id="icon-mail-awaits" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">unsubscribe</span>
+                    </div>
+                    <div class="icon-subtitle">Not received</div>
+                  </div>
+                  <div id="icon-mail-person" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">footprint</span>
+                    </div>
+                    <div class="icon-subtitle">Vote in person</div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="record-item">
+              <div class="record-item-name">Who for</div>
+                <div id="icon-who" class="icon-group">
+                  <div id="icon-who-d" class="icon-set">
+                    <div class="list-icon">
+                      D
+                    </div>
+                    <div class="icon-subtitle">Dem.</div>
+                  </div>
+                  <div id="icon-who-r" class="icon-set">
+                    <div class="list-icon">
+                      R
+                    </div>
+                    <div class="icon-subtitle">Rep.</div>
+                  </div>
+                  <div id="icon-who-input" class="icon-set">
+                    <div class="input-container">
+                      <input type="text" class="text-input" id="other-who" placeholder="Other...">
+                    </div>
+                  </div>
+                </div>
+            </div>
+  
+          </div>
+
+          </div>
         </div>
       </div>
     </div>
