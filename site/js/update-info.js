@@ -6,9 +6,9 @@ import { highlightVoter } from "./selected-voter.js";
 import { allFilters } from "./list-filters.js";
 import { inputNumber } from "./list-loader.js";
 
-// Function to highlight an option given selectors
+// Function to highlight an option given selectors on click
 function highlightOption(groupIdSelector, optionIdSelector) {
-  // First remove all highlighted classes
+  // First remove all highlighted classes and reset everything to default gray color
   let iconGroupEl  = document.querySelector(groupIdSelector).querySelectorAll(".icon-set");
   for(let item of iconGroupEl) {
     item.classList.remove("highlighted");
@@ -16,14 +16,19 @@ function highlightOption(groupIdSelector, optionIdSelector) {
   }
 
   // DOM object of the icon to be highlighted
-  let highlightIconSet = document.querySelector(groupIdSelector).querySelector(optionIdSelector);
-  highlightIconSet.classList.add("highlighted");
+  if(document.querySelector(groupIdSelector).querySelector(optionIdSelector)) {
+    let highlightIconSet = document.querySelector(groupIdSelector).querySelector(optionIdSelector);
+    highlightIconSet.classList.add("highlighted");
+  }
 }
 
-// Function to add event listeners to option
+// Prepare the detailed info display for the selected voter
+// 1. highlight options, 2. add event listeners
 // Everytime a click happens, store the clicked item in the container DOM
 // .. until pushing the save button
 function prepareOption(groupIdSelector) {
+
+  // DOM: all the icon sets in a particular group
   let iconGroupEl = document.querySelector(groupIdSelector).querySelectorAll(".icon-set");
   // Add event listener
   for(let item of iconGroupEl) {
@@ -36,12 +41,18 @@ function prepareOption(groupIdSelector) {
       let lastDashLocation = item.id.lastIndexOf("-");
 
       // Then, record the click
-      document.querySelector(groupIdSelector).unsavedSelection = item.id.substring(lastDashLocation + 1);
+      let storageEl = document.querySelector(groupIdSelector);
+      storageEl.unsavedSelection = item.id.substring(lastDashLocation + 1);
+
+      console.log("The voter is ", storageEl.currentVoterId);
+      console.log("The language is", storageEl.unsavedSelection);
     });
   }
 }
 
-function updateDisplay(data, currentVoterId, status) {
+// After saving data, update Filtered data
+// At the same time, update display on the map and in the list
+function updateData(data, currentVoterId, status) {
   let filteredData = allFilters(data);
   // showVotersInList(filteredData);
   showVotersOnMap(filteredData);
@@ -95,7 +106,7 @@ canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
     updateVoters(additionalData.info);
 
     // Then, update map and list
-    updateDisplay(data, currentVoterId, unsavedSelection);
+    updateData(data, currentVoterId, unsavedSelection);
 
     // Then, send the updated info to the cloud
     // and do a toast on success

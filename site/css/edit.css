@@ -140,6 +140,16 @@ The bottom component is originally not showing until you select a voter
   color: #fff;
 }
 
+.highlighted p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.highlighted .list-icon {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
 #icon-canvass-pending.highlighted .list-icon {
   background-color: #999;
   border-color: #999;
@@ -327,6 +337,11 @@ The bottom component is originally not showing until you select a voter
   font-size: 0.8rem;
   height: 1.2rem;
   color: #bbb;
+}
+
+.record-item input:focus {
+  border-width: 2.5px;
+  border-radius: 0 0 0.5em 0.5em;
 }
 
 .record-item input::placeholder {
