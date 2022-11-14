@@ -1,9 +1,7 @@
 import { additionalData } from "./list-loader.js";
 import { updateVoters, saveAdditionalInfo } from "./main.js";
 import { data } from "./list-loader.js";
-import { showVotersInList } from "./voter-list.js";
 import { showVotersOnMap } from "./map.js";
-import { fitMap } from "./map.js";
 import { highlightVoter } from "./selected-voter.js";
 import { allFilters } from "./list-filters.js";
 import { inputNumber } from "./list-loader.js";
@@ -42,8 +40,46 @@ function prepareOption(groupIdSelector) {
   }
 }
 
+function updateDisplay(data, currentVoterId, status) {
+  let filteredData = allFilters(data);
+  // showVotersInList(filteredData);
+  showVotersOnMap(filteredData);
+
+  // Update the display of this particular voter
+  let voterListItemsEl = document.querySelectorAll(".list-voter");
+  // First find out which icon it should be
+  let canvassStatusIcon = `<span class="material-symbols-outlined icon-gray-color">hourglass_top</span>`;
+  if(status) {
+    if(status === "completed") {
+      canvassStatusIcon = `<span class="material-symbols-outlined icon-ok-color">task_alt</span>`;
+    } else if(status === "awaits") {
+      canvassStatusIcon = `<span class="material-symbols-outlined icon-notify-color">timeline</span>`;
+    }
+  }
+  // Then find the corresponding DOM and update it
+  for(let thisListItem of voterListItemsEl) {
+    if(thisListItem.title == currentVoterId) {
+      thisListItem.getElementsByTagName("div")[1].innerHTML = canvassStatusIcon;
+    }
+  }
+
+  // Then rehighlight this voter
+  highlightVoter(currentVoterId);
+}
+
+// Called on success of updating voter canvass status
+function onUpdateStatusSuccess(canvassStatusSaveButtonEl) {
+  canvassStatusSaveButtonEl.classList.add("canvass-status-save-toast");
+  canvassStatusSaveButtonEl.innerHTML = "Updated status!";
+  setTimeout(( ) => {
+    canvassStatusSaveButtonEl.classList.remove("canvass-status-save-toast");
+    canvassStatusSaveButtonEl.innerHTML = "Update status";
+  }, 1500);
+}
+
 // Save current canvass status on click
 const canvassStatusSaveButtonEl = document.querySelector("#canvass-status-save");
+
 canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
   let unsavedSelection = document.querySelector("#icon-canvass").unsavedSelection;
   let currentVoterId = document.querySelector("#icon-canvass").currentVoterId;
@@ -58,27 +94,14 @@ canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
     updateVoters(additionalData.info);
 
     // Then, update map and list
-    // Remember to reapply the filters
-    let filteredData = allFilters(data);
-    showVotersInList(filteredData);
-    showVotersOnMap(filteredData);
-    fitMap();
-
-    // After updating map, select this particular voter again
-    console.log(currentVoterId);
-    highlightVoter(currentVoterId);
+    updateDisplay(data, currentVoterId, unsavedSelection);
 
     // Then, send the updated info to the cloud
     // and do a toast on success
     saveAdditionalInfo(inputNumber, additionalData.info);
 
     // Then, show a toast on the button
-    canvassStatusSaveButtonEl.classList.add("canvass-status-save-toast");
-    canvassStatusSaveButtonEl.innerHTML = "Updated status!";
-    setTimeout(( ) => {
-      canvassStatusSaveButtonEl.classList.remove("canvass-status-save-toast");
-      canvassStatusSaveButtonEl.innerHTML = "Update status";
-    }, 2000);
+    onUpdateStatusSuccess(canvassStatusSaveButtonEl);
   }
 });
 
