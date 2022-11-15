@@ -108,7 +108,7 @@ function switchToNormal() {
   navComponentEl.style.transform = "translateX(0em)";
 
   // Hide the other panels
-  editComponentEl.style.transform = "translateX(-30em)";
+  editComponentEl.style.transform = "translateX(-38em)";
 
   // Move the whole thing down
   bottomComponentEl.style.top = "72vh";
