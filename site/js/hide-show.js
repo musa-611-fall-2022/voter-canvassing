@@ -28,8 +28,8 @@ export let editComponentEl = document.querySelector("#edit-component");
 function hideChunk() {
   // Hide chunk by moving
   listLoaderHidableEl.style.transform = "translateX(-16em)";
-  searchBoxHidableEl.style.transform = "translateX(-28em)";
-  voterListHidableEl.style.transform = "translateX(-28em)";
+  searchBoxHidableEl.style.transform = "translateX(-42em)";
+  voterListHidableEl.style.transform = "translateX(-42em)";
   topComponentEl.style.pointerEvents = "none";
 
   // If the list is currently expanded, unexpand
@@ -85,8 +85,8 @@ function switchToEdit() {
   // Move the top thing away
   topComponentEl.style.transition = 'transform 0.3s ease-in-out';
   navComponentEl.style.transition = 'transform 0.3s ease-in-out';
-  topComponentEl.style.transform = "translateX(-35em)";
-  navComponentEl.style.transform = "translateX(-35em)";
+  topComponentEl.style.transform = "translateX(-42em)";
+  navComponentEl.style.transform = "translateX(-42em)";
 
   // Move the whole thing up
   bottomComponentEl.style.top = "7vh";
@@ -108,7 +108,7 @@ function switchToNormal() {
   navComponentEl.style.transform = "translateX(0em)";
 
   // Hide the other panels
-  editComponentEl.style.transform = "translateX(-38em)";
+  editComponentEl.style.transform = "translateX(-42em)";
 
   // Move the whole thing down
   bottomComponentEl.style.top = "72vh";
