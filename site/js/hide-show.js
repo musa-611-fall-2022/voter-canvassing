@@ -85,8 +85,8 @@ function switchToEdit() {
   // Move the top thing away
   topComponentEl.style.transition = 'transform 0.3s ease-in-out';
   navComponentEl.style.transition = 'transform 0.3s ease-in-out';
-  topComponentEl.style.transform = "translateX(-28em)";
-  navComponentEl.style.transform = "translateX(-28em)";
+  topComponentEl.style.transform = "translateX(-35em)";
+  navComponentEl.style.transform = "translateX(-35em)";
 
   // Move the whole thing up
   bottomComponentEl.style.top = "7vh";
