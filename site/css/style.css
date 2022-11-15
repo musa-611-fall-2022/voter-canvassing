@@ -1,6 +1,6 @@
 
-#map {    z-index: 0 !important;
-        height: 700px;
+#voterMap {    z-index: 0 !important;
+        height: 650px;
         }
 
         * {
@@ -10,22 +10,13 @@
             font-size: 14px;
         }
 
-        .v416_3 {
-            position: absolute;
-        width: 202px;
-        height: 31px;
-        left: 52px;
-        top: 105px;
-        background: #989898;
-        box-shadow: inset 0px 4px 4px rgba(0, 0, 0, 0.25);
-        }
-        .v416_5 {
+        .listNo_inputbox{
             width: 202px;
             height: 31px;
-            background: rgba(152,152,152,1);
+            background: rgb(203, 203, 203);
             opacity: 1;
             position: absolute;
-            top: 105px;
+            top: 115px;
             left: 52px;
             overflow: hidden;
             border: 3px solid #000000;
@@ -33,27 +24,27 @@
         }:empty::before {
             content: attr(placeholder);
         }
-        .v416_7 {
+        .listNo {
             width: 318px;
             color: rgba(0,0,0,1);
             position: absolute;
-            top: 67px;
+            top: 90px;
             left: 52px;
             font-family: McLaren;
             font-weight: Bold;
-            font-size: 24px;
+            font-size: 20px;
             opacity: 1;
             text-align: left;
         }
-        .v416_8 {
+        .pp {
             width: 318px;
             color: rgba(0,0,0,1);
             position: absolute;
-            top: 163px;
+            top: 175px;
             left: 52px;
             font-family: McLaren;
             font-weight: Bold;
-            font-size: 24px;
+            font-size: 20px;
             opacity: 1;
             text-align: left;
         }
@@ -136,10 +127,10 @@
             left: 982px;
             overflow: hidden;
         }
-        .v423_20 {
+        .pp_inputbox {
             width: 202px;
             height: 31px;
-            background: rgba(152,152,152,1);
+            background: rgba(203, 203, 203);
             opacity: 1;
             position: absolute;
             top: 201px;
@@ -149,6 +140,46 @@
             box-shadow: 0px 8px 8px rgba(0, 0, 0, 0.25);
         }:empty::before {
             content: attr(placeholder);
+        }
+        .button1{
+            display: inline-block;
+        background-color: #525252;
+        border-radius: 5px;
+        border: 2px double #000000;
+        color: #eeeeee;
+        text-align: center;
+        font-size: 15px;
+        padding: 5px;
+        width: 65px;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 3px;
+            position: absolute;
+            top: 112px;
+            left: 270px;
+        }
+        .button2{
+            display: inline-block;
+        background-color: #525252;
+        border-radius: 5px;
+        border: 2px double #000000;
+        color: #eeeeee;
+        text-align: center;
+        font-size: 15px;
+        padding: 5px;
+        width: 65px;
+        -webkit-transition: all 0.5s;
+        -moz-transition: all 0.5s;
+        -o-transition: all 0.5s;
+        transition: all 0.5s;
+        cursor: pointer;
+        margin: 3px;
+            position: absolute;
+            top: 198px;
+            left: 270px;
         }
 
 
