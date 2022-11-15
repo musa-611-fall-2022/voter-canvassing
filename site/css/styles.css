@@ -51,11 +51,11 @@ button {
   0% {
     background-color: rgba(255, 255, 255, 0.85);
   }
-  
+
   50% {
     background-color: rgba(255, 255, 255, 0.25);
   }
-  
+
   100% {
     background-color: rgba(255, 255, 255, 0.85);
   }
@@ -79,6 +79,12 @@ button {
 
 .toast-success {
   background-color: #83bf15;
+  color: white;
+  font-weight: bold;
+}
+
+.toast-failure {
+  background-color: red;
   color: white;
   font-weight: bold;
 }

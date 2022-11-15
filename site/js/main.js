@@ -38,7 +38,7 @@ const map = initMap();
 // `onInventoryLoadSuccess` will be called if and when `downloadInventory`
 // function completes the download of the tree inventory file successfully.
 function onInventoryLoadSuccess(data) {
-  //map.treeLayer.addData(data);
+  //map.voterLayer.addData(data);
   loadOverlayEl.classList.add('hidden');
 }
 
@@ -54,12 +54,32 @@ function onSaveClicked(evt) {
 //const data = fetch('')
 //.then(function(data) {return data});
 
+// try to load data
+function fetchVoterList(voterListFilename) {
+  fetch(`./data/voters_lists/${voterListFilename}.csv`)
+    .then(resp => resp.text())
+    .then(data => {
+      const voters = Papa.parse(data, { header: true });
+      window.data = data;
+      console.log(voters);
+      console.log(Array.isArray(voters));
+      if (Array.isArray(voters) === true) {
+        showToast('Saved!', 'toast-success');
+      } else {
+        showToast('No!!!!', 'toast-failure');
+      }
+      map.voterLayer.addData(data);
+    });
+  // .then(point => {
+  //map.voterLayer.addData(point);
+  //});
+}
+
+
 function onSaveVoteClicked(evt) {
   const listID = evt.detail.voterList;
-  showToast('Saved!', 'toast-success');
   console.log(listID);
-
-  map.treeLayer.addData('../site/data/tree-inventory.geojson');
+  fetchVoterList(listID);
 
 
 }
@@ -123,14 +143,6 @@ setupGeolocationEvent();
 voterListInput();
 saveVoterListClicked();
 
-/*fetch('./data/filenamelist.json')
-.then(response => {
-  return response.json();
-})
-.then(data => {
-  window.voterListArray = data;
-});*/
-
 
 loadNotes(notes => {
   app.notes = notes;
@@ -139,3 +151,5 @@ loadNotes(notes => {
 downloadInventory(onInventoryLoadSuccess);
 
 window.app = app;
+
+
