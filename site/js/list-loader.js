@@ -78,7 +78,6 @@ function makeShortAddress(data) {
 4. Show voters in the list
 */
 function loadVoterData(text) {
-
   if(text == false) {
     return;
   }
@@ -133,6 +132,7 @@ function loadByListNumber(number) {
 function onLoadButtonClick() {
   // Get input list number
   inputNumber = listNumberInputEl.value.replace(/\s/g, '');
+
   if(errorTooltip(inputNumber)) { return }
   loadByListNumber(inputNumber);
 }

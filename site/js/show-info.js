@@ -7,7 +7,7 @@ import electionLookup from "../data/election_lookup.js";
 import { htmlToElement } from './htmlelement.js';
 import { showHideExpandButton, getVoterStatusIcon  } from "./voter-list.js";
 import { electionListExpandButtonEl } from "./list-expand.js";
-import { highlightOption, prepareOption } from "./update-info.js";
+import { highlightOption, prepareOption, prepareInput } from "./update-info.js";
 import partyDict from '../data/political_party_lookup.json' assert {type: "json"};
 import { getPartyColor } from "./voter-list.js";
 
@@ -21,6 +21,8 @@ let basicInfoCanvassStatusEl = document.querySelector(".info-panel-canvass-statu
 let basicInfoVoterStatusEl = document.querySelector(".info-panel-voter-status");
 
 let electionListEl = document.querySelector("#voting-history");
+
+/* BASIC INFO PANEL */
 
 function displayName(thisVoter) {
   const name = `${thisVoter["First Name"]} ${thisVoter["Last Name"]}`;
@@ -81,6 +83,8 @@ function displayActiveness(thisVoter) {
 
   activeNameEl.innerHTML = activeName;
 }
+
+/* VOTING HISTORY */
 
 // Function to construct an array sorted by date, with all the election info regarding this voter
 function getVotingHistory(thisVoter) {
@@ -149,6 +153,35 @@ function displayVotingHistory(thisVoter) {
   showHideExpandButton("#voting-history", "#edit-component", electionListExpandButtonEl);
 }
 
+/* PER CANVASSING RECORD */
+
+// Display options for Voter Language
+function displayLanguage(thisVoter) {
+  let langInput = document.querySelector("#icon-lang-input").getElementsByTagName("input")[0];
+  langInput.placeholder = "Other...";
+  // Get the canvass state
+  let thisStatus = undefined;
+  // Store current voter id in the container DOM object
+  // Do this because we have to store the info associated with the voter
+  document.querySelector("#icon-lang").currentVoterId = thisVoter["ID Number"];
+
+  thisStatus = thisVoter["language"];
+  let optionIdSelector = `#icon-lang-${thisStatus}`;
+  // Highlight option (thisStatus undefined situation dealt with there)
+  highlightOption("#icon-lang", optionIdSelector);
+
+  // If not the three languages, show in the input box
+  if(thisStatus != undefined && !["english", "spanish", "chinese"].includes(thisStatus)) {
+    langInput.placeholder = thisStatus;
+  }
+
+  // Prepare: add event listeners for them to be clicked on
+  prepareOption("#icon-lang");
+  prepareInput("#icon-lang");
+}
+
+/* UTIL: FIND THE VOTER DATA ENTRY USING VOTER ID */
+
 // Find voter: takes voter ID and outputs comprehensive voter data
 function findThisVoter(thisId) {
   for(let voter of data) {
@@ -171,6 +204,9 @@ function displayInfo(thisId) {
 
   // Voting history part
   displayVotingHistory(thisVoter);
+
+  // Canvass recording part
+  displayLanguage(thisVoter);
 }
 
 export {

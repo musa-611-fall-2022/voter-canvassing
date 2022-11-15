@@ -33,7 +33,7 @@ The bottom component is originally not showing until you select a voter
 }
 
 .edit-container {
-  max-height: 65vh;
+  max-height: 59vh;
   overflow-y: auto;
 }
 
@@ -138,6 +138,16 @@ The bottom component is originally not showing until you select a voter
 .highlighted .material-symbols-outlined {
   font-size: 1.2rem;
   color: #fff;
+}
+
+.highlighted p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.highlighted .list-icon {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
 }
 
 #icon-canvass-pending.highlighted .list-icon {
@@ -329,6 +339,27 @@ The bottom component is originally not showing until you select a voter
   color: #bbb;
 }
 
+.record-item input:focus {
+  border-width: 2.5px;
+  border-radius: 0 0 0.5em 0.5em;
+}
+
 .record-item input::placeholder {
   color: #bbb;
+}
+
+.final-save {
+  height: 2rem;
+  background-color: var(--main-color);
+  color: #fff;
+  width: 100%;
+  border: 1.5px solid var(--main-color);
+  border-bottom-width: 3px;
+  border-radius: 0 0 0.6rem 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1.2rem;
+  font-size: 1.2rem;
+  font-weight: 800;
 }

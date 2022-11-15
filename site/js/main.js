@@ -94,12 +94,13 @@ async function updateAdditionalInfo(listNumber, data, showOnMap, showInList) {
     const result = await getDoc(voterNotesDoc);
     additionalData.info = result.data();
     updateVoters(result.data(), data);
-    showOnMap(data);
-    showInList(data);
-    fitMap();
+
   } catch {
     additionalData.info = {};
   }
+  showOnMap(data);
+  showInList(data);
+  fitMap();
 }
 
 // Function to save the updated additional info to Firebase
