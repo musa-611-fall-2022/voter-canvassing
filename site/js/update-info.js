@@ -7,6 +7,22 @@ import { allFilters } from "./list-filters.js";
 import { inputNumber } from "./list-loader.js";
 import { showVotersInList } from "./voter-list.js";
 
+// Initiate properties on DOM elements to store unsaved information
+// Add names and such
+let saveItemsSelectorsList = ["#icon-canvass", "#icon-lang", "#icon-plan", "#icon-mail", "#icon-who"];
+let recordItemsList = ["canvass-status", "language", "plan", "mail", "who"];
+
+for(let i = 0; i < saveItemsSelectorsList.length; i++) {
+  let selector = saveItemsSelectorsList[i];
+  let name = recordItemsList[i];
+  let itemEl = document.querySelector(selector);
+  itemEl.recordItemName = name;
+  itemEl.currentVoterId = undefined;
+  itemEl.unsavedSelection = undefined;
+  console.log(name);
+}
+
+
 // Function to highlight an option given selectors on click
 function highlightOption(groupIdSelector, optionIdSelector) {
   // First remove all highlighted classes and reset everything to default gray color
@@ -107,6 +123,15 @@ function onUpdateStatusSuccess(canvassStatusSaveButtonEl) {
   }, 1500);
 }
 
+function onFinalSaveSuccess(finalSaveButtonEl) {
+  finalSaveButtonEl.classList.add("final-save-toast");
+  finalSaveButtonEl.innerHTML = "Saved!";
+  setTimeout(( ) => {
+    finalSaveButtonEl.classList.remove("final-save-toast");
+    finalSaveButtonEl.innerHTML = "Save";
+  }, 1500);
+}
+
 // Save current canvass status on click
 const canvassStatusSaveButtonEl = document.querySelector("#canvass-status-save");
 canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
@@ -133,20 +158,6 @@ canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
   }
 });
 
-// Initiate properties on DOM elements to store unsaved information
-// Add names and such
-let saveItemsSelectorsList = ["#icon-canvass", "#icon-lang", "#icon-plan", "#icon-mail", "#icon-who"];
-let recordItemsList = ["canvass-status", "language", "plan", "mail"];
-
-for(let i = 0; i < saveItemsSelectorsList.length; i++) {
-  let selector = saveItemsSelectorsList[i];
-  let name = recordItemsList[i];
-  let itemEl = document.querySelector(selector);
-  itemEl.recordItemName = name;
-  itemEl.currentVoterId = undefined;
-  itemEl.unsavedSelection = undefined;
-}
-
 // Save all on click
 const finalSaveButtonEl = document.querySelector("#final-save");
 finalSaveButtonEl.addEventListener("click", ( ) => {
@@ -167,12 +178,12 @@ finalSaveButtonEl.addEventListener("click", ( ) => {
       additionalData.info[currentVoterId][recordItemName] = unsavedSelection;
     }
   }
-
   // Update data
   updateVoters(additionalData.info);
   // Then, send the updated info to the cloud
   saveAdditionalInfo(inputNumber, additionalData.info);
 
+  onFinalSaveSuccess(finalSaveButtonEl);
 });
 
 export {

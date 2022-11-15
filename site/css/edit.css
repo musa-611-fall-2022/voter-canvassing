@@ -150,6 +150,16 @@ The bottom component is originally not showing until you select a voter
   border-color: var(--main-color);
 }
 
+#icon-who-r.highlighted .list-icon {
+  background-color: var(--red-color);
+  border-color: var(--red-color);
+}
+
+#icon-plan-yes.highlighted .list-icon {
+  background-color: var(--ok-color);
+  border-color: var(--ok-color);
+}
+
 #icon-canvass-pending.highlighted .list-icon {
   background-color: #999;
   border-color: #999;
@@ -341,6 +351,7 @@ The bottom component is originally not showing until you select a voter
 
 .record-item input:focus {
   border-width: 2.5px;
+  border-color: var(--aux-color);
   border-radius: 0 0 0.5em 0.5em;
 }
 
@@ -362,4 +373,9 @@ The bottom component is originally not showing until you select a voter
   margin-top: 1.2rem;
   font-size: 1.2rem;
   font-weight: 800;
+}
+
+.final-save-toast {
+  background-color: var(--aux-color);
+  border-color: var(--aux-color);
 }

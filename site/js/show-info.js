@@ -84,6 +84,10 @@ function displayActiveness(thisVoter) {
   activeNameEl.innerHTML = activeName;
 }
 
+function displayPlanGeneral(thisVoter) {
+  
+}
+
 /* VOTING HISTORY */
 
 // Function to construct an array sorted by date, with all the election info regarding this voter
@@ -156,7 +160,7 @@ function displayVotingHistory(thisVoter) {
 /* PER CANVASSING RECORD */
 
 // Display options for Voter Language
-function displayLanguage(thisVoter) {
+function displayLanguageOptions(thisVoter) {
   let langInput = document.querySelector("#icon-lang-input").getElementsByTagName("input")[0];
   langInput.placeholder = "Other...";
   // Get the canvass state
@@ -178,6 +182,70 @@ function displayLanguage(thisVoter) {
   // Prepare: add event listeners for them to be clicked on
   prepareOption("#icon-lang");
   prepareInput("#icon-lang");
+}
+
+// Display options for Voter Plan
+function displayPlanOptions(thisVoter) {
+
+  // Get the canvass state
+  let thisStatus = undefined;
+  // Store current voter id in the container DOM object
+  // Do this because we have to store the info associated with the voter
+  document.querySelector("#icon-plan").currentVoterId = thisVoter["ID Number"];
+
+  thisStatus = thisVoter["plan"];
+  let optionIdSelector = `#icon-plan-${thisStatus}`;
+
+  // Highlight option (thisStatus undefined situation dealt with there)
+  highlightOption("#icon-plan", optionIdSelector);
+
+  // Prepare: add event listeners for them to be clicked on
+  prepareOption("#icon-plan");
+}
+
+// Display options for Voter mailing option
+function displayMailOptions(thisVoter) {
+
+  // Get the canvass state
+  let thisStatus = undefined;
+  // Store current voter id in the container DOM object
+  // Do this because we have to store the info associated with the voter
+  document.querySelector("#icon-mail").currentVoterId = thisVoter["ID Number"];
+
+  thisStatus = thisVoter["mail"];
+  let optionIdSelector = `#icon-mail-${thisStatus}`;
+
+  // Highlight option (thisStatus undefined situation dealt with there)
+  highlightOption("#icon-mail", optionIdSelector);
+
+  // Prepare: add event listeners for them to be clicked on
+  prepareOption("#icon-mail");
+}
+
+// Display options for Voter Language
+function displayWhoOptions(thisVoter) {
+  let whoInput = document.querySelector("#icon-who-input").getElementsByTagName("input")[0];
+  whoInput.placeholder = "Other...";
+
+  // Get the canvass state
+  let thisStatus = undefined;
+  // Store current voter id in the container DOM object
+  // Do this because we have to store the info associated with the voter
+  document.querySelector("#icon-who").currentVoterId = thisVoter["ID Number"];
+
+  thisStatus = thisVoter["who"];
+  let optionIdSelector = `#icon-who-${thisStatus}`;
+  // Highlight option (thisStatus undefined situation dealt with there)
+  highlightOption("#icon-who", optionIdSelector);
+
+  // If not the two parties, show in the input box
+  if(thisStatus != undefined && !["d", "r"].includes(thisStatus)) {
+    whoInput.placeholder = thisStatus;
+  }
+
+  // Prepare: add event listeners for them to be clicked on
+  prepareOption("#icon-who");
+  prepareInput("#icon-who");
 }
 
 /* UTIL: FIND THE VOTER DATA ENTRY USING VOTER ID */
@@ -206,7 +274,10 @@ function displayInfo(thisId) {
   displayVotingHistory(thisVoter);
 
   // Canvass recording part
-  displayLanguage(thisVoter);
+  displayLanguageOptions(thisVoter);
+  displayPlanOptions(thisVoter);
+  displayMailOptions(thisVoter);
+  displayWhoOptions(thisVoter);
 }
 
 export {
