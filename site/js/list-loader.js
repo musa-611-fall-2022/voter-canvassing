@@ -113,7 +113,7 @@ function loadVoterData(text) {
 function loadByListNumber(number) {
   // Update input number, if loading from cloud and it is undefined
   inputNumber = number;
-  let path = '../data/voters_lists/' + number + '.csv';
+  let path = './data/voters_lists/' + number + '.csv';
 
   // Set the input box placeholder
   listNumberInputEl.placeholder = `${number}`;
