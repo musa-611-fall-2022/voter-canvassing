@@ -50,7 +50,7 @@ Filter window
   top: 50%;
   left: 50%;
   width: 16rem;
-  height: 20rem;
+  height: 28rem;
   margin-top: -10rem;
   margin-left: -8rem;
   background-color: white;
@@ -60,4 +60,55 @@ Filter window
   filter: drop-shadow(10px 10px 12px #333333);
   display: none;
   transition: display 2s;
+  overflow-y: scroll;
+}
+
+/* --------- Filters --------- */
+
+.party-checkbox {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.party-label {
+  color: #0d59a9;
+}
+
+.party-checkbox:checked + .party-label {
+  text-decoration: solid;
+  color: white;
+  background-color: #0d59a9;
+}
+
+.status-checkbox {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.status-label {
+  color: #0d59a9;
+}
+
+.status-checkbox:checked + .status-label {
+  text-decoration: solid;
+  color: white;
+  background-color: #0d59a9;
+}
+
+.visit-checkbox {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.visit-label {
+  color: #0d59a9;
+}
+
+.visit-checkbox:checked + .visit-label {
+  text-decoration: solid;
+  color: white;
+  background-color: #0d59a9;
 }

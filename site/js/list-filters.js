@@ -109,6 +109,38 @@ for (const cb of statusFilter) {
  });
 }
 
+/*
+Function for visit status
+*/
+let visitFilter = document.querySelectorAll('.visit-checkbox');
+
+function shouldShowVisit () {
+   let filteredVisit = data;
+   for (const checkbox of visitFilter) {
+       if (checkbox.checked) {
+        filteredVisit = filteredVisit.filter(function (voter) {
+               const visitType = checkbox.value;
+               if (voter['canvass-status'] === visitType) {
+                   return true;
+               } else {
+                   return false;
+               }
+
+           });
+       }
+   }
+
+   return filteredVisit;
+}
+
+for (const cb of visitFilter) {
+ cb.addEventListener('change', () => {
+     const filteredVisit = shouldShowVisit();
+     showVotersOnMap(filteredVisit);
+     showVotersInList(filteredVisit);
+ });
+}
+
 export {
   allFilters,
 };
