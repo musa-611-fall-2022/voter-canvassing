@@ -7,7 +7,7 @@ import electionLookup from "../data/election_lookup.js";
 import { htmlToElement } from './htmlelement.js';
 import { showHideExpandButton, getVoterStatusIcon  } from "./voter-list.js";
 import { electionListExpandButtonEl } from "./list-expand.js";
-import { highlightOption, prepareOption } from "./update-info.js";
+import { highlightOption, prepareOption, prepareInput } from "./update-info.js";
 import partyDict from '../data/political_party_lookup.json' assert {type: "json"};
 import { getPartyColor } from "./voter-list.js";
 
@@ -155,6 +155,7 @@ function displayVotingHistory(thisVoter) {
 
 /* PER CANVASSING RECORD */
 
+// Display options for Voter Language
 function displayLanguage(thisVoter) {
   let langInput = document.querySelector("#icon-lang-input").getElementsByTagName("input")[0];
   langInput.placeholder = "Other...";
@@ -176,6 +177,7 @@ function displayLanguage(thisVoter) {
 
   // Prepare: add event listeners for them to be clicked on
   prepareOption("#icon-lang");
+  prepareInput("#icon-lang");
 }
 
 /* UTIL: FIND THE VOTER DATA ENTRY USING VOTER ID */

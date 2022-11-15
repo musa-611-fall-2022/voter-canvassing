@@ -13,7 +13,7 @@ function highlightOption(groupIdSelector, optionIdSelector) {
   let iconGroupEl  = document.querySelector(groupIdSelector).querySelectorAll(".icon-set");
   for(let item of iconGroupEl) {
     item.classList.remove("highlighted");
-    item.classList.add("icon-no-color");
+    //item.classList.add("icon-no-color");
   }
 
   // DOM object of the icon to be highlighted
@@ -48,6 +48,26 @@ function prepareOption(groupIdSelector) {
   }
 }
 
+// Likewise, also prepare the input box to be listened
+function prepareInput(groupIdSelector) {
+  let inputEl = document.querySelector(groupIdSelector).querySelector("input");
+  inputEl.addEventListener("input", ( ) => {
+
+    // When input, unhighlight all other options
+    let iconGroupEl  = document.querySelector(groupIdSelector).querySelectorAll(".icon-set");
+    for(let item of iconGroupEl) {
+      item.classList.remove("highlighted");
+      item.classList.add("icon-no-color");
+    }
+
+    // Record the input
+    let customInput = inputEl.value;
+    let storageEl = document.querySelector(groupIdSelector);
+    storageEl.unsavedSelection = customInput;
+
+  });
+}
+
 // After saving data, update Filtered data
 // At the same time, update display on the map and in the list
 function updateDataOnStatusSave(data, currentVoterId, status) {
@@ -73,16 +93,6 @@ function updateDataOnStatusSave(data, currentVoterId, status) {
     }
   }
 
-  // Then rehighlight this voter
-  highlightVoter(currentVoterId);
-}
-
-function updateDataOnFinalSave(data, currentVoterId) {
-  let filteredData = allFilters(data);
-  // showVotersInList(filteredData);
-  showVotersOnMap(filteredData);
-
-  showVotersInList(filteredData);
   // Then rehighlight this voter
   highlightVoter(currentVoterId);
 }
@@ -124,6 +134,7 @@ canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
 });
 
 // Initiate properties on DOM elements to store unsaved information
+// Add names and such
 let saveItemsSelectorsList = ["#icon-canvass", "#icon-lang", "#icon-plan", "#icon-mail", "#icon-who"];
 let recordItemsList = ["canvass-status", "language", "plan", "mail"];
 
@@ -159,10 +170,6 @@ finalSaveButtonEl.addEventListener("click", ( ) => {
 
   // Update data
   updateVoters(additionalData.info);
-
-  // Update display
-  // updateDataOnFinalSave(data, currentVoterId);
-
   // Then, send the updated info to the cloud
   saveAdditionalInfo(inputNumber, additionalData.info);
 
@@ -171,4 +178,5 @@ finalSaveButtonEl.addEventListener("click", ( ) => {
 export {
   highlightOption,
   prepareOption,
+  prepareInput,
 };
