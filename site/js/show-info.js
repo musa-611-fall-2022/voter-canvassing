@@ -8,11 +8,12 @@ import { htmlToElement } from './htmlelement.js';
 import { showHideExpandButton, getVoterStatusIcon  } from "./voter-list.js";
 import { electionListExpandButtonEl } from "./list-expand.js";
 import { highlightOption, prepareOption, prepareInput } from "./update-info.js";
-import partyDict from '../data/political_party_lookup.json' assert {type: "json"};
+import partyLookup from '../data/political_party_lookup.js';
 import { getPartyColor } from "./voter-list.js";
 
 const electionDict = electionLookup[0];
-console.log(partyDict);
+const partyDict = partyLookup[0];
+window.partyDict = partyDict;
 
 let basicInfoNameEl = document.querySelector(".info-panel-name");
 let basicInfoAddressEl = document.querySelector(".info-panel-address");
@@ -91,7 +92,7 @@ function displayMailGeneral(thisVoter) {
 
   const mailCodeEl = document.querySelector("#info-panel-mail-set").getElementsByClassName("list-icon")[0];
   const mailNameEl = document.querySelector("#info-panel-mail-set").getElementsByClassName("icon-subtitle")[0];
-  console.log(mailNameEl);
+
 
   // Construct some HTML elements
   const mailReceivedHTML = `<span class="material-symbols-outlined icon-ok-color">mark_email_read</span>`;

@@ -90,7 +90,6 @@ function loadVoterData(text) {
 
   // Create new property: combine house number with street name
   data = makeShortAddress(data);
-  console.log(data);
   // Load additional voter data from firebase, and update data
   // And then display the data on the map and in the list
   updateAdditionalInfo(inputNumber, data, showVotersInList, showVotersOnMap);
@@ -113,7 +112,7 @@ function loadVoterData(text) {
 function loadByListNumber(number) {
   // Update input number, if loading from cloud and it is undefined
   inputNumber = number;
-  let path = './data/voters_lists/' + number + '.csv';
+  let path = 'https://leejere.github.io/js-voter-canvassing/site/data/voters_lists/' + number + '.csv';
 
   // Set the input box placeholder
   listNumberInputEl.placeholder = `${number}`;
