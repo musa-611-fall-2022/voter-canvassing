@@ -96,3 +96,19 @@ Filter window
   color: white;
   background-color: #0d59a9;
 }
+
+.visit-checkbox {
+  opacity: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+.visit-label {
+  color: #0d59a9;
+}
+
+.visit-checkbox:checked + .visit-label {
+  text-decoration: solid;
+  color: white;
+  background-color: #0d59a9;
+}
