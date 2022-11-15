@@ -49,7 +49,7 @@ function showAddressesInList(addresses) {
                 //add text to the element and append it to the list
                 const html = `
                 <a href="#" class="list-group-item list-group-item-action" id="${id}">
-                    <h3>${fullAddress}</h3>
+                    <h4>${fullAddress}</h4>
                     <p>${typeOfHouse(address)} - ${voters.length} Voter(s)</p>
                     <p>${listHouseVoters(voters)}</p>
                 </a>` ;

@@ -2,15 +2,16 @@ import { compileName, compileAddress, showAddressesInList } from './addressList.
 
 
 function showDetails(data, id, panel) {
-    document.querySelector("#addressList").innerHTML = "";
+    panel.innerHTML = "";
+
+    panel.classList.add("voter-details-container")
     
     //compile voters
     const voters = [];
     let count = 1;
     let pastTalks = "No past conversations.";
-    console.log(data["features"]);
 
-    const headerHTML = `<div id>${id}</div>`
+    const headerHTML = `<div id=detailsHeader_${id} class="voter-details-header"><h3>${id}</h3></div>`
     const li = htmlToElement(headerHTML);
     panel.append(li)
     panel.parentNode.scrollTop = 0;
@@ -19,7 +20,6 @@ function showDetails(data, id, panel) {
     for (let person of data["features"]) {
         //get each voter associated with that specific address
         const resultAddress = compileAddress(person)
-        console.log(resultAddress);
         if (resultAddress == id) {
             //add them to voter array, following consistent format
             const voter = {
