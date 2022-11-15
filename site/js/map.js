@@ -2,11 +2,11 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-11 03:00:55
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-16 00:15:05
+ * @LastEditTime: 2022-11-16 02:51:23
  * @FilePath: \voter-canvassing\site\js\map.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
-
+import{ csvtojson } from './managedata.js';
 
 function onvoterClicked(evt) {
     console.log(evt);
@@ -58,7 +58,7 @@ function makevoterFeature(voter)
         },
         "geometry":
         {   "type": "Point",
-            "coordinates":voter['TIGER/Line Lng/Lat'],
+            "coordinates":[voter['28'].substr(0, 18), voter['28'].substr(19, voter.length)],
 
         },
         };
@@ -86,11 +86,17 @@ function showVotersOnMap(votersToShow, voterMap) {
 
 
 //use this function to search the voters by listNo
+function Search (map, search, votersToShow) {
+    search.addEventListener('click', () => {
+        let votersToShow1 = votersToShow.value;
+        csvtojson(map, votersToShow1);
+    });
 
-
+}
 
 export{
         initMap,
         showVotersOnMap,
+        Search,
 
 };

@@ -1,5 +1,4 @@
 import {  showVotersOnMap }  from './map.js';
-
 //convert csv to json
 function csvtojson ( map, votersToShow, onFailure){
     fetch(`./data/voters_lists/${votersToShow}.csv`)
@@ -17,8 +16,10 @@ function csvtojson ( map, votersToShow, onFailure){
     .then(result => {
         let v = result.data.slice(1, result.data.length-1);
         return v;
+
     })
         .then(result => showVotersOnMap( result, map));
+
 
     }
 
