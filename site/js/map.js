@@ -1,6 +1,3 @@
-import { makeVoterFeature } from './dataPull.js';
-import { populateVoterMenu } from './list.js';
-
 let responseContainer = document.getElementById("response-container");
 responseContainer.style.display = "none";
 
@@ -10,17 +7,17 @@ let blank = document.createElement("div");
 blank.id = "blank";
 
 let address = "";
-let ID = "";
+//let ID = "";
 
 let people = document.createElement("ul");
 let voterAddress = document.createElement("h3");
 
 let closeVoterInfoButton = document.createElement("button");
 
-let openVoterNotesButton = document.createElement("button");
+//let openVoterNotesButton = document.createElement("button");
 
 let voterNotes = document.createElement("div");
-voterNotes.id = "voter-notes"
+voterNotes.id = "voter-notes";
 
 let saveVoterNotesButton = document.createElement("button");
 
@@ -29,7 +26,7 @@ let closeVoterNotesButton = document.createElement("button");
 let loadNotes = document.createElement("p");
 loadNotes.style.height = "50px";
 loadNotes.style.border = "10px black";
-loadNotes.innerHTML = "No notes for the residents of this building so far..."
+loadNotes.innerHTML = "No notes for the residents of this building so far...";
 
 let writeNotes = document.createElement("textarea");
 writeNotes.style.height = "100px";
@@ -65,35 +62,186 @@ function initializeMap () {
     return map;
 }
 
-function locateMe(map){
+// function locateMe(map){
 
-    const successCallback = (pos) => {
-        if (map.positionLayer !== undefined) {
-            map.removeLayer(map.positionLayer);
+//     const successCallback = (pos) => {
+//         if (map.positionLayer !== undefined) {
+//             map.removeLayer(map.positionLayer);
+//         }
+
+//         myLocation = {
+//             'type': 'Point',
+//             'coordinates': [pos.coords.longitude, pos.coords.latitude]
+//         };
+
+//         map.positionLayer = L.geoJSON(myLocation).addTo(map);
+
+//         // un-comment following line if we want the map to zoom to user location on startup:
+//         //map.setView([pos.coords.latitude, pos.coords.longitude], 19);
+
+//         return myLocation;
+
+//     }
+//     const errorCallback = (e) => console.log(e);
+
+//     const options = { enableHighAccuracy: true, timeout: 10000 };
+
+//     const id = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
+
+//     //navigator.geolocation.clearWatch(id); // will need this when we change location in real-time.
+
+// }
+
+function setTag(status){
+
+    if(status === true){
+        return "green";
+    }
+    else{
+        return "red";
+    }
+}
+
+function openVoterNotes(id, v){
+
+    //openVoterNotesButton.style.display = "none";
+    //responseContainer = blank ;
+
+    voterNotes.style.zIndex = "2";
+    voterNotes.style.display = "flex";
+    voterNotes.style.alignContent = "column";
+
+    let voterInfoQuestions = ['stillLivesThere', 'votingPlan', 'languageAssistance'];
+
+    voter.currentID = id;
+
+    console.log(voter.currentID);
+
+    if(localStorage.getItem(voter.currentID) === null){
+        loadNotes.innerText = "No notes for this ID so far...";
+    }
+
+    else{
+        loadNotes.innerText = localStorage.getItem(voter.currentID);
+    }
+
+    voterNotes.appendChild(loadNotes);
+    voterNotes.appendChild(writeNotes);
+
+    saveVoterNotesButton.textContent = "Save Voter Notes";
+    voterNotes.appendChild(saveVoterNotesButton);
+
+    closeVoterNotesButton.textContent = "Close Voter Notes";
+    voterNotes.appendChild(closeVoterNotesButton);
+
+    for( let t of voterInfoQuestions ){
+
+        let tag = document.createElement("h4");
+        tag.textContent = t;
+        tag.style.color = "white";
+        tag.style.backgroundColor = setTag(v[t]);
+        tag.style.padding = "5px";
+        tag.style.fontSize = "10px";
+
+        voterNotes.appendChild(tag);
         }
 
-        myLocation = {
-            'type': 'Point',
-            'coordinates': [pos.coords.longitude, pos.coords.latitude]
-        };
+    for( let q of voterInfoQuestions ){
 
-        map.positionLayer = L.geoJSON(myLocation).addTo(map);
+        let questionCheckbox = document.createElement("input");
+        let checkboxLabel = document.createElement("label");
+        questionCheckbox.type = "checkbox";
+        questionCheckbox.id = q;
+        questionCheckbox.value = q;
 
-        // un-comment following line if we want the map to zoom to user location on startup: 
-        //map.setView([pos.coords.latitude, pos.coords.longitude], 19);
+        checkboxLabel.htmlFor = q;
+        checkboxLabel.appendChild(document.createTextNode(q));
+        v[q] = questionCheckbox.checked ? true : false ;
 
-        return myLocation;
+        voterNotes.appendChild(questionCheckbox);
+        voterNotes.appendChild(checkboxLabel);
+        voterNotes.appendChild(document.createElement("br"));
 
     }
-    const errorCallback = (e) => console.log(e);
 
-    const options = { enableHighAccuracy: true, timeout: 10000 };
+    responseContainer.appendChild(voterNotes);
 
-    const id = navigator.geolocation.watchPosition(successCallback, errorCallback, options);
+    closeVoterNotesButton.addEventListener('click', ()=>{
+        voterNotes = blank;
+        responseContainer = firstStage;
+        //openVoterNotesButton.style.display = "flex";
 
-    //navigator.geolocation.clearWatch(id); // will need this when we change location in real-time.
+    });
+
+    saveVoterNotesButton.addEventListener('click', () =>{
+        const notes = writeNotes.value;
+        console.log(notes);
+        voter.currentNotes = notes;
+
+        localStorage.setItem(voter.currentID, voter.currentNotes);
+
+    });
+
 
 }
+
+function onEachFeature(feature, layer) {
+
+    layer.on('click', function () {
+        //console.log(feature.geometry)
+        //L.marker(feature.geometry.coordinates).addTo(map);
+
+        //residence.currentResidence = feature.properties.address;
+        //residence.notes = localStorage.getItem(residence.currentResidence);
+        console.log(localStorage.getItem(address));
+
+        voter.currentAddress = feature.properties.address;
+        //voter.currentID = feature.voters
+        //voter.currentNotes = localStorage.getItem(voter.currentID);
+        voterNotes.style.display = "none";
+
+        //alert(feature.properties.address);
+        responseContainer.style.display = "flex";
+        people.innerHTML = "";
+        voterAddress.innerHTML = feature.properties.address;
+
+        firstStage = responseContainer;
+
+        firstStage.appendChild(voterAddress);
+        let residents = feature.voters;
+
+        for( let r = 0; r < residents.length; r++ ){
+
+            console.log(residents[r].name);
+
+            let person = document.createElement("button");
+            person.textContent = residents[r].name;
+            person.innerHTML = residents[r].name;
+            person.value = residents[r].name;
+
+            person.style.display = "flex";
+
+            person.addEventListener('click', ()=>{
+                openVoterNotes(person.value, residents[r]);
+            });
+
+            people.appendChild(person);
+        }
+
+        firstStage.appendChild(people);
+
+        closeVoterInfoButton.textContent = "Close";
+        firstStage.appendChild(closeVoterInfoButton);
+
+        console.log(residents);
+        responseContainer = firstStage;
+
+    });
+}
+
+closeVoterInfoButton.addEventListener('click', () =>{
+    responseContainer.style.display = "none";
+});
 
 function populateVoterMap(people, map) { // receives data from makeVoterFeature and plots them on the map
 
@@ -127,165 +275,9 @@ function populateVoterMap(people, map) { // receives data from makeVoterFeature 
 
 }
 
-function onEachFeature(feature, layer) {
-
-    layer.on('click', function (e) {
-        //console.log(feature.geometry)
-        //L.marker(feature.geometry.coordinates).addTo(map);
-
-        //residence.currentResidence = feature.properties.address;
-        //residence.notes = localStorage.getItem(residence.currentResidence);
-        console.log(localStorage.getItem(address));
-
-        voter.currentAddress = feature.properties.address;
-        //voter.currentID = feature.voters
-        //voter.currentNotes = localStorage.getItem(voter.currentID);
-        voterNotes.style.display = "none";
-
-        //alert(feature.properties.address);
-        responseContainer.style.display = "flex";
-        people.innerHTML = "";
-        voterAddress.innerHTML = feature.properties.address;
-
-        firstStage = responseContainer;
-
-        firstStage.appendChild(voterAddress);
-        let residents = feature.voters;
-
-        for( let r = 0; r < residents.length; r++ ){
-
-            console.log(residents[r].name)
-
-            let person = document.createElement("button");
-            person.textContent = residents[r].name
-            person.innerHTML = residents[r].name;
-            person.value = residents[r].name;
-
-            person.style.display = "flex";
-
-            person.addEventListener('click', ()=>{
-                openVoterNotes(person.value, residents[r]);
-            });
-
-            people.appendChild(person);
-        }
-
-        firstStage.appendChild(people);
-
-        closeVoterInfoButton.textContent = "Close";
-        firstStage.appendChild(closeVoterInfoButton);
-
-        console.log(residents);
-        responseContainer = firstStage;
-
-    });
-}
-
-closeVoterInfoButton.addEventListener('click', () =>{
-    responseContainer.style.display = "none";
-});
-
-
-
-function openVoterNotes(id, v){
-
-    //openVoterNotesButton.style.display = "none";
-    //responseContainer = blank ;
-
-    voterNotes.style.zIndex = "2";
-    voterNotes.style.display = "flex";
-    voterNotes.style.alignContent = "column";
-
-    let voterInfoQuestions = ['stillLivesThere', 'votingPlan', 'languageAssistance'];
-
-    voter.currentID = id;
-
-    console.log(voter.currentID);
-
-    if(localStorage.getItem(voter.currentID) === null){
-        loadNotes.innerText = "No notes for this ID so far..."
-    }
-
-    else{
-        loadNotes.innerText = localStorage.getItem(voter.currentID);
-    }
-
-    voterNotes.appendChild(loadNotes);
-    voterNotes.appendChild(writeNotes);
-
-    saveVoterNotesButton.textContent = "Save Voter Notes";
-    voterNotes.appendChild(saveVoterNotesButton);
-
-    closeVoterNotesButton.textContent = "Close Voter Notes";
-    voterNotes.appendChild(closeVoterNotesButton);
-
-    for( let t of voterInfoQuestions ){
-
-        let tag = document.createElement("h4");
-        tag.textContent = t;
-        tag.style.color = "white";
-        tag.style.backgroundColor = setTag(v[t]);
-        tag.style.padding = "5px";
-        tag.style.fontSize = "10px";
-
-        voterNotes.appendChild(tag);
-        }
-
-
-    function setTag(status){
-
-        if(status === true){
-            return "green";
-        }
-        else{
-            return "red";
-        }
-    }
-
-    for( let q of voterInfoQuestions ){
-
-        let questionCheckbox = document.createElement("input");
-        let checkboxLabel = document.createElement("label");
-        questionCheckbox.type = "checkbox";
-        questionCheckbox.id = q;
-        questionCheckbox.value = q;
-
-        checkboxLabel.htmlFor = q;
-        checkboxLabel.appendChild(document.createTextNode(q));
-        v[q] = questionCheckbox.checked ? true : false ;
-
-        voterNotes.appendChild(questionCheckbox);
-        voterNotes.appendChild(checkboxLabel);
-        voterNotes.appendChild(document.createElement("br"));
-
-    }
-
-    responseContainer.appendChild(voterNotes);
-
-    closeVoterNotesButton.addEventListener('click', ()=>{
-        voterNotes = blank;
-        responseContainer = firstStage;
-        //openVoterNotesButton.style.display = "flex";
-
-    });
-
-    saveVoterNotesButton.addEventListener('click', (e) =>{
-        const notes = writeNotes.value;
-        console.log(notes)
-        voter.currentNotes = notes;
-
-        localStorage.setItem(voter.currentID , voter.currentNotes);
-
-    })
-
-
-}
-
-
 //Tried to create a function to clear the voterLayer markers from the map, but it's not working!
 
 export {
     initializeMap,
-    locateMe,
     populateVoterMap,
   };

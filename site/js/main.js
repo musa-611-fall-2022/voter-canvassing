@@ -1,4 +1,4 @@
-import { initializeMap, locateMe } from './map.js';
+import { initializeMap } from './map.js';
 import { populateVoterList } from './dataPull.js';
 
 let map = initializeMap();
@@ -27,7 +27,7 @@ function clearMap() {
 }
 clearMap();
 
-function onButtonClicked(evt) { // maybe add functionality that listens for enter button pressed
+function onButtonClicked() { // maybe add functionality that listens for enter button pressed
     listNum = voterFileInput.value;
     console.log(listNum);
     onClearMapButtonClicked();
@@ -50,17 +50,18 @@ loadVoterListEnter();
  //adds an event listener that executes the onButtonClicked function when a user hits enter while typing in the Voter File Input text box
 
 function onClearInputButtonClicked () {
-    voterFileInput.value = ''};
+    voterFileInput.value = '';
+}
 
 function clearInputTextBox () {
     clearInputTextButton.addEventListener('click', onClearInputButtonClicked);
-};
+}
 clearInputTextBox();
 //adds an event listener that clears the voter list input text box when the user clicks the Clear Input Text button
 
 
 
-locateMe(map, myLocation); // runs function to return your location and mark it on a map. Have to use localhost:8080 for the location to be accessed though.
+//locateMe(map, myLocation); // runs function to return your location and mark it on a map. Have to use localhost:8080 for the location to be accessed though.
 
 //declares variables in Global Scope
 window.voterFileInput = voterFileInput;

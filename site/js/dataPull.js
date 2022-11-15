@@ -1,4 +1,4 @@
-import { initializeMap, locateMe, populateVoterMap } from './map.js';
+import { populateVoterMap } from './map.js';
 import { populateVoterMenu } from './list.js';
 
 let voterList = [];
@@ -102,11 +102,11 @@ function populateVoterList(listNum, map, voterListObj) {
             }
 
         else{
-            console.log("Working")
+            console.log("Working");
             return resp.text();
         }
 
-    } ) // can we handle the error right here? // now handled invalid list number issue in this promise 
+    } ) // can we handle the error right here? // now handled invalid list number issue in this promise
     .then(text => {
         // TODO: try/catch HTTP error for nonexistent list number // done.
         const data = Papa.parse(text, { header: true, skipEmptyLines: true });
@@ -123,10 +123,10 @@ export {
 
 window.voterList = voterList;
 
-"-75.16145216099994,39.92993551500007"
-"-75.15802336899998,39.93087322800005"
-"-75.15842544799995,39.93086332400003"
-"-75.15947777399998,39.93155817300004"
+// "-75.16145216099994,39.92993551500007"
+// "-75.15802336899998,39.93087322800005"
+// "-75.15842544799995,39.93086332400003"
+// "-75.15947777399998,39.93155817300004"
 
-"112545002-51" // problem element in list '0101' // eliminated in the try-catch block in makeCoordinates
-"015653961-51"
+// "112545002-51" // problem element in list '0101' // eliminated in the try-catch block in makeCoordinates
+// "015653961-51"
