@@ -12,12 +12,25 @@ let voterFileLoadButton = document.querySelector('#load-voter-list-button'); // 
 
 let voterListObj = document.querySelector("#voter-list"); // get list we'll put voters in from DOM
 
-let clearInputTextButton = document.querySelector('#clear-text-button') //saves clear input text button as a DOM
+let clearInputTextButton = document.querySelector('#clear-text-button'); //saves clear input text button as a DOM
 
+let clearMapButton = document.querySelector('#clear-map-button');
+
+function onClearMapButtonClicked() {
+    map.removeLayer(map.voterLayer);
+    voterListObj.innerHTML = ``;
+    console.log("Map cleared");
+}
+
+function clearMap() {
+    clearMapButton.addEventListener('click', onClearMapButtonClicked);
+}
+clearMap();
 
 function onButtonClicked(evt) { // maybe add functionality that listens for enter button pressed
     listNum = voterFileInput.value;
     console.log(listNum);
+    onClearMapButtonClicked();
     populateVoterList(listNum, map, voterListObj, myLocation);
 } // creates function that passes the value entered in input text box to the variable listNum.
 
@@ -30,7 +43,9 @@ function loadVoterListEnter() {
     voterFileInput.addEventListener('keypress', function(event) {
     if (event.keyCode == 13)
     voterFileLoadButton.click();
-})};
+});
+}
+
 loadVoterListEnter();
  //adds an event listener that executes the onButtonClicked function when a user hits enter while typing in the Voter File Input text box
 
@@ -38,9 +53,9 @@ function onClearInputButtonClicked () {
     voterFileInput.value = ''};
 
 function clearInputTextBox () {
-    clearInputTextButton.addEventListener('click', onClearInputButtonClicked)
+    clearInputTextButton.addEventListener('click', onClearInputButtonClicked);
 };
-clearInputTextBox(); 
+clearInputTextBox();
 //adds an event listener that clears the voter list input text box when the user clicks the Clear Input Text button
 
 

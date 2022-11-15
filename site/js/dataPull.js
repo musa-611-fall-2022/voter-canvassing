@@ -1,7 +1,7 @@
 import { initializeMap, locateMe, populateVoterMap } from './map.js';
 import { populateVoterMenu } from './list.js';
 
-const voterList = [];
+let voterList = [];
 
 function makeCoordinates(coords){
 
@@ -61,6 +61,7 @@ function constructVoter(v) {
 }
 
 function makeVoterFeature(data){
+    voterList = [];
     const voter = data;
     for (let v of voter){
         //console.log(v);

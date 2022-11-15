@@ -35,8 +35,6 @@ let writeNotes = document.createElement("textarea");
 writeNotes.style.height = "100px";
 writeNotes.style.width = "250px";
 
-let clearMapButton = document.querySelector('#clear-map-button') 
-
 //default-icon
 
 
@@ -100,29 +98,19 @@ function locateMe(map){
 function populateVoterMap(people, map) { // receives data from makeVoterFeature and plots them on the map
 
     console.log("These are the voters");
+    map.removeLayer(map.voterLayer);
 
     // if (map.voterLayer !== undefined) {
     //     map.removeLayer(map.voterLayer);
-    map.voterLayer = L.geoJSON(people, {pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+    map.voterLayer = L.geoJSON(people, { pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
         style: {
             fillColor: "orange",
             stroke: null,
             fillOpacity: 0.9,
             radius: 7,
-            
         },
         onEachFeature : onEachFeature,
      }).addTo(map);
-
-     function onClearMapButtonClicked () {
-        map.removeLayer(map.voterLayer);
-        console.log ("Map cleared")
-      }
-      
-      function clearMap() {
-          clearMapButton.addEventListener('click', onClearMapButtonClicked)
-      }
-      clearMap() 
          //map.flyTo(map.voterLayer, 16);
     // }
 
@@ -189,13 +177,13 @@ function onEachFeature(feature, layer) {
 
         console.log(residents);
         responseContainer = firstStage;
-        
+
     });
 }
 
-closeVoterInfoButton.addEventListener('click',() =>{
+closeVoterInfoButton.addEventListener('click', () =>{
     responseContainer.style.display = "none";
-})
+});
 
 
 
@@ -242,7 +230,7 @@ function openVoterNotes(id, v){
 
         voterNotes.appendChild(tag);
         }
-    
+
 
     function setTag(status){
 
@@ -256,7 +244,6 @@ function openVoterNotes(id, v){
 
     for( let q of voterInfoQuestions ){
 
-        
         let questionCheckbox = document.createElement("input");
         let checkboxLabel = document.createElement("label");
         questionCheckbox.type = "checkbox";
@@ -286,7 +273,7 @@ function openVoterNotes(id, v){
         const notes = writeNotes.value;
         console.log(notes)
         voter.currentNotes = notes;
-        
+
         localStorage.setItem(voter.currentID , voter.currentNotes);
 
     })
