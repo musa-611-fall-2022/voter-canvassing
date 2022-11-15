@@ -6,7 +6,7 @@ function showDetails(data, id, panel) {
     
     //compile voters
     const voters = [];
-    let count = 0;
+    let count = 1;
     let pastTalks = "No past conversations.";
     console.log(data["features"]);
 
