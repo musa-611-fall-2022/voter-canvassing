@@ -2,7 +2,7 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-11 03:00:55
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-16 02:51:23
+ * @LastEditTime: 2022-11-16 06:49:21
  * @FilePath: \voter-canvassing\site\js\map.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
@@ -76,10 +76,13 @@ function showVotersOnMap(votersToShow, voterMap) {
     };
     voterMap.voterLayer = L.geoJSON(voterFeatureCollection, {
         pointToLayer: (feature, latlng) => L.circleMarker(latlng),
-        style: {
-            fillColor: '#83bf15',
-            fillOpacity: 0.3,
-            stroke: false,
+        style:  {
+            fillColor: '#53C131',
+            fillOpacity: 0.5,
+            radius:6,
+            stroke: true,
+            weight:0.5,
+            color:'#000000',
         },
         }).addTo(voterMap);
     }
