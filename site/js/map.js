@@ -2,10 +2,12 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-11 03:00:55
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-15 13:15:14
+ * @LastEditTime: 2022-11-16 00:15:05
  * @FilePath: \voter-canvassing\site\js\map.js
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
+
+
 function onvoterClicked(evt) {
     console.log(evt);
     const voter = evt.layer.feature;
@@ -40,7 +42,6 @@ function initMap() {
     return map;
 }
 
-
 //convert json to a geojson-like feature
 function makevoterFeature(voter)
 {
@@ -64,27 +65,32 @@ function makevoterFeature(voter)
 }
 
 //Use the function to display the voters' location on the map.
-function showVotersOnMap(votersToShow, map) {
-    if (map.voterLayer !== undefined){
-        map.removeLayer(map.voterLayer);
+function showVotersOnMap(votersToShow, voterMap) {
+    if (voterMap.voterLayer !== undefined){
+        voterMap.removeLayer(voterMap.voterLayer);
     }
 
     const voterFeatureCollection = {
         "type": "FeatureCollection",
         "features": votersToShow.map(makevoterFeature),
     };
-    map.voterLayer = L.geoJSON(voterFeatureCollection, {
+    voterMap.voterLayer = L.geoJSON(voterFeatureCollection, {
         pointToLayer: (feature, latlng) => L.circleMarker(latlng),
         style: {
             fillColor: '#83bf15',
             fillOpacity: 0.3,
             stroke: false,
         },
-        }).addTo(map);
+        }).addTo(voterMap);
     }
 
-    export{
+
+//use this function to search the voters by listNo
+
+
+
+export{
         initMap,
         showVotersOnMap,
-        makevoterFeature,
+
 };

@@ -2,7 +2,7 @@
  * @Author: miaomiao612 dddoctorr612@gmail.com
  * @Date: 2022-11-10 05:49:08
  * @LastEditors: miaomiao612 dddoctorr612@gmail.com
- * @LastEditTime: 2022-11-15 13:02:55
+ * @LastEditTime: 2022-11-16 00:25:40
  * @FilePath: \voter-canvassing\site\index.html
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
 -->
@@ -28,12 +28,12 @@
 
 
         <span class="listNo">List No.</span>
-        <div class="listNo_inputbox" contenteditable placeholder=' Please input...'></div>
-        <button id="save" class="button1">Search</button>
+        <input type="text" class="listNo_inputbox" id="listNo"  placeholder=' Please input...'></input>
+        <button id="search1" class="button1" type="button">Search</button>
         <div class="v416_9"></div>
         <span class="pp">Political Parties</span>
-        <div class="pp_inputbox" contenteditable placeholder=' Please input...'></div>
-        <button id="save" class="button2">Search</button>
+        <input type="text" class="pp_inputbox" contenteditable placeholder=' Please input...'></input>
+        <button id="search2" class="button2" type="button">Search</button>
         <div class="v416_17"></div>
         <div class="v416_10"></div>
         <div class="name"></div>
@@ -46,14 +46,14 @@
 
         </div>
 
-</body>
+
 
 
     <!--leaflet's js-->
     <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
     integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
     crossorigin=""></script>
-
+    <script src="js\papaparse.min.js"></script>
     <!--my js-->
     <script type="module" src="js\main.js"></script>
 
