@@ -1,21 +1,30 @@
-import { compileName, compileAddress } from './addressList.js';
+import { compileName, compileAddress, showAddressesInList } from './addressList.js';
 
 
 function showDetails(data, id, panel) {
+    document.querySelector("#addressList").innerHTML = "";
+    
     //compile voters
     const voters = [];
     let count = 0;
     let pastTalks = "No past conversations.";
+    console.log(data["features"]);
+
+    const headerHTML = `<div id>${id}</div>`
+    const li = htmlToElement(headerHTML);
+    panel.append(li)
+    panel.parentNode.scrollTop = 0;
 
     //loop through data to find particular voters associated with active address
-    for (person in data) {
+    for (let person of data["features"]) {
         //get each voter associated with that specific address
-        resultAddress = compileAddress(person)
+        const resultAddress = compileAddress(person)
+        console.log(resultAddress);
         if (resultAddress == id) {
             //add them to voter array, following consistent format
-            voter = {
+            const voter = {
                 id: count,
-                voterId: person.properties["ID Number"],
+                voterID: person.properties["ID Number"],
                 name: compileName(person),
                 age: 0,
                 registered: registered(person),
@@ -27,37 +36,32 @@ function showDetails(data, id, panel) {
     }
     
     //list voters in form from voters array
-    for (person in voters){
+    for (let person of voters){
         let html = `
         <div id="voter${person.id}" class ="voter-details">
             <p>Voter ${person.id}</p>
             <h4>${person.name}</h4>
-            <p>${person.age}</p>
+            <p> Age: ${person.age}</p>
             <p><span>${person.registered}</span></p>
-            <p>${person.party}</p>
+            <p>Party: ${person.party}</p>
             <p>Prefered: N/A</p>
             <h5 >Past Conversations</h5>
-            <p id="pastTalks_${voterID}" class="details-subheader">${pastTalks}</p>
+            <p id="pastTalks_${person.voterID}" class="details-subheader">${[pastTalks]}</p>
             <h5 class="details-subheader">Voting Plan:</h5>
-            <p id="votingPlan_${voterID}">Not yet added.</p>
-            <btn id="votingPlanBtn_${voterID}">Edit Voting Plan</btn>
+            <p id="votingPlan_${person.voterID}">Not yet added.</p>
+            <button id="votingPlanBtn_${person.voterID}">Edit Voting Plan</button>
             <hr class="detailEntrySeparator"/>
         </div>`
 
-        //add html to 
+        //add html to the addressList div
         const li = htmlToElement(html);
         panel.append(li);
+       
 
-        //add event listener to button
-        let button = document.getElementById(`votingPlan_${voterID}`)
+        //add event listener to the voting plan button
+        let button = document.getElementById(`votingPlanBtn_${person.voterID}`)
         button.addEventListener('click', onButtonClicked); //add clicking event listener
     }
-
-  
-
-    const headerHTML = `<div id>${id}</div>`
-    const li = htmlToElement(html);
-    panel.append(li)
     
 };
 

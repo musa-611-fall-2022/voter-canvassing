@@ -28,7 +28,7 @@ function showAddressesInList(addresses) {
             let id = fullAddress;
 
             //check if the last house added matches the current one
-            //If it does...
+            //If it doesn't match...
             if (fullAddress != lastHouse) {
                 
                 //clear array, then add voter name to the array
@@ -39,8 +39,8 @@ function showAddressesInList(addresses) {
                 const html = `
                 <a href="#" class="list-group-item list-group-item-action" id="${id}">
                     <h3>${fullAddress}</h3>
-                    ${typeOfHouse(address)} - ${voters.length} Voter(s) <br>
-                    ${voters[0]}
+                    <p>${typeOfHouse(address)} - ${voters.length} Voter(s)</p>
+                    <p>${voters[0]}</p>
                 </a>` ;
                 const li = htmlToElement(html);
                 addressList.append(li);
@@ -48,7 +48,7 @@ function showAddressesInList(addresses) {
 
                 lastHouse = fullAddress; //change variable for next house match check
                 count++; //add to count for the total number of residences
-            } else { //if if doesn't match...
+            } else { //if it does match...
                 voters.push(Name); //add name to array without clearing
                 
                 //remove the last entry on the list and add a new one with the modified voter list
