@@ -3,7 +3,6 @@ import { showDetails } from './detailsList.js';
 
 function onAddressClicked(evt) {
     const home = evt.target.id;
-    
     const addressSelectedEvent = new CustomEvent('address-selected', { detail: { home } });
     window.dispatchEvent(addressSelectedEvent);
 
@@ -22,7 +21,7 @@ function showAddressesInList(addresses) {
         if (address !== undefined) {
             //replaced name concatenation with function, used in other modules
             let Name = compileName(address)
-            
+
             //specify the full address and save it for checking whether others live there
             let fullAddress = compileAddress(address);
             let id = fullAddress;
@@ -30,11 +29,11 @@ function showAddressesInList(addresses) {
             //check if the last house added matches the current one
             //If it doesn't match...
             if (fullAddress != lastHouse) {
-                
+
                 //clear array, then add voter name to the array
                 voters.length = 0;
                 voters.push(Name);
-                
+
                 //add text to the element and append it to the list
                 const html = `
                 <a href="#" class="list-group-item list-group-item-action" id="${id}">
@@ -50,9 +49,9 @@ function showAddressesInList(addresses) {
                 count++; //add to count for the total number of residences
             } else { //if it does match...
                 voters.push(Name); //add name to array without clearing
-                
+
                 //remove the last entry on the list and add a new one with the modified voter list
-                addressList.removeChild(addressList.lastChild); 
+                addressList.removeChild(addressList.lastChild);
                 const html = `
                 <a href="#" class="list-group-item list-group-item-action" id="${id}">
                     <h3>${fullAddress}</h3>
@@ -102,16 +101,16 @@ function listHouseVoters(array){
 
 //compile addresses from the file properties. Eliminates extra spaces
 function compileAddress(data){
-    if (data.properties['House Number Suffix'] == "" 
+    if (data.properties['House Number Suffix'] == ""
     && data.properties['Apartment Number'] == ""
     && data.properties['Address Line 2'] == ""){
         //Base case
         return `${data.properties['House Number']} ${data.properties['Street Name']}`
-    } else if (data.properties['House Number Suffix'] == "" 
+    } else if (data.properties['House Number Suffix'] == ""
     && data.properties['Address Line 2'] == "") {
         //Apartments, no address line 2
         return `${data.properties['House Number']} ${data.properties['Street Name']} ${data.properties['Apartment Number']}`
-    } else if (data.properties['Address Line 2'] == "" 
+    } else if (data.properties['Address Line 2'] == ""
     && data.properties['Apartment Number'] == "") {
         //House number suffix
         return `${data.properties['House Number']} ${data.properties['House Number Suffix']} ${data.properties['Street Name']} `

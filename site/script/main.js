@@ -53,28 +53,37 @@ function getListData(url) {
             //Delete the first line
             record.shift();
 
+            let count_NoMatch = 0;
+
             for (var i = 0; i < record.length - 1; i++) {
                 if (record[i]) {
                     var t = record[i].split(/,s*(?![^"]*"\,)/);
+                    if (t[25] === "No_Match") {
+                        count_NoMatch++;
+                        continue;
+                    }
+
                     for (var y = 0; y < t.length; y++) {
-                        if (!data["features"][i])
-                            data["features"][i] = {"type": "Feature", "properties": {}, "geometry": { "type": "Point", "coordinates": []}};
-                        data["features"][i]["properties"][title[y]] = t[y];
+                        if (!data["features"][i - count_NoMatch])
+                            data["features"][i - count_NoMatch] = {"type": "Feature", "properties": {}, "geometry": { "type": "Point", "coordinates": []}};
+                        data["features"][i - count_NoMatch]["properties"][title[y]] = t[y];
                     }
 
                     let lonlat = [];
-                    lonlat = data["features"][i]["properties"]["TIGER/Line Lng/Lat"].split(',');
+                    lonlat = data["features"][i - count_NoMatch]["properties"]["TIGER/Line Lng/Lat"].split(',');
 
                     // If the lonlat list is not NULL
                     if (lonlat.length === 2) {
-                        data["features"][i]["geometry"]["coordinates"][0] = parseFloat(lonlat[0].substring(1,));
-                        data["features"][i]["geometry"]["coordinates"][1] = parseFloat(lonlat[1].substring(0,lonlat[1].length - 1));
+                        data["features"][i - count_NoMatch]["geometry"]["coordinates"][0] = parseFloat(lonlat[0].substring(1,));
+                        data["features"][i - count_NoMatch]["geometry"]["coordinates"][1] = parseFloat(lonlat[1].substring(0,lonlat[1].length - 1));
                     }
                     else {
                         data["features"].pop();
                     }
                 }
             }
+            console.log(data["features"])
+            console.log(data["features"].length)
         },
         error: (err) => {
             alert('Oh no, I failed to download the data.');
