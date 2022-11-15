@@ -6,6 +6,8 @@ import { highlightVoter } from "./selected-voter.js";
 import { allFilters } from "./list-filters.js";
 import { inputNumber } from "./list-loader.js";
 import { showVotersInList } from "./voter-list.js";
+import { displayPlanGeneral, displayMailGeneral, findThisVoter } from "./show-info.js";
+import { selectedVoter } from "./selected-voter.js";
 
 // Initiate properties on DOM elements to store unsaved information
 // Add names and such
@@ -163,6 +165,16 @@ const finalSaveButtonEl = document.querySelector("#final-save");
 finalSaveButtonEl.addEventListener("click", ( ) => {
   let currentVoterId;
 
+  // First update the extra notes, if any
+  let extraNotesEl = document.querySelector("#other-notes-input").getElementsByTagName("input")[0];
+  if(extraNotesEl.value) {
+    // Initiate, if no additional info has been recorded for this voter
+    if(!additionalData.info[selectedVoter]) {
+      additionalData.info[selectedVoter] = {};
+    }
+    additionalData.info[selectedVoter]["notes"] = extraNotesEl.value;
+  }
+
   for(let selector of saveItemsSelectorsList) {
     let itemEl = document.querySelector(selector);
     let recordItemName = itemEl.recordItemName;
@@ -180,6 +192,12 @@ finalSaveButtonEl.addEventListener("click", ( ) => {
   }
   // Update data
   updateVoters(additionalData.info);
+
+  // Update some general display
+  let thisVoter = findThisVoter(currentVoterId);
+  displayPlanGeneral(thisVoter);
+  displayMailGeneral(thisVoter);
+
   // Then, send the updated info to the cloud
   saveAdditionalInfo(inputNumber, additionalData.info);
 

@@ -311,6 +311,7 @@ The bottom component is originally not showing until you select a voter
 .this-visit-panel {
   height: auto;
   padding-bottom: 1rem;
+  transition: height 1s ease-in-out;
 }
 
 .last-visit-panel {
@@ -357,6 +358,16 @@ The bottom component is originally not showing until you select a voter
 
 .record-item input::placeholder {
   color: #bbb;
+}
+
+#other-notes-input {
+  margin: 1rem 0.5rem 0.5rem;
+  width: calc(100% - 2rem);
+  height: 3rem;
+}
+
+#other-notes-input input {
+  height: 100%;
 }
 
 .final-save {

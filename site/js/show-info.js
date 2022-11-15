@@ -84,8 +84,65 @@ function displayActiveness(thisVoter) {
   activeNameEl.innerHTML = activeName;
 }
 
+function displayMailGeneral(thisVoter) {
+  // Get DOM objects
+  const mailSet = document.querySelector("#info-panel-mail-set");
+  mailSet.style.display = "none";
+
+  const mailCodeEl = document.querySelector("#info-panel-mail-set").getElementsByClassName("list-icon")[0];
+  const mailNameEl = document.querySelector("#info-panel-mail-set").getElementsByClassName("icon-subtitle")[0];
+  console.log(mailNameEl);
+
+  // Construct some HTML elements
+  const mailReceivedHTML = `<span class="material-symbols-outlined icon-ok-color">mark_email_read</span>`;
+  const mailNotReceivedHTML = `<span class="material-symbols-outlined icon-no-color">unsubscribe</span>`;
+  const voteInPersonHTML = `<span class="material-symbols-outlined icon-main-color">footprint</span>`;
+
+  // Only display if such info exists
+  if(thisVoter["mail"]) {
+    // Only show if there's this thing
+    mailSet.style.display = "flex";
+
+    let mailBallotInfo = thisVoter["mail"];
+    if(mailBallotInfo === "received") {
+      mailCodeEl.innerHTML = mailReceivedHTML;
+      mailNameEl.innerHTML = "Received mail ballot";
+    } else if(mailBallotInfo === "awaits") {
+      mailCodeEl.innerHTML = mailNotReceivedHTML;
+      mailNameEl.innerHTML = "Awaits mail ballot";
+    } else {
+      mailCodeEl.innerHTML = voteInPersonHTML;
+      mailNameEl.innerHTML = "Will vote in person";
+    }
+  }
+}
+
 function displayPlanGeneral(thisVoter) {
-  
+  // Get DOM objects
+  const planSet = document.querySelector("#info-panel-plan-set");
+  planSet.style.display = "none";
+
+  const planCodeEl = document.querySelector("#info-panel-plan-set").getElementsByClassName("list-icon")[0];
+  const planNameEl = document.querySelector("#info-panel-plan-set").getElementsByClassName("icon-subtitle")[0];
+
+  // Construct some HTML elements
+  const planYes = `<span class="material-symbols-outlined icon-ok-color">task_alt</span>`;
+  const planNo = `<span class="material-symbols-outlined icon-no-color">unpublished</span>`;
+
+  // Only display if such info exists
+  if(thisVoter["plan"]) {
+    // Only show if there's this thing
+    planSet.style.display = "flex";
+
+    let planInfo = thisVoter["plan"];
+    if(planInfo === "yes") {
+      planCodeEl.innerHTML = planYes;
+      planNameEl.innerHTML = "Planned";
+    } else {
+      planCodeEl.innerHTML = planNo;
+      planNameEl.innerHTML = "Not planned";
+    }
+  }
 }
 
 /* VOTING HISTORY */
@@ -248,6 +305,14 @@ function displayWhoOptions(thisVoter) {
   prepareInput("#icon-who");
 }
 
+// Display extra notes
+function displayExtraNotes(thisVoter) {
+  let extraNotesEl = document.querySelector("#other-notes-input").getElementsByTagName("input")[0];
+  if(thisVoter["notes"]) {
+    extraNotesEl.placeholder = thisVoter["notes"];
+  }
+}
+
 /* UTIL: FIND THE VOTER DATA ENTRY USING VOTER ID */
 
 // Find voter: takes voter ID and outputs comprehensive voter data
@@ -269,6 +334,8 @@ function displayInfo(thisId) {
   displayActiveness(thisVoter);
   displayParty(thisVoter);
   displayCanvassStatus(thisVoter);
+  displayMailGeneral(thisVoter);
+  displayPlanGeneral(thisVoter);
 
   // Voting history part
   displayVotingHistory(thisVoter);
@@ -278,9 +345,15 @@ function displayInfo(thisId) {
   displayPlanOptions(thisVoter);
   displayMailOptions(thisVoter);
   displayWhoOptions(thisVoter);
+
+  // Show notes if any
+  displayExtraNotes(thisVoter);
 }
 
 export {
   displayInfo,
   highlightOption,
+  displayPlanGeneral,
+  displayMailGeneral,
+  findThisVoter,
 };
