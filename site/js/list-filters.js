@@ -16,11 +16,17 @@ import { filterByNameAddress } from "./search-box.js";
 import { showVotersInList } from "./voter-list.js";
 import { showVotersOnMap } from "./map.js";
 import { filterByOption, uncheckAllOptions, filterByVisitStatus } from "./other-filters.js";
+import { changeFilterButtonColor } from "./filter-window.js";
 
 //import { makeVoterFeatureCollection } from "./map.js";
 
 // Initialize
 export let filteredData = undefined;
+
+// Store a global status: whether any filter is applied
+export let filterApplied = {
+  status: 0,
+};
 
 // All the filter elements
 import { voterInputBoxEl } from "./search-box.js";
@@ -33,12 +39,14 @@ A function that includes all the filters
 */
 
 function allFilters() {
+  filterApplied.status = 0;
   filteredData = data;
   filteredData = filterByNameAddress(filteredData);
   filteredData = filterByOption(filteredData, partyFiltersEl, "Party Code");
   filteredData = filterByOption(filteredData, statusFiltersEl, "Voter Status");
   filteredData = filterByVisitStatus(filteredData, visitFiltersEl);
 
+  changeFilterButtonColor(filterApplied.status);
   return(filteredData);
 }
 

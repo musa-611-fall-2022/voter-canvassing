@@ -30,3 +30,18 @@ filterOverlayEl.addEventListener("click", ( ) => {
   }, 500);
 
 });
+
+// Function to change filter button color when any filter is applied
+function changeFilterButtonColor(status) {
+  if(status === 1) {
+    filterButtonEl.style.backgroundColor = "#fad03c";
+    filterButtonEl.style.borderColor = "#fad03c";
+  } else {
+    filterButtonEl.style.backgroundColor = "#0d59a9";
+    filterButtonEl.style.borderColor = "#0d59a9";
+  }
+}
+
+export {
+  changeFilterButtonColor,
+};
