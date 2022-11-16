@@ -5,8 +5,6 @@ SHOW INFO WHEN A VOTER IS SELECTED
 import { data } from "./list-loader.js";
 import electionLookup from "../data/election_lookup.js";
 import { htmlToElement } from './htmlelement.js';
-import { showHideExpandButton, getVoterStatusIcon  } from "./voter-list.js";
-import { electionListExpandButtonEl } from "./list-expand.js";
 import { highlightOption, prepareOption, prepareInput } from "./update-info.js";
 import partyLookup from '../data/political_party_lookup.js';
 import { getPartyColor } from "./voter-list.js";
@@ -17,9 +15,6 @@ window.partyDict = partyDict;
 
 let basicInfoNameEl = document.querySelector(".info-panel-name");
 let basicInfoAddressEl = document.querySelector(".info-panel-address");
-let basicInfoPartyEl = document.querySelector(".info-panel-party");
-let basicInfoCanvassStatusEl = document.querySelector(".info-panel-canvass-status");
-let basicInfoVoterStatusEl = document.querySelector(".info-panel-voter-status");
 
 let electionListEl = document.querySelector("#voting-history");
 
@@ -212,7 +207,7 @@ function displayVotingHistory(thisVoter) {
   }
 
   // Only show button when necessary
-  showHideExpandButton("#voting-history", "#edit-component", electionListExpandButtonEl);
+  // showHideExpandButton("#voting-history", "#voting-history-container", electionListExpandButtonEl);
 }
 
 /* PER CANVASSING RECORD */

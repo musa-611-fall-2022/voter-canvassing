@@ -5,7 +5,6 @@ import { showVotersOnMap } from "./map.js";
 import { highlightVoter } from "./selected-voter.js";
 import { allFilters } from "./list-filters.js";
 import { inputNumber } from "./list-loader.js";
-import { showVotersInList } from "./voter-list.js";
 import { displayPlanGeneral, displayMailGeneral, findThisVoter } from "./show-info.js";
 import { selectedVoter } from "./selected-voter.js";
 
@@ -55,6 +54,11 @@ function prepareOption(groupIdSelector) {
 
       // First, highlight that option
       highlightOption(groupIdSelector, `#${item.id}`);
+
+      // If this parent has an input, clear that input box
+      if(document.querySelector(groupIdSelector).querySelector("input")) {
+        document.querySelector(groupIdSelector).querySelector("input").value = "";
+      }
 
       // Find substring item.id to get the real term
       let lastDashLocation = item.id.lastIndexOf("-");
@@ -161,7 +165,7 @@ canvassStatusSaveButtonEl.addEventListener("click", ( ) => {
 });
 
 // Save all on click
-const finalSaveButtonEl = document.querySelector("#final-save");
+export const finalSaveButtonEl = document.querySelector("#final-save");
 finalSaveButtonEl.addEventListener("click", ( ) => {
   let currentVoterId;
 

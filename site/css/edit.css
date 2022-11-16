@@ -33,7 +33,7 @@ The bottom component is originally not showing until you select a voter
 }
 
 .edit-container {
-  max-height: 59vh;
+  max-height: 50vh;
   overflow-y: auto;
 }
 
@@ -231,7 +231,8 @@ The bottom component is originally not showing until you select a voter
 }
 
 #edit-component {
-  transform: translateX(-30em);
+  display: none;
+  transform: translateX(-40em);
   transition: transform 0.5s ease-in-out;
 }
 
@@ -242,12 +243,12 @@ The bottom component is originally not showing until you select a voter
 /* Voting History */
 
 .voter-history-panel {
-  min-height: 12.5vh;
+  min-height: 10vh;
 }
 
 .voting-history-title {
   width: 100%;
-  padding: 0rem 0.5rem 0;
+  padding: 0 0.5rem;
   margin-bottom: -0.3rem;
 }
 
@@ -282,7 +283,13 @@ The bottom component is originally not showing until you select a voter
 }
 
 #edit-component .scroll-container {
+  max-height: 12vh;
   clear: left;
+}
+
+#edit-component .scroll-container-expanded {
+  max-height: 25vh;
+  transition: max-height 0.5s;
 }
 
 .voting-history-item {
@@ -384,6 +391,8 @@ The bottom component is originally not showing until you select a voter
   margin-top: 1.2rem;
   font-size: 1.2rem;
   font-weight: 800;
+  transform: translateX(-40em);
+  transition: transform 0.5s ease-in-out;
 }
 
 .final-save-toast {

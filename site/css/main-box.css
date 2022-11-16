@@ -15,7 +15,7 @@
 }
 
 .bottom-component {
-  top: 72vh;
+  top: 65vh;
   width: calc(100vw - 2.5rem);
   position: fixed;
   transition: top 0.5s ease-in-out;

@@ -12,6 +12,7 @@ MISCELLANEOUS
 // Top component show-hide
 
 import { voterListExpandButtonEl, voterListContainerEl, onExpandButtonClick } from "./list-expand.js";
+import { finalSaveButtonEl } from "./update-info.js";
 
 // State variable: whether the chunk is hidden at the moment
 export let loaderElIsHidden = 0;
@@ -91,8 +92,13 @@ function switchToEdit() {
   // Move the whole thing up
   bottomComponentEl.style.top = "7vh";
 
-  // Make the other panels show
-  editComponentEl.style.transform = "translateX(0em)";
+  // Make the other panels show: first show then slide to center
+  editComponentEl.style.display = "block";
+  finalSaveButtonEl.style.display = "flex";
+  setTimeout(( ) => {
+    editComponentEl.style.transform = "translateX(0em)";
+    finalSaveButtonEl.style.transform = "translateX(0em)";
+  }, 200);
 
   // Change the icon
   setTimeout(() => {
@@ -109,9 +115,15 @@ function switchToNormal() {
 
   // Hide the other panels
   editComponentEl.style.transform = "translateX(-42em)";
+  finalSaveButtonEl.style.transform = "translateX(-42em)";
+  setTimeout(( ) => {
+    editComponentEl.style.display = "none";
+    finalSaveButtonEl.style.display = "none";
+  }, 200);
+
 
   // Move the whole thing down
-  bottomComponentEl.style.top = "72vh";
+  bottomComponentEl.style.top = "65vh";
 
   // Change the icon
   setTimeout(() => {
