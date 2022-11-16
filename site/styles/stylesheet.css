@@ -110,6 +110,15 @@ p{
     margin-bottom: 5px;
 }
 
+legend {
+    font-family: urw-form,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1em;
+    padding-top: 2px;
+    margin-bottom: 5px;
+}
+
 #hidden {
     display: hidden;
 }

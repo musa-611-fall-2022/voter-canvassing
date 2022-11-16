@@ -12,7 +12,7 @@
 
         <!-- Adobe Fonts-->
         <link rel="stylesheet" href="https://use.typekit.net/rkc5uje.css">
-        
+
         <!--Introduce Bootstrap-->
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
 
@@ -35,7 +35,7 @@
             </div>
         </div>
 
-        <div id="map" class="map"></div>
+        <div id="map" class="map "></div>
 
         <div id = "address-container" class="address-container">
             <div id="addressList" class="address-group">
@@ -44,6 +44,75 @@
 
         <div id="voterDetailContainer" class="container hidden">
             <div id="voterDetailHeader"></div>
+        </div>
+
+        <div id="voterPlan_${voterIDhere}" class="votePlanQA hidden">
+            <form>
+                <h3>Voting Plan</h3>
+                <h4 id="votingPlanName">${name}</h4>
+
+                <fieldset>
+                    <legend>Did you talk to this person?</legend> 
+                        <div>
+                            <input type="radio" id="voteY" name="plan_talk" value="1">
+                            <label for="voteY">Yes</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="voteN" name="plan_talk" value="2">
+                            <label for="voteN">No</label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Do they plan to vote?</legend> 
+                        <div>
+                            <input type="radio" id="voteY" name="plan_YNU" value="1" checked>
+                            <label for="voteY">Yes</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="voteN" name="plan_YNU" value="2">
+                            <label for="voteN">No</label>
+                        </div>                        <div>
+                            <input type="radio" id="voteU" name="plan_YNU" value="3">
+                            <label for="voteU">Unsure</label>
+                        </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>How do they plan to vote?</legend> 
+                        <div>
+                            <input type="radio" id="how_person" name="plan_how" value="in-person" checked>
+                            <label for="how_person">In Person</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="how_mail" name="plan_how" value="mail">
+                            <label for="how_mail">Mail-In Ballot</label>
+                        </div>                        <div>
+                            <input type="radio" id="how_unsure" name="plan_how" value="unsure">
+                            <label for="how_unsure">Unsure</label>
+                        </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Do they have what they need to vote?</legend> 
+                        <div>
+                            <input type="radio" id="need_yes" name="plan_needs" value="yes" checked>
+                            <label for="how_person">Yes</label>
+                        </div>
+                        <div>
+                            <input type="radio" id="need_no" name="plan_needs" value="no">
+                            <label for="how_mail">Additional Info Required</label>
+                        </div>
+                        <textarea id="planNotes_needs" class= "notes" placeholder="List their needs here"></textarea>
+                </fieldset>
+
+                <div>
+                    <h5>Any additional notes?</h5>
+                    <textarea id="planNotes_add" class="notes" placeholder="Type notes here"></textarea>
+                </div>
+
+                <button class="voter-details-save-btn">Submit</button>
+                <button id="voterDetailsCancelBtn" class="voter-details-cancel-btn">Cancel</button>
+            </form>
         </div>
 
         <!-- Leflet JS-->
