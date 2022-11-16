@@ -22,10 +22,13 @@ INITIALIZE BASE MAP TO SHOW
 // const mapboxToken = `pk.eyJ1IjoibGktamllLWZqIiwiYSI6ImNsYWU2dWtqbzByZHYzb3F5dndrZm9vbXoifQ.RhKDjT-7I5oWlzeDbfrI9g`;
 
 let baseMapEl = document.querySelector("#map-component");
+const mapboxAccount = 'mapbox';
+const mapboxStyle = 'light-v10';
+const mapboxToken = 'pk.eyJ1IjoibGktamllLWZqIiwiYSI6ImNsYWU2dWtqbzByZHYzb3F5dndrZm9vbXoifQ.RhKDjT-7I5oWlzeDbfrI9g';
 export let baseMap = L.map(baseMapEl, { zoomControl: false }).setView([40, -75.15], 11);
-L.tileLayer(`https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png?api_key=b59111c3-b70c-4361-b0be-47c9cd323fea`, {
+L.tileLayer(`https://api.mapbox.com/styles/v1/${mapboxAccount}/${mapboxStyle}/tiles/256/{z}/{x}/{y}@2x?access_token=${mapboxToken}`, {
     maxZoom: 20,
-    attribution: '© <a href="https://stadiamaps.com/">Stadia Maps</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
+    attribution: '© <a href="https://www.mapbox.com/about/maps/">Mapbox</a> © <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a> <strong><a href="https://www.mapbox.com/map-feedback/" target="_blank">Improve this map</a></strong>',
 }).addTo(baseMap);
 
 /*
