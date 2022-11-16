@@ -48,27 +48,45 @@ function onSaveClicked(evt) {
   const treeId = app.currentTree.properties['OBJECTID'];
   app.notes[treeId] = note;
   saveNotes(app.notes);
-  showToast('Saved!', 'toast-success');
 }
 
 //const data = fetch('')
 //.then(function(data) {return data});
 
+initToast();
 // try to load data
+
+function makeVotersFeature(voter){
+  return{
+    'type': 'Feature',
+    'properties': voter,
+    'geometry': {
+      "type": "Point",
+      "coordinates": voter['TIGER/Line Lng/Lat'].split(','),
+    },
+  };
+}
+
 function fetchVoterList(voterListFilename) {
   fetch(`./data/voters_lists/${voterListFilename}.csv`)
     .then(resp => resp.text())
     .then(data => {
       const voters = Papa.parse(data, { header: true });
       window.data = data;
+      for(let i = 0; i < voters.data.length; i++) {
+        //if tigerline != empty, then run the following (to protect against empty attributes)
+        const voterFeature = makeVotersFeature(voters.data[i]);
+        map.voterLayer.addData(voterFeature);
+      }
+      //console.log(voters);
+      /*console.log(voters?.data?.length);
+      console.log(!!voters?.data?.length);
       console.log(voters);
-      console.log(Array.isArray(voters));
-      if (Array.isArray(voters) === true) {
+      if (voters?.data?.length) {
         showToast('Saved!', 'toast-success');
       } else {
         showToast('No!!!!', 'toast-failure');
-      }
-      map.voterLayer.addData(data);
+      }*/
     });
   // .then(point => {
   //map.voterLayer.addData(point);
@@ -80,8 +98,7 @@ function onSaveVoteClicked(evt) {
   const listID = evt.detail.voterList;
   console.log(listID);
   fetchVoterList(listID);
-
-
+  //showToast('Saved!', 'toast-success');
 }
 
 // takes the tree that is clicked on and making it currentTree
@@ -136,7 +153,6 @@ function setupInteractionEvents() {
 // our user to be able to load/save any data before we actually have the
 // existing data loaded.
 
-initToast();
 initTreeInfoForm();
 setupGeolocationEvent();
 
