@@ -15,132 +15,69 @@ import { data } from "./list-loader.js";
 import { filterByNameAddress } from "./search-box.js";
 import { showVotersInList } from "./voter-list.js";
 import { showVotersOnMap } from "./map.js";
+import { filterByOption, uncheckAllOptions, filterByVisitStatus } from "./other-filters.js";
 
 //import { makeVoterFeatureCollection } from "./map.js";
 
 // Initialize
 export let filteredData = undefined;
 
+// All the filter elements
+import { voterInputBoxEl } from "./search-box.js";
+let partyFiltersEl = document.querySelectorAll('.party-checkbox');
+let statusFiltersEl = document.querySelectorAll('.status-checkbox');
+let visitFiltersEl = document.querySelectorAll('.visit-checkbox');
+
 /*
 A function that includes all the filters
 */
 
-function allFilters(data) {
-  let filtered = data;
-  filtered = filterByNameAddress(data);
-  // More filters to come...
+function allFilters() {
+  filteredData = data;
+  filteredData = filterByNameAddress(filteredData);
+  filteredData = filterByOption(filteredData, partyFiltersEl, "Party Code");
+  filteredData = filterByOption(filteredData, statusFiltersEl, "Voter Status");
+  filteredData = filterByVisitStatus(filteredData, visitFiltersEl);
 
-  return filtered;
+  return(filteredData);
 }
 
-/*
-Search box filter
-*/
-
-import { voterInputBoxEl } from "./search-box.js";
-voterInputBoxEl.addEventListener("input", ( ) => {
-  filteredData = allFilters(data);
-  window.filteredData = filteredData;
+function filterAllAndUpdate() {
+  filteredData = allFilters();
+  // Update display
   showVotersInList(filteredData);
   showVotersOnMap(filteredData);
-});
-
-/*
-Function for voter party
-*/
- let partyFilter = document.querySelectorAll('.party-checkbox');
-
- function shouldShowParty () {
-    let filteredParty = data;
-    for (const checkbox of partyFilter) {
-        if (checkbox.checked) {
-          filteredParty = filteredParty.filter(function (voter) {
-                const partyType = checkbox.value;
-                if (voter['Party Code'] === partyType) {
-                    return true;
-                } else {
-                    return false;
-                }
-
-            });
-        }
-    }
-
-    return filteredParty;
 }
 
-for (const cb of partyFilter) {
-  cb.addEventListener('change', () => {
-      const filteredParty = shouldShowParty();
-      showVotersOnMap(filteredParty);
-      showVotersInList(filteredParty);
-  });
+// Search box filter
+voterInputBoxEl.addEventListener("input", filterAllAndUpdate);
+
+// The other filters
+
+function prepareFilterSet(filtersEl) {
+  for (const cb of filtersEl) {
+    cb.addEventListener('change', ( ) => {
+      if(cb.checked) { // Meaning user intends to check this one
+
+        // First uncheck everything in the party group
+        uncheckAllOptions(filtersEl);
+        // Recheck self if it should be that way
+        cb.checked = true;
+
+      } else { // Meaning user intends to uncheck this one
+        cb.checked = false;
+      }
+      // Go through all filters
+      filterAllAndUpdate();
+    });
+  }
 }
 
-/*
-Function for voter status
-*/
-let statusFilter = document.querySelectorAll('.status-checkbox');
-
-function shouldShowStatus () {
-   let filteredStatus = data;
-   for (const checkbox of statusFilter) {
-       if (checkbox.checked) {
-        filteredStatus = filteredStatus.filter(function (voter) {
-               const statusType = checkbox.value;
-               if (voter['Voter Status'] === statusType) {
-                   return true;
-               } else {
-                   return false;
-               }
-
-           });
-       }
-   }
-
-   return filteredStatus;
-}
-
-for (const cb of statusFilter) {
- cb.addEventListener('change', () => {
-     const filteredStatus = shouldShowStatus();
-     showVotersOnMap(filteredStatus);
-     showVotersInList(filteredStatus);
- });
-}
-
-/*
-Function for visit status
-*/
-let visitFilter = document.querySelectorAll('.visit-checkbox');
-
-function shouldShowVisit () {
-   let filteredVisit = data;
-   for (const checkbox of visitFilter) {
-       if (checkbox.checked) {
-        filteredVisit = filteredVisit.filter(function (voter) {
-               const visitType = checkbox.value;
-               if (voter['canvass-status'] === visitType) {
-                   return true;
-               } else {
-                   return false;
-               }
-
-           });
-       }
-   }
-
-   return filteredVisit;
-}
-
-for (const cb of visitFilter) {
- cb.addEventListener('change', () => {
-     const filteredVisit = shouldShowVisit();
-     showVotersOnMap(filteredVisit);
-     showVotersInList(filteredVisit);
- });
-}
+prepareFilterSet(partyFiltersEl);
+prepareFilterSet(statusFiltersEl);
+prepareFilterSet(visitFiltersEl);
 
 export {
+  filterAllAndUpdate,
   allFilters,
 };

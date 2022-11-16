@@ -13,6 +13,9 @@ MISCELLANEOUS
 
 import { voterListExpandButtonEl, voterListContainerEl, onExpandButtonClick } from "./list-expand.js";
 import { finalSaveButtonEl } from "./update-info.js";
+import { filterAllAndUpdate } from "./list-filters.js";
+import { selectedVoter } from "./selected-voter.js";
+import { highlightVoter } from "./selected-voter.js";
 
 // State variable: whether the chunk is hidden at the moment
 export let loaderElIsHidden = 0;
@@ -124,6 +127,11 @@ function switchToNormal() {
 
   // Move the whole thing down
   bottomComponentEl.style.top = "65vh";
+
+  // Update list display
+  filterAllAndUpdate();
+  highlightVoter(selectedVoter);
+
 
   // Change the icon
   setTimeout(() => {

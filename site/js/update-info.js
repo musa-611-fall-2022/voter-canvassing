@@ -93,7 +93,7 @@ function prepareInput(groupIdSelector) {
 // After saving data, update Filtered data
 // At the same time, update display on the map and in the list
 function updateDataOnStatusSave(data, currentVoterId, status) {
-  let filteredData = allFilters(data);
+  let filteredData = allFilters();
   // showVotersInList(filteredData);
   showVotersOnMap(filteredData);
 
@@ -199,6 +199,7 @@ finalSaveButtonEl.addEventListener("click", ( ) => {
 
   // Update some general display
   let thisVoter = findThisVoter(currentVoterId);
+  // Update display on the top
   displayPlanGeneral(thisVoter);
   displayMailGeneral(thisVoter);
 
