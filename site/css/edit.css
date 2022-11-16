@@ -20,7 +20,7 @@ The bottom component is originally not showing until you select a voter
 }
 
 #bottom-component {
-  transform: translateX(-30em);
+  transform: translateX(-40em);
   transition: all 0.5s ease-in-out;
 }
 
@@ -104,35 +104,6 @@ The bottom component is originally not showing until you select a voter
   color: #fff;
 }
 
-/* Other overview icons */
-
-.overview-display {
-  padding: 0.4rem;
-  clear: left;
-  margin-top: 0.5rem;
-  display: flex;
-}
-
-#overview-display .icon-set {
-  margin-right: 0.8rem;
-}
-
-#overview-display .icon-set .icon-subtitle {
-  color: var(--main-color);
-}
-
-#overview-display .icon-set .list-icon {
-  border-color: var(--main-color);
-}
-
-#overview-display .icon-set .material-symbols-outlined {
-  font-size: 1.2rem;
-}
-
-#overview-display .icon-set {
-  max-width: 5rem;
-}
-
 /* Dealing with highlighted items */
 
 .highlighted .material-symbols-outlined {
@@ -188,6 +159,32 @@ The bottom component is originally not showing until you select a voter
 #icon-canvass-completed.highlighted .icon-subtitle {
   color: var(--ok-color);
   font-weight: 800;
+}
+
+/* Other overview icons */
+
+.overview-display {
+  padding: 0.4rem;
+  clear: left;
+  margin-top: 0.5rem;
+  display: flex;
+}
+
+#overview-display .icon-set {
+  margin-right: 0.8rem;
+  max-width: 5rem;
+}
+
+#overview-display .icon-set .icon-subtitle {
+  color: var(--main-color);
+}
+
+#overview-display .icon-set .list-icon {
+  border-color: var(--main-color);
+}
+
+#overview-display .icon-set .material-symbols-outlined {
+  font-size: 1.2rem;
 }
 
 /* When screen too small, don't display subtitles */

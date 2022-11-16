@@ -12,13 +12,8 @@ voterListExpandButtonEl.expandStatus = 0;
 electionListExpandButtonEl.expandStatus = 0;
 
 function expandList(thisButtonEl, thisContainerEl) {
-  const mediaQuery = window.matchMedia("(min-width: 1200px)");
-  // If a wide screen, expand to longer
-  if(mediaQuery.matches) {
-    thisContainerEl.classList.add("scroll-container-expanded-long"); // Expand to 75vh max
-  } else {
-    thisContainerEl.classList.add("scroll-container-expanded"); // Expand to 42vh max
-  }
+
+  thisContainerEl.classList.add("scroll-container-expanded"); // Expand to 42vh max
 
   // Update button icon
   thisButtonEl.innerHTML = `<span class="material-symbols-outlined">expand_less</span>`;

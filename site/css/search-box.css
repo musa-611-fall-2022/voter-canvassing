@@ -3,6 +3,7 @@
   height: 3.5em;
   z-index: 999;
   transition: transform 0.5s;
+  margin-bottom: 0.6rem;
 }
 
 #search-box-component .input-container {

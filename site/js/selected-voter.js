@@ -118,7 +118,7 @@ function onSelectAction(thisId) {
     unhighlightVoter();
     selectedVoter = undefined;
     // Show info edit panel
-    bottomComponentEl.style.transform = "translateX(-30em)";
+    bottomComponentEl.style.transform = "translateX(-40em)";
 
   } else {
     // If the list is currently expanded, unexpand it

@@ -21,14 +21,14 @@ Change scroll container height based when clicked
 /* ---- Normally, expand to 42vh ------ */
 
 .scroll-container-expanded {
-  max-height: 42vh;
+  max-height: 39vh;
   transition: max-height 0.5s;
 }
 
 /* ---- With wide screen, when basic info panel is on the other side, use 75vh ------ */
 
 .scroll-container-expanded-long {
-  max-height: 75vh;
+  max-height: 39vh;
   transition: max-height 1s;
 }
 
