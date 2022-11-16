@@ -40,7 +40,8 @@ Filter window
   z-index: 99999;
   animation: pulse-black 1s infinite;
   display: none;
-  transition: display 1s;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
 }
 
 /* ------- Filter window ---------- */
@@ -57,9 +58,10 @@ Filter window
   border-radius: 1rem;
   z-index: 2000;
   z-index: 9999999;
-  filter: drop-shadow(10px 10px 12px #333333);
+  filter: drop-shadow(10px 10px 12px #333);
   display: none;
-  transition: display 2s;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
   overflow-y: scroll;
 }
 
