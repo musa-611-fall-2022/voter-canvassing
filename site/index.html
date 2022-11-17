@@ -43,22 +43,114 @@
     <!-- Overlay when the filter window pops up -->
     <div id="filter-overlay" class="filter-overlay"></div>
     <div id="filter-window" class="filter-window">
-      <ul id="filter-window-filters">
-        <h4>Filter by Party</h4>
-        <label><input type="checkbox" class="party-checkbox" value="D"> <span class = "party-label">Democrat</span></label></br>
-        <label><input type="checkbox" class="party-checkbox" value="R"> <span class = "party-label">Republican</span></label></br>
-        <label><input type="checkbox" class="party-checkbox" value="I"> <span class = "party-label">Independent</span></label></br>
-        <label><input type="checkbox" class="party-checkbox" value="LN"> <span class = "party-label">Libertarian</span></label></br>
-        <label><input type="checkbox" class="party-checkbox" value="OTH"> <span class = "party-label">Other</span></label></br>
-        <label><input type="checkbox" class="party-checkbox" value="NF"> <span class = "party-label">No Affiliation</span></label></br>
-        <h4>Filter by Voting Status</h4>
-        <label><input type="checkbox" class="status-checkbox" value="A"> <span class = "status-label">Active</span></label></br>
-        <label><input type="checkbox" class="status-checkbox" value="I"> <span class = "status-label">Inactive</span></label></br>
-        <h4>Filter by Visit Status</h4>
-        <label><input type="checkbox" class="visit-checkbox" value="pending"> <span class = "visit-label">Pending</span></label></br>
-        <label><input type="checkbox" class="visit-checkbox" value="completed"> <span class = "visit-label">Completed</span></label></br>
-        <label><input type="checkbox" class="visit-checkbox" value="awaits"> <span class = "visit-label">Awaiting</span></label></br>
-      </ul>
+
+      <!-- Party filters -->
+      <div class="filter-group-title">
+        Filter by registered party
+      </div>
+      <div id="party-filter-group" class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="D"> 
+          <div id="filter-dem" class="icon-set">
+            <div class="list-icon">
+              <p>D</p>
+            </div>
+            <div class="icon-subtitle">Democrat</div>
+          </div>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="R">
+          <div id="filter-rep" class="icon-set">
+            <div class="list-icon">
+              <p>R</p>
+            </div>
+            <div class="icon-subtitle">Republican</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="I">
+          <div id="filter-ind" class="icon-set">
+            <div class="list-icon">
+              <p>I</p>
+            </div>
+            <div class="icon-subtitle">Independent</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="LN">
+          <div id="filter-lib" class="icon-set">
+            <div class="list-icon">
+              <p>L</p>
+            </div>
+            <div class="icon-subtitle">Libertarian</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="OTH">
+          <div id="filter-oth" class="icon-set">
+            <div class="list-icon">
+              <p>O</p>
+            </div>
+            <div class="icon-subtitle">Other</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="NF">
+          <div id="filter-noparty" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">close</span>
+            </div>
+            <div class="icon-subtitle">Not affliated</div>
+          </div>
+        </label>
+      </div>
+      
+      <div class="filter-group-title">
+        Filter by voter status
+      </div>
+
+      <div id="status-filter-group" class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox status-checkbox" value="A">
+          <div id="filter-active" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">ballot</span>
+            </div>
+            <div class="icon-subtitle">Active</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox status-checkbox" value="I">
+          <div id="filter-inactive" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">close</span>
+            </div>
+            <div class="icon-subtitle">Inactive</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="filter-group-title">
+        Filter by visit status
+      </div>
+
+      <div id="visit-filter-group" class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox visit-checkbox" value="pending">
+          <div id="filter-pending" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">hourglass_top</span>
+            </div>
+            <div class="icon-subtitle">Pending</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox visit-checkbox" value="awaits">
+          <div id="filter-awaits" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">timeline</span>
+            </div>
+            <div class="icon-subtitle">Awaits followup</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox visit-checkbox" value="completed">
+          <div id="filter-completed" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">task_alt</span>
+            </div>
+            <div class="icon-subtitle">Completed</div>
+          </div>
+        </label>
+      </div>
     </div>
 
     <div id="nav-component" class="main-box">

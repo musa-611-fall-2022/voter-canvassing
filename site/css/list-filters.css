@@ -48,7 +48,7 @@ Filter window
 
 .filter-window {
   position: fixed;
-  top: 50%;
+  top: 30%;
   left: 50%;
   width: 16rem;
   height: 28rem;
@@ -59,7 +59,8 @@ Filter window
   z-index: 2000;
   z-index: 9999999;
   filter: drop-shadow(10px 10px 12px #333);
-  display: none;
+  display: none; /* But will turn into flex with js */
+  flex-direction: column;
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
   overflow-y: scroll;
@@ -67,50 +68,135 @@ Filter window
 
 /* --------- Filters --------- */
 
-.party-checkbox {
+.filter-group-title {
+  margin: 2rem 1.5rem 0;
+  color: var(--main-color);
+  font-weight: 500;
+  font-size: 0.95rem;
+  padding: 0;
+  text-align: center;
+}
+
+.filter-group {
+  margin: 1rem 1.5rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.filter-group .icon-set {
+  width: 4rem;
+}
+
+.filter-checkbox:checked + .icon-set .list-icon {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+.filter-checkbox:checked + .icon-set .list-icon .material-symbols-outlined {
+  color: #fff;
+}
+
+.filter-checkbox:checked + .icon-set .list-icon p {
+  color: #fff;
+}
+
+.filter-checkbox:checked + .icon-set .icon-subtitle {
+  color: var(--main-color);
+  font-weight: 800;
+}
+
+.filter-checkbox {
   opacity: 0;
   position: absolute;
   pointer-events: none;
 }
 
-.party-label {
-  color: #0d59a9;
+.filter-checkbox:checked + #filter-pending .list-icon {
+  background-color: #bbb;
+  border-color: #bbb;
 }
 
-.party-checkbox:checked + .party-label {
-  text-decoration: solid;
-  color: white;
-  background-color: #0d59a9;
+.filter-checkbox:checked + #filter-pending .icon-subtitle {
+  color: #bbb;
 }
 
-.status-checkbox {
-  opacity: 0;
-  position: absolute;
-  pointer-events: none;
+.filter-checkbox:checked + #filter-noparty .list-icon {
+  background-color: #bbb;
+  border-color: #bbb;
 }
 
-.status-label {
-  color: #0d59a9;
+.filter-checkbox:checked + #filter-noparty .icon-subtitle {
+  color: #bbb;
 }
 
-.status-checkbox:checked + .status-label {
-  text-decoration: solid;
-  color: white;
-  background-color: #0d59a9;
+.filter-checkbox:checked + #filter-rep .list-icon {
+  background-color: var(--red-color);
+  border-color: var(--red-color);
 }
 
-.visit-checkbox {
-  opacity: 0;
-  position: absolute;
-  pointer-events: none;
+.filter-checkbox:checked + #filter-rep .icon-subtitle {
+  color: var(--red-color);
 }
 
-.visit-label {
-  color: #0d59a9;
+.filter-checkbox:checked + #filter-ind .list-icon {
+  background-color: var(--aux-color);
+  border-color: var(--aux-color);
 }
 
-.visit-checkbox:checked + .visit-label {
-  text-decoration: solid;
-  color: white;
-  background-color: #0d59a9;
+.filter-checkbox:checked + #filter-ind .icon-subtitle {
+  color: var(--aux-color);
+}
+
+.filter-checkbox:checked + #filter-lib .list-icon {
+  background-color: var(--ok-color);
+  border-color: var(--ok-color);
+}
+
+.filter-checkbox:checked + #filter-lib .icon-subtitle {
+  color: var(--ok-color);
+}
+
+.filter-checkbox:checked + #filter-oth .list-icon {
+  background-color: #bbb;
+  border-color: #bbb;
+}
+
+.filter-checkbox:checked + #filter-oth .icon-subtitle {
+  color: #bbb;
+}
+
+.filter-checkbox:checked + #filter-active .list-icon {
+  background-color: var(--ok-color);
+  border-color: var(--ok-color);
+}
+
+.filter-checkbox:checked + #filter-active .icon-subtitle {
+  color: var(--ok-color);
+}
+
+.filter-checkbox:checked + #filter-inactive .list-icon {
+  background-color: #bbb;
+  border-color: #bbb;
+}
+
+.filter-checkbox:checked + #filter-inactive .icon-subtitle {
+  color: #bbb;
+}
+
+.filter-checkbox:checked + #filter-completed .list-icon {
+  background-color: var(--ok-color);
+  border-color: var(--ok-color);
+}
+
+.filter-checkbox:checked + #filter-completed .icon-subtitle {
+  color: var(--ok-color);
+}
+
+.filter-checkbox:checked + #filter-awaits .list-icon {
+  background-color: var(--red-color);
+  border-color: var(--red-color);
+}
+
+.filter-checkbox:checked + #filter-awaits .icon-subtitle {
+  color: var(--red-color);
 }
