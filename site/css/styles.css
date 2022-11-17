@@ -5,7 +5,7 @@ html {
 }
 
 h1{
-    background-color: rgb(33, 126, 121);
+    background-color: #217e79;
     color: whitesmoke;
     margin: 0px;
     padding: 25px;
@@ -60,8 +60,8 @@ button {
     padding: 5px;
     border-radius: 15px;
     border: 40px black;
-    height: 500px;
-    width: 250px;
+    height: auto;
+    width: auto;
     flex-wrap: wrap;
     flex-direction: row-reverse;
     justify-content: center;
@@ -70,6 +70,8 @@ button {
     font-size: 10px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     color: azure;
+
+    transform: inherit;
     
 }
 
@@ -86,7 +88,9 @@ button{
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    
+    font-size: 10px;
+    background-color: #217e79;
+    color: aliceblue;
     bottom:30%;
 }
 
@@ -124,3 +128,5 @@ h3{
     height:auto;
     width:auto;
 }
+
+

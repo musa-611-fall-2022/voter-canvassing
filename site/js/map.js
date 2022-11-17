@@ -3,14 +3,14 @@ responseContainer.style.display = "none";
 
 let firstStage = responseContainer;
 
-let blank = document.createElement("div");
-blank.id = "blank";
+let voterCard = document.createElement("div");
+voterCard.id = "voterCard";
 
 let address = "";
 //let ID = "";
 
 let people = document.createElement("ul");
-let voterAddress = document.createElement("h3");
+let voterAddress = document.createElement("h2");
 
 let closeVoterInfoButton = document.createElement("button");
 
@@ -38,6 +38,7 @@ writeNotes.style.width = "250px";
 const voter = {
     currentAddress: null,
     currentID: null,
+    currentName: null,
     currentNotes: null,
     stillLivesThere: null,
     votingPlan: null,
@@ -92,59 +93,131 @@ function initializeMap () {
 
 // }
 
-function setTag(status){
+function setTag(status){ // sets tag as green/red if any of the voter object yes/no questions are answered, grey if " " (blank)
 
-    if(status === true){
-        return "green";
-    }
-    else{
-        return "red";
+    switch(status){
+        case 'true':
+            return "green";
+        case 'false':
+            return "red";
+        case null:
+            return "grey";
     }
 }
 
-function openVoterNotes(id, v){
+function openVoterNotes(p){
 
     //openVoterNotesButton.style.display = "none";
     //responseContainer = blank ;
 
+    let notes = document.createElement("div");
+    notes.id = "notes";
+    let tags = document.createElement("div");
+    tags.id = "tags";
+    let checkboxes = document.createElement("div");
+    checkboxes.id = "checkboxes";
+    let buttons = document.createElement("div");
+    buttons.id = "buttons";
+
+    voterNotes.innerHTML = " ";
+
     voterNotes.style.zIndex = "2";
     voterNotes.style.display = "flex";
-    voterNotes.style.alignContent = "column";
+    voterNotes.style.justifyContent = "space-between";
+    voterNotes.style.width = "250px";
+    voterNotes.style.height = "auto";
 
     let voterInfoQuestions = ['stillLivesThere', 'votingPlan', 'languageAssistance'];
 
-    voter.currentID = id;
+    voter.currentID = p.id;
+    voter.currentName = p.name;
 
-    console.log(voter.currentID);
+    for( let n of voterInfoQuestions ){
+
+        let item = voter.currentID.concat(" ").concat(n);
+        console.log(item);
+        voter[n] = localStorage.getItem(item);
+    }    
+
+    console.log(voter);
+
+    // NOTES ONLY
 
     if(localStorage.getItem(voter.currentID) === null){
-        loadNotes.innerText = "No notes for this ID so far...";
+        loadNotes.innerText = "No notes for ID " + voter.currentID + " so far...";
+        
     }
 
     else{
         loadNotes.innerText = localStorage.getItem(voter.currentID);
     }
 
-    voterNotes.appendChild(loadNotes);
-    voterNotes.appendChild(writeNotes);
+    loadNotes.style.backgroundColor = "#217e79"
+    loadNotes.style.width = "100%";
+    loadNotes.style.height = "50%";
+    loadNotes.border = "10px";
+    loadNotes.borderRadius = "10px";
 
-    saveVoterNotesButton.textContent = "Save Voter Notes";
-    voterNotes.appendChild(saveVoterNotesButton);
+    writeNotes.text = " ";
+    writeNotes.style.width = "100%";
+    writeNotes.style.height = "50%";
 
-    closeVoterNotesButton.textContent = "Close Voter Notes";
-    voterNotes.appendChild(closeVoterNotesButton);
+    notes.style.position = "center";
+
+    notes.appendChild(loadNotes);
+    notes.appendChild(writeNotes);
+
+    voterNotes.appendChild(notes);
+
+    //TAGS ONLY in VOTER NOTES
 
     for( let t of voterInfoQuestions ){
 
-        let tag = document.createElement("h4");
+        let item = voter.currentID.concat(" ").concat(t);
+        console.log(item);
+
+        let tag = document.createElement("button");
         tag.textContent = t;
         tag.style.color = "white";
-        tag.style.backgroundColor = setTag(v[t]);
+        tag.style.backgroundColor = setTag(localStorage.getItem(item));
         tag.style.padding = "5px";
+        tag.style.margin = "3px";
+        tag.style.borderRadius = "3px";
         tag.style.fontSize = "10px";
+        tag.style.zIndex ="2";
 
-        voterNotes.appendChild(tag);
+        tag.addEventListener('click', ()=>{
+            console.log(voter[t])
+            switch(voter[t]){
+            case 'true':
+                localStorage.setItem(item, 'false');
+                setTag(localStorage.getItem(item));            
+            case 'false':
+               localStorage.setItem(item, 'true');
+               setTag(localStorage.getItem(item));            
+            
+            case null:
+               localStorage.setItem(item, 'true');
+               setTag(localStorage.getItem(item));            
+            }
+
+            console.log(setTag(localStorage.getItem(item)));
+            tag.style.backgroundColor = setTag(localStorage.getItem(item));
+
+        });
+
+        tags.appendChild(tag);
+
         }
+
+        tags.style.display = "flex";
+        tags.style.flexDirection = "row";
+
+        voterNotes.appendChild(tags);
+
+    
+    //CHECKBOXES ONLY in VOTER NOTES
+
 
     for( let q of voterInfoQuestions ){
 
@@ -154,27 +227,76 @@ function openVoterNotes(id, v){
         questionCheckbox.id = q;
         questionCheckbox.value = q;
 
+        if(voter[q] === true){
+            questionCheckbox.checked = true;
+        }
+        else{
+            questionCheckbox.checked = false;
+        }
+
         checkboxLabel.htmlFor = q;
         checkboxLabel.appendChild(document.createTextNode(q));
-        v[q] = questionCheckbox.checked ? true : false ;
+        questionCheckbox.addEventListener('change', ()=>{
+            let item = voter.currentID.concat(" ").concat(q)
 
-        voterNotes.appendChild(questionCheckbox);
-        voterNotes.appendChild(checkboxLabel);
-        voterNotes.appendChild(document.createElement("br"));
+            if(questionCheckbox.isChecked){
+                localStorage.setItem(item, true);
+                console.log('false, changing to true')
+            }
+            else if(!questionCheckbox.isChecked){
+                localStorage.setItem(item, false);
+            }
+            else{
+                localStorage.setItem(item, true);
+            }
+           
+        });
+
+        checkboxes.appendChild(questionCheckbox);
+        checkboxes.appendChild(checkboxLabel);
+        checkboxes.appendChild(document.createElement("br"));
 
     }
 
+    checkboxes.style.display = "flex";
+    checkboxes.style.alignItems = "flex-start";
+    checkboxes.style.margin = "0px";
+
+    //voterNotes.appendChild(checkboxes);
+
+    //BUTTONS ONLY in VOTER NOTES
+
+
+    saveVoterNotesButton.textContent = "Save Voter Notes";
+    buttons.appendChild(saveVoterNotesButton);
+
+    closeVoterNotesButton.textContent = "Close Voter Notes";
+    buttons.appendChild(closeVoterNotesButton);
+
+    buttons.style.display = "flex";
+    buttons.style.flexDirection = "row";
+    buttons.style.margin = "5px";
+    buttons.style.zIndex = "3";
+
+    voterNotes.appendChild(buttons);
+
+    // PUT VOTER NOTES IN RESPONSE CONTAINER
+
     responseContainer.appendChild(voterNotes);
 
+    
+
     closeVoterNotesButton.addEventListener('click', ()=>{
-        voterNotes = blank;
-        responseContainer = firstStage;
+        voterNotes.innerHTML = " ";
+        voterNotes.style.display = "none";
+        //responseContainer = firstStage;
         //openVoterNotesButton.style.display = "flex";
 
     });
 
     saveVoterNotesButton.addEventListener('click', () =>{
-        const notes = writeNotes.value;
+        
+        const notes = ("::").concat(writeNotes.value);
         console.log(notes);
         voter.currentNotes = notes;
 
@@ -193,48 +315,47 @@ function onEachFeature(feature, layer) {
 
         //residence.currentResidence = feature.properties.address;
         //residence.notes = localStorage.getItem(residence.currentResidence);
-        console.log(localStorage.getItem(address));
+        //console.log(localStorage.getItem(voter.currentID));
 
-        voter.currentAddress = feature.properties.address;
+        
+        voter.currentAddress = feature.properties.address; // start by moving pointer to selected building
         //voter.currentID = feature.voters
         //voter.currentNotes = localStorage.getItem(voter.currentID);
-        voterNotes.style.display = "none";
+        voterNotes.style.display = "none"; // right now sub-menu is inactive
 
         //alert(feature.properties.address);
-        responseContainer.style.display = "flex";
-        people.innerHTML = "";
-        voterAddress.innerHTML = feature.properties.address;
+        responseContainer.style.display = "flex"; // address details become live
+        people.innerHTML = ""; // people in this building will be populated, blank for now
+        voterAddress.innerHTML = voter.currentAddress; // the HTML element showing the address now has the current objects address - DYNAMIC!
 
-        firstStage = responseContainer;
+        //firstStage = responseContainer;
 
-        firstStage.appendChild(voterAddress);
-        let residents = feature.voters;
+        responseContainer.appendChild(voterAddress);
+        let residents = feature.voters; // an array of residents living in this building
 
         for( let r = 0; r < residents.length; r++ ){
 
             console.log(residents[r].name);
 
-            let person = document.createElement("button");
+            let person = document.createElement("button"); // create a button for each resident - will use this to fill the voter object - DYNAMIC!
             person.textContent = residents[r].name;
             person.innerHTML = residents[r].name;
-            person.value = residents[r].name;
+            person.value = residents[r].id;
 
             person.style.display = "flex";
 
             person.addEventListener('click', ()=>{
-                openVoterNotes(person.value, residents[r]);
+                openVoterNotes(residents[r]);
             });
 
             people.appendChild(person);
+            people.style.margin = "0px";
         }
 
-        firstStage.appendChild(people);
+        responseContainer.appendChild(people);
 
-        closeVoterInfoButton.textContent = "Close";
-        firstStage.appendChild(closeVoterInfoButton);
-
-        console.log(residents);
-        responseContainer = firstStage;
+        closeVoterInfoButton.textContent = "Exit Address";
+        responseContainer.appendChild(closeVoterInfoButton);
 
     });
 }
@@ -281,3 +402,5 @@ export {
     initializeMap,
     populateVoterMap,
   };
+
+  window.voter = voter;
