@@ -35,6 +35,7 @@ body {
   height: 5vh;
   position: fixed;
   top: 7vh;
+  margin-bottom: 0.5rem;
 }
 
 #top-component {

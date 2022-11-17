@@ -131,7 +131,7 @@ function addVotersByAddress(votersByThisAddress) {
 // Function to decide whether to show voter list's expand button
 function showHideExpandButton(innerSelector, outerSelector, buttonEl) {
   let voterListHeight = document.querySelector(innerSelector).offsetHeight;
-  let voterContainerHeight = document.querySelector(outerSelector).querySelector(".scroll-container").offsetHeight;
+  let voterContainerHeight = document.querySelector(outerSelector).offsetHeight;
   if(voterListHeight > voterContainerHeight){
     buttonEl.style.display = "block";
   } else {
@@ -155,7 +155,7 @@ function showVotersInList(data) {
   listPrepare(voterListItemsEl);
 
   // Only show expand button when necessary
-  showHideExpandButton("#voter-list", "#voter-list-component", voterListExpandButtonEl);
+  showHideExpandButton("#voter-list", "#voter-list-container", voterListExpandButtonEl);
 
   // Scroll back to top
   let scrollContainer = document.querySelector("#voter-list-component").querySelector(".scroll-container");

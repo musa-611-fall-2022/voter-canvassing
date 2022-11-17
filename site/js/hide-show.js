@@ -16,6 +16,7 @@ import { finalSaveButtonEl } from "./update-info.js";
 import { filterAllAndUpdate } from "./list-filters.js";
 import { selectedVoter } from "./selected-voter.js";
 import { highlightVoter } from "./selected-voter.js";
+import { showHideExpandButton } from "./voter-list.js";
 
 // State variable: whether the chunk is hidden at the moment
 export let loaderElIsHidden = 0;
@@ -98,11 +99,14 @@ function switchToEdit() {
   // Make the other panels show: first show then slide to center
   editComponentEl.style.display = "block";
   finalSaveButtonEl.style.display = "flex";
+  // Only show button when necessary on the voting history panel
+  const electionListExpandButtonEl = document.querySelector("#election-list-expand-button");
+  showHideExpandButton("#voting-history", "#voting-history-container", electionListExpandButtonEl);
+
   setTimeout(( ) => {
     editComponentEl.style.transform = "translateX(0em)";
     finalSaveButtonEl.style.transform = "translateX(0em)";
   }, 200);
-
   // Change the icon
   setTimeout(() => {
     editButtonEl.querySelector("span").innerHTML = "chevron_left";

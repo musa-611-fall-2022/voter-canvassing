@@ -206,8 +206,6 @@ function displayVotingHistory(thisVoter) {
     electionListEl.append(electionItemEl);
   }
 
-  // Only show button when necessary
-  // showHideExpandButton("#voting-history", "#voting-history-container", electionListExpandButtonEl);
 }
 
 /* PER CANVASSING RECORD */
