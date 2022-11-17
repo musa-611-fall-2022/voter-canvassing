@@ -1,7 +1,7 @@
 #list-loader-component {
   position: relative;
-  height: 4.6vh;
-  width: 11rem;
+  height: 6.2vh;
+  width: 13rem;
   float: left;
   z-index: 99999;
   margin: 0;
@@ -22,7 +22,7 @@
 }
 
 #list-loader-component .input-container {
-  height: 82%;
+  height: 2rem;
   float: left;
   margin-left: 0.3rem;
 }

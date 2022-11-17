@@ -32,7 +32,7 @@ body {
 /* ---------- List loader and filter button ------------- */
 
 #nav-component {
-  height: 5.1vh;
+  height: 6vh;
   position: fixed;
   top: 7vh;
   margin-bottom: 0.5rem;
@@ -40,7 +40,7 @@ body {
 
 #top-component {
   position: fixed;
-  top: 13vh;
+  top: 14vh;
   height: 25vh;
   z-index: 99999;
 }
