@@ -1,24 +1,8 @@
 .main-box {
-  position: relative;
-  top: 8vh;
   z-index: 9999;
   padding: 0 1rem;
   margin-right: 0.5rem;
-}
-
-#nav-component {
-  height: 5vh;
-}
-
-#top-component {
-  height: 25vh;
-}
-
-.bottom-component {
-  top: 65vh;
-  width: calc(100vw - 2.5rem);
-  position: fixed;
-  transition: top 0.5s ease-in-out;
+  width: calc(100vw - 2rem);
 }
 
 @media only screen and (min-width: 600px) {
@@ -36,6 +20,5 @@
 @media only screen and (min-width: 1200px) {
   .main-box {
     width: 25vw;
-    margin: 0 3rem;
   }
 }

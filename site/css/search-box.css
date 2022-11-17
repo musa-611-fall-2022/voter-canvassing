@@ -1,6 +1,6 @@
 #search-box-component {
   position: relative;
-  height: 3.5em;
+  height: 2.5rem;
   z-index: 999;
   transition: transform 0.5s;
   margin-bottom: 0.6rem;

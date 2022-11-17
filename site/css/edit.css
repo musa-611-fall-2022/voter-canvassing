@@ -19,11 +19,6 @@ The bottom component is originally not showing until you select a voter
   margin-bottom: 1.5rem;
 }
 
-#bottom-component {
-  transform: translateX(-40em);
-  transition: all 0.5s ease-in-out;
-}
-
 #bottom-component .edit-button {
   background-color: var(--main-color);
   float: left;
@@ -33,7 +28,7 @@ The bottom component is originally not showing until you select a voter
 }
 
 .edit-container {
-  max-height: 50vh;
+  max-height: 55vh;
   overflow-y: auto;
 }
 
@@ -42,7 +37,7 @@ The bottom component is originally not showing until you select a voter
   background-color: white;
   padding: 0.5rem 0.5rem 0;
   display: block;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem;
 }
 
 .basic-info-panel {
@@ -250,7 +245,7 @@ The bottom component is originally not showing until you select a voter
 }
 
 #edit-component .list-expand-button {
-  margin-top: -1rem;
+  margin-top: -0.5rem;
   margin-bottom: 1rem;
   height: 1.4rem;
   width: 2rem;
@@ -378,14 +373,14 @@ The bottom component is originally not showing until you select a voter
   height: 2rem;
   background-color: var(--main-color);
   color: #fff;
-  width: 100%;
   border: 1.5px solid var(--main-color);
   border-bottom-width: 3px;
   border-radius: 0 0 0.6rem 0.6rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: 1.2rem;
+  margin-top: -1rem;
+  margin-bottom: 0.5rem;
   font-size: 1.2rem;
   font-weight: 800;
   transform: translateX(-40em);

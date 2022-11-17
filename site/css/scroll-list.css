@@ -3,7 +3,7 @@ Default scroll container height
 -------- */
 
 .scroll-container {
-  max-height: 18vh;
+  max-height: 16vh;
   overflow: auto;
   transition: max-height 0.75s;
 }
