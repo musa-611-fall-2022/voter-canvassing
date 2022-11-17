@@ -45,8 +45,10 @@ const voter = {
     languageAssistance: null,
   };
 
+  let map;
+
 function initializeMap () {
-    let map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
+    map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13); // made map global so that other functions can addTo 'map'
     const mapboxAccount = 'mapbox';
     const mapboxStyle = 'light-v10';
     const mapboxToken = 'pk.eyJ1IjoibW9yZ2FuZ3IiLCJhIjoiY2w4dzF2bHZsMDJqdDN3czJwOGg0ZXBsbSJ9.tXRhvJAL-t7cJCrCyAEhUw';
@@ -284,8 +286,6 @@ function openVoterNotes(p){
 
     responseContainer.appendChild(voterNotes);
 
-    
-
     closeVoterNotesButton.addEventListener('click', ()=>{
         voterNotes.innerHTML = " ";
         voterNotes.style.display = "none";
@@ -307,6 +307,31 @@ function openVoterNotes(p){
 
 }
 
+
+function showPoint(point){
+    if(!map.chosenLayer){
+        map.chosenLayer = L.geoJSON(point, { pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+            style: {
+                fillColor: "#1a5e5e",
+                stroke: 0.6,
+                color : "#c2b397",
+                fillOpacity: 0.9,
+                radius: 10,
+            }}).addTo(map);
+    }
+    else{
+        map.removeLayer(map.chosenLayer);
+        map.chosenLayer = L.geoJSON(point, { pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+            style: {
+                fillColor: "#1a5e5e",
+                stroke: 0.6,
+                color : "#c2b397",
+                fillOpacity: 0.9,
+                radius: 10,
+            }}).addTo(map);
+    }
+}
+
 function onEachFeature(feature, layer) {
 
     layer.on('click', function () {
@@ -317,6 +342,9 @@ function onEachFeature(feature, layer) {
         //residence.notes = localStorage.getItem(residence.currentResidence);
         //console.log(localStorage.getItem(voter.currentID));
 
+        console.log(feature.geometry.coordinates);
+
+        showPoint(feature);
         
         voter.currentAddress = feature.properties.address; // start by moving pointer to selected building
         //voter.currentID = feature.voters
