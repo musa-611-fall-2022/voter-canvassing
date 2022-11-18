@@ -130,7 +130,7 @@ function switchToNormal() {
 
 
   // Move the whole thing down
-  bottomComponentEl.style.top = "65vh";
+  bottomComponentEl.style.top = "60vh";
 
   // Update list display
   filterAllAndUpdate();
