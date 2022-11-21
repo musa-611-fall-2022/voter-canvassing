@@ -72,7 +72,7 @@ Save or Load Edited Voter Info
 import { fitMap } from "./map.js";
 import { data } from "./list-loader.js";
 
-// Update the data loaded from the csv with additional info
+// Update the data loaded from the csv with additional info after getting additional info
 function updateVoters(additionalInfo) {
   for(let voter of data) {
     let thisId = voter["ID Number"];
@@ -104,7 +104,12 @@ async function updateAdditionalInfo(listNumber, data, showOnMap, showInList) {
 }
 
 // Function to save the updated additional info to Firebase
+// The firebase db is categorized based on list number
 async function saveAdditionalInfo(listNumber, additionalInfo) {
+  // First save locally
+  let localPath = `note${listNumber}`;
+  localStorage.setItem(localPath, JSON.stringify(additionalInfo));
+
   try {
     const voterNotesDoc = doc(firestoreDb, "voter-info", listNumber);
     await setDoc(voterNotesDoc, additionalInfo);
