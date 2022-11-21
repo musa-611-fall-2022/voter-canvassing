@@ -1,0 +1,176 @@
+/* -------
+Voter list component overall setting
+-------- */
+
+#voter-list-component {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.5s;
+}
+
+#voter-list-component .panel {
+  background-color: white;
+  padding: 0 0.5rem 0.05rem;
+}
+
+/* ----------
+Change scroll container height based when clicked
+---------- */
+
+/* ---- Normally, expand to 42vh ------ */
+
+.scroll-container-expanded {
+  max-height: 35vh;
+  transition: max-height 0.5s;
+}
+
+/* ---- With wide screen, when basic info panel is on the other side, use 75vh ------ */
+
+.scroll-container-expanded-long {
+  max-height: 35vh;
+  transition: max-height 1s;
+}
+
+/* -------
+Voter list items
+-------- */
+
+/* ---- Overall adjustment; overwrite list defaults ------ */
+
+.scroll-container ul {
+  display: block;
+  margin-right: 0.5rem;
+  padding: 0.1rem 0.4rem 0 0.2rem;
+}
+
+/* ---- Overwrite some settings for address items ------ */
+
+#voter-list-component .scroll-container .list-address {
+  margin-right: 1rem;
+  font-size: 0.8rem;
+  padding-top: 1rem;
+  height: 1rem;
+  vertical-align: baseline;
+  border-bottom: 0 solid #bbb;
+}
+
+/* ---- Hover ------ */
+
+#voter-list-component .scroll-container .list-voter:hover {
+  background-color: #eee;
+}
+
+/* ---- Highlight voter ------ */
+
+#voter-list-component .scroll-container .selected {
+  background-color: #0d59a9;
+}
+
+#voter-list-component .scroll-container .selected:hover {
+  background-color: #0d59a9;
+}
+
+/* ----------
+Text and icons inside voter list item
+---------- */
+
+#voter-list-component .selected .list-name {
+  color: #fff;
+}
+
+#voter-list-component .scroll-container li .list-name {
+  position: relative;
+  font-weight: 600;
+  float: left;
+  margin-right: 1rem;
+  font-size: 1rem;
+  vertical-align: center;
+}
+
+#voter-list-component .button {
+  font-size: 0.8rem;
+  height: 1.3rem;
+}
+
+.list-icon {
+  background-color: #fff;
+  float: left;
+  height: 1.1rem;
+  margin: 0.3rem;
+  min-width: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 800;
+  padding: 0.15rem 0.05rem;
+  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0.8rem;
+  border-radius: 0 0 0.3rem 0.3rem;
+  border: 1.25px solid #0d59a9;
+  border-bottom-width: 2.5px;
+  cursor: pointer;
+}
+
+#voter-list-component .material-symbols-outlined {
+  font-size: 1.2rem;
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ----------
+COLOR
+---------- */
+
+/* ---- Some colors ------ */
+
+.icon-ok-color {
+  color: #15b88a;
+}
+
+.icon-notify-color {
+  color: #e96a46;
+}
+
+.icon-gray-color {
+  color: #bbb;
+}
+
+.icon-main-color {
+  color: #0d59a9;
+}
+
+/* ---- Registered party ------ */
+
+.icon-democrat-color {
+  color: #0d59a9;
+}
+
+#overview-display .icon-set .icon-democrat-color {
+  color: #0d59a9;
+}
+
+.icon-republican-color {
+  color: #e96a46;
+}
+
+.icon-set .icon-republican-color {
+  color: #e96a46;
+}
+
+#overview-display .icon-republican-color {
+  color: #e96a46;
+}
+
+.icon-oth-party-color {
+  color: #c1c1c1;
+}
+
+#voter-list-component .panel .button {
+  height: 1.1rem;
+  width: 1.1rem;
+  border-radius: 0.1rem;
+  margin-right: 0.4rem;
+}

@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Canvasser</title>
+
+    <!-- Viewport setup for responsive design -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+    <!-- Leaflet style sheet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.8.0/dist/leaflet.css" integrity="sha512-hoalWLoI8r4UszCkZ5kL8vayOGVae1oxXe/2A4AO6J9+580uKHDO3JdHb7NzwwzK5xr/Fs0W40kiNHxM9vyTtQ==" crossorigin=""/>
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/map.css">
+    <link rel="stylesheet" href="css/framework.css">
+    <link rel="stylesheet" href="css/list-loader.css">
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/scroll-list.css">
+    <link rel="stylesheet" href="css/voter-list.css">
+    <link rel="stylesheet" href="css/list-filters.css">
+    <link rel="stylesheet" href="css/search-box.css">
+    <link rel="stylesheet" href="css/main-box.css">
+    <link rel="stylesheet" href="css/edit.css">
+
+
+  </head>
+
+  <body>
+
+    <!-- Top banner or navigator -->
+    <div id="banner-component">
+      <p>CANVASSERS</p>
+    </div>
+
+    <!-- Map in the back (full screen, fixed) -->
+    <div id="map-component">
+    </div>
+
+    <!-- Overlay when the filter window pops up -->
+    <div id="filter-overlay" class="filter-overlay"></div>
+    <div id="filter-window" class="filter-window">
+
+      <!-- Party filters -->
+      <div class="filter-group-title">
+        Filter by registered party
+      </div>
+      <div id="party-filter-group" class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="D"> 
+          <div id="filter-dem" class="icon-set">
+            <div class="list-icon">
+              <p>D</p>
+            </div>
+            <div class="icon-subtitle">Democrat</div>
+          </div>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="R">
+          <div id="filter-rep" class="icon-set">
+            <div class="list-icon">
+              <p>R</p>
+            </div>
+            <div class="icon-subtitle">Republican</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="I">
+          <div id="filter-ind" class="icon-set">
+            <div class="list-icon">
+              <p>I</p>
+            </div>
+            <div class="icon-subtitle">Independent</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="LN">
+          <div id="filter-lib" class="icon-set">
+            <div class="list-icon">
+              <p>L</p>
+            </div>
+            <div class="icon-subtitle">Libertarian</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="OTH">
+          <div id="filter-oth" class="icon-set">
+            <div class="list-icon">
+              <p>O</p>
+            </div>
+            <div class="icon-subtitle">Other</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox party-checkbox" value="NF">
+          <div id="filter-noparty" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">close</span>
+            </div>
+            <div class="icon-subtitle">Not affliated</div>
+          </div>
+        </label>
+      </div>
+      
+      <div class="filter-group-title">
+        Filter by voter status
+      </div>
+
+      <div id="status-filter-group" class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox status-checkbox" value="A">
+          <div id="filter-active" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">ballot</span>
+            </div>
+            <div class="icon-subtitle">Active</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox status-checkbox" value="I">
+          <div id="filter-inactive" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">close</span>
+            </div>
+            <div class="icon-subtitle">Inactive</div>
+          </div>
+        </label>
+      </div>
+
+      <div class="filter-group-title">
+        Filter by visit status
+      </div>
+
+      <div id="visit-filter-group" class="filter-group">
+        <label><input type="checkbox" class="filter-checkbox visit-checkbox" value="pending">
+          <div id="filter-pending" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">hourglass_top</span>
+            </div>
+            <div class="icon-subtitle">Pending</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox visit-checkbox" value="awaits">
+          <div id="filter-awaits" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">timeline</span>
+            </div>
+            <div class="icon-subtitle">Awaits followup</div>
+          </div>
+        </label>
+        <label><input type="checkbox" class="filter-checkbox visit-checkbox" value="completed">
+          <div id="filter-completed" class="icon-set">
+            <div class="list-icon">
+              <span class="material-symbols-outlined">task_alt</span>
+            </div>
+            <div class="icon-subtitle">Completed</div>
+          </div>
+        </label>
+      </div>
+    </div>
+
+    <div id="nav-component" class="main-box">
+      <!-- Widget to load a list from the thousands of lists -->
+      <div id="list-loader-component">
+        <div class="button hide-show" id="list-loader-hide">
+          <span class="material-symbols-outlined">chevron_left</span>
+        </div>
+
+        <!-- Show list loader button: default hidden -->
+        <div class="hidable-container">
+          <div id="list-loader-hidable-chunk">
+            <!-- Hide list loader button -->
+            <div class="input-container">
+              <input type="text" class="text-input" id="list-loader-input" 
+              oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+              placeholder="Which list?">
+            </div>
+    
+            <div class="button" id="list-loader-load">
+              <span class="material-symbols-outlined">done_all</span>Load
+              <div class="tooltiptext">
+                <div class="tooltip-content">Load List</div>
+              </div>             
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Filter map by some attributes -->
+      <div id="list-filter-component">
+        <div class="widgets-container">
+          <div id="filter-popup-button" class="button filter-button">
+            <span class="material-symbols-outlined">filter_alt</span>
+          </div>
+        </div>
+
+        <div class="dropdown filter-dropdown"></div>
+      </div>
+    </div>
+
+    <div id="top-component" class="main-box">
+
+      <!-- Search box -->
+      <div id="search-box-component">
+        <div class="input-container">
+          <input type="text" class="text-input" id="search-box-input" placeholder="Search by name or address">
+        </div>
+      </div>
+
+      <!-- Voter list -->
+      <div id="voter-list-component">
+        <div class="panel">
+          <div id="voter-list-container" class="scroll-container">
+            <ul id="voter-list">
+            </ul>
+          </div>
+        </div>
+
+        <!-- This is the hide/show button -->
+        <div id="voter-list-expand-button" class="button list-expand-button">
+          <span class="material-symbols-outlined">expand_more</span>
+        </div>
+
+      </div>
+
+    </div>
+
+    <div id="bottom-component" class="bottom-component main-box">
+      <div class="edit-button">
+        <span class="material-symbols-outlined">
+          edit
+        </span>
+      </div>
+      <!-- Basic info panel -->
+      <div class="panel info-panel basic-info-panel voter-details">
+        <!-- Name and Address -->
+        <div class="info-panel-name-address">
+          <div class="info-panel-name"></div>
+          <div class="info-panel-address"></div>
+        </div>
+        <!-- Most Important: Canvass Status -->
+        <div id="info-panel-canvass-status" class="info-panel-canvass-status">
+          <div id="icon-canvass" class="icon-group">
+            <div id="icon-canvass-pending" class="icon-set">
+              <div class="list-icon">
+                <span class="material-symbols-outlined">hourglass_top</span>
+              </div>
+              <div class="icon-subtitle">Pending</div>
+            </div>
+            <div id="icon-canvass-awaits" class="icon-set">
+              <div class="list-icon">
+                <span class="material-symbols-outlined">timeline</span>
+              </div>
+              <div class="icon-subtitle">Awaits followup</div>
+            </div>
+            <div id="icon-canvass-completed" class="icon-set">
+              <div class="list-icon">
+                <span class="material-symbols-outlined">task_alt</span>
+              </div>
+              <div class="icon-subtitle">Completed</div>
+            </div>
+          </div>
+
+          <div id="canvass-status-save" class="canvass-status-save">
+            Update status
+          </div>
+
+        </div>
+
+        <!-- Some overview icon display at the bottom -->
+        <div id="overview-display" class="overview-display">
+
+          <!-- Which Party -->
+          <div id="info-panel-party-set" class="icon-set">
+            <div class="info-panel-party">
+              <div class="list-icon icon-democrat-color"></div>
+            </div>
+            <div class="icon-subtitle"></div>
+          </div>
+
+          <!-- Voter Status -->
+          <div id="info-panel-active-set" class="icon-set">
+            <div class="info-panel-active">
+              <div class="list-icon"></div>
+            </div>
+            <div class="icon-subtitle"></div>
+          </div>
+
+          <!-- Vote plan -->
+          <div id="info-panel-plan-set" class="icon-set">
+            <div class="info-panel-plan">
+              <div class="list-icon"></div>
+            </div>
+            <div class="icon-subtitle"></div>
+          </div>
+
+          <!-- Vote by mail -->
+          <div id="info-panel-mail-set" class="icon-set">
+            <div class="info-panel-mail">
+              <div class="list-icon"></div>
+            </div>
+            <div class="icon-subtitle"></div>
+          </div>
+
+        </div>
+        <div class="info-panel-voter-status"></div>
+      </div>
+
+      <!-- The other editable parts -->
+      <div class="edit-container">
+        <div id="edit-component">
+
+
+          <div class="panel info-panel this-visit-panel voter-details">
+            <div class="record-item">
+              <div class="record-item-name">Language</div>
+                <div id="icon-lang" class="icon-group">
+                  <div id="icon-lang-english" class="icon-set">
+                    <div class="list-icon">
+                      <p>EN</p>
+                    </div>
+                    <div class="icon-subtitle">English</div>
+                  </div>
+                  <div id="icon-lang-spanish" class="icon-set">
+                    <div class="list-icon">
+                      <p>ES</p>
+                    </div>
+                    <div class="icon-subtitle">Needs Spanish help</div>
+                  </div>
+                  <div id="icon-lang-chinese" class="icon-set">
+                    <div class="list-icon">
+                      <P>ZH</P>
+                    </div>
+                    <div class="icon-subtitle">Needs Chinise help</div>
+                  </div>
+                  <div id="icon-lang-input">
+                    <div class="input-container">
+                      <input type="text" class="text-input" id="other-lang" placeholder="Other...">
+                    </div>
+                  </div>
+                </div>
+            </div>
+
+            <div class="record-item">
+              <div class="record-item-name">Planned to vote</div>
+                <div id="icon-plan" class="icon-group">
+                  <div id="icon-plan-yes" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">task_alt</span>
+                    </div>
+                    <div class="icon-subtitle">Yes</div>
+                  </div>
+                  <div id="icon-plan-awaits" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">unpublished</span>
+                    </div>
+                    <div class="icon-subtitle">No</div>
+                  </div>
+                </div>
+            </div>
+            <div class="record-item">
+              <div class="record-item-name">Mail ballot</div>
+                <div id="icon-mail" class="icon-group">
+                  <div id="icon-mail-received" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">mark_email_read</span>
+                    </div>
+                    <div class="icon-subtitle">Received</div>
+                  </div>
+                  <div id="icon-mail-awaits" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">unsubscribe</span>
+                    </div>
+                    <div class="icon-subtitle">Not received</div>
+                  </div>
+                  <div id="icon-mail-person" class="icon-set">
+                    <div class="list-icon">
+                      <span class="material-symbols-outlined">footprint</span>
+                    </div>
+                    <div class="icon-subtitle">Vote in person</div>
+                  </div>
+                </div>
+            </div>
+            <div class="record-item">
+              <div class="record-item-name">Who for</div>
+                <div id="icon-who" class="icon-group">
+                  <div id="icon-who-d" class="icon-set">
+                    <div class="list-icon">
+                      <p>D</p>
+                    </div>
+                    <div class="icon-subtitle">Dem.</div>
+                  </div>
+                  <div id="icon-who-r" class="icon-set">
+                    <div class="list-icon">
+                      <p>R</p>
+                    </div>
+                    <div class="icon-subtitle">Rep.</div>
+                  </div>
+                  <div id="icon-who-input" class="icon-set">
+                    <div class="input-container">
+                      <input type="text" class="text-input" id="other-who" placeholder="Other...">
+                    </div>
+                  </div>
+                </div>
+            </div>
+            <div id="other-notes-input" class="input-container">
+              <input type="text" class="text-input" id="other-notes" placeholder="Other notes...">
+            </div>
+          </div>
+          <div id="final-save" class="final-save voter-details-save-btn">Save</div>
+          <!-- This is the voter history panel -->
+          <div class="panel info-panel voter-history-panel">
+            <div class="panel-title">VOTING HISTORY</div>
+            <div class="voting-history-title">
+              <div class="voting-history-title-date">Date</div>
+              <div class="voting-history-title-name">Election</div>
+              <div class="voting-history-title-party">Party</div>
+              <div class="voting-history-title-method">Method</div>
+            </div>
+            <div id="voting-history-container" class="scroll-container">
+              <ul id="voting-history">
+              </ul>
+            </div>
+          </div>
+          <!-- This is the hide/show button for the vote history panel -->
+          <div id="election-list-expand-button" class="button list-expand-button">
+            <span class="material-symbols-outlined">expand_more</span>
+          </div>
+        </div>
+        
+      </div>
+    </div>
+
+
+
+
+    <!-- Leaflet JavaScript -->
+    <script src="https://unpkg.com/leaflet@1.8.0/dist/leaflet.js" integrity="sha512-BB3hKbKWOc9Ez/TAwyWxNXeoV9c1v6FIeYiBieIWkpLjauysF18NzgR1MBNBXf8/KABdlkX68nAhlwcDFLGPCQ==" crossorigin=""></script>
+
+    <!-- LoDash -->
+    <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.21/lodash.min.js"></script>
+    
+    <!-- Papa Parse -->
+    <script src="https://unpkg.com/papaparse@5.3.2/papaparse.min.js"></script>
+
+    <!-- Google Icons -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+    <!-- Custom JS -->
+    <script type="module" src="js/main.js"></script>
+    <script type="module" src="js/map.js"></script>
+    <script type="module" src="js/list-loader.js"></script>
+    <script type="module" src="js/voter-list.js"></script>
+    <script type="module" src="js/search-box.js"></script>
+    <script type="module" src="js/list-filters.js"></script>
+    <script type="module" src="js/list-expand.js"></script>
+    <script type="module" src="js/filter-window.js"></script>
+    <script type="module" src="js/hide-show.js"></script>
+    <script type="module" src="js/show-info.js"></script>
+    <script type="module" src="js/update-info.js"></script>
+    
+    <!-- Firebase cloud storage -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
+
+  </body>
+
+</html>

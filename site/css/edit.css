@@ -1,0 +1,400 @@
+#basic-panel-component {
+  position: relative;
+}
+
+/*
+The bottom component is originally not showing until you select a voter
+*/
+
+/* Some overall setting */
+
+.edit-button {
+  cursor: pointer;
+}
+
+.edit-button .material-symbols-outlined {
+  font-size: 1.2rem;
+  line-height: 1.2;
+  cursor: pointer;
+}
+
+.panel-title {
+  padding: 0.3rem 0.5rem 0;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+}
+
+#bottom-component .edit-button {
+  background-color: var(--main-color);
+  float: left;
+  color: #fff;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.edit-container {
+  max-height: 55vh;
+  overflow-y: auto;
+}
+
+.info-panel {
+  clear: left;
+  background-color: white;
+  padding: 0.5rem 0.5rem 0;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+
+.basic-info-panel {
+  height: auto;
+}
+
+/* Icon set */
+
+.info-panel-canvass-status {
+  width: 50%;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-group {
+  display: flex;
+  justify-content: center;
+}
+
+.icon-set {
+  width: 3rem;
+  float: left;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.icon-set .list-icon {
+  border-color: #bbb;
+  color: #bbb;
+}
+
+.icon-set .material-symbols-outlined {
+  font-size: 1.2rem;
+}
+
+.icon-subtitle {
+  font-size: 0.65rem;
+  text-align: center;
+  color: #bbb;
+}
+
+.canvass-status-save {
+  clear: left;
+  width: 8rem;
+  border: 1px solid var(--main-color);
+  margin-top: 0.25rem;
+  padding: 0.1rem;
+  text-align: center;
+  font-size: 0.9rem;
+  border-radius: 0 0 0.4rem 0.4rem;
+  border-bottom-width: 2.5px;
+  cursor: pointer;
+}
+
+.canvass-status-save-toast {
+  background-color: var(--main-color);
+  color: #fff;
+}
+
+/* Dealing with highlighted items */
+
+.highlighted .material-symbols-outlined {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.highlighted p {
+  font-size: 1.2rem;
+  color: #fff;
+}
+
+.highlighted .list-icon {
+  background-color: var(--main-color);
+  border-color: var(--main-color);
+}
+
+#icon-who-r.highlighted .list-icon {
+  background-color: var(--red-color);
+  border-color: var(--red-color);
+}
+
+#icon-plan-yes.highlighted .list-icon {
+  background-color: var(--ok-color);
+  border-color: var(--ok-color);
+}
+
+#icon-canvass-pending.highlighted .list-icon {
+  background-color: #999;
+  border-color: #999;
+}
+
+#icon-canvass-pending.highlighted .icon-subtitle {
+  color: #999;
+  font-weight: 800;
+}
+
+#icon-canvass-awaits.highlighted .list-icon {
+  background-color: var(--red-color);
+  border-color: var(--red-color);
+}
+
+#icon-canvass-awaits.highlighted .icon-subtitle {
+  color: var(--red-color);
+  font-weight: 800;
+}
+
+#icon-canvass-completed.highlighted .list-icon {
+  background-color: var(--ok-color);
+  border-color: var(--ok-color);
+}
+
+#icon-canvass-completed.highlighted .icon-subtitle {
+  color: var(--ok-color);
+  font-weight: 800;
+}
+
+/* Other overview icons */
+
+.overview-display {
+  padding: 0.4rem;
+  clear: left;
+  margin-top: 0.5rem;
+  display: flex;
+}
+
+#overview-display .icon-set {
+  margin-right: 0.8rem;
+  width: 4.3rem;
+}
+
+#overview-display .icon-set .icon-subtitle {
+  color: var(--main-color);
+}
+
+#overview-display .icon-set .list-icon {
+  border-color: var(--main-color);
+}
+
+#overview-display .icon-set .material-symbols-outlined {
+  font-size: 1.2rem;
+}
+
+/* When screen too small, don't display subtitles */
+
+@media only screen and (max-width: 340px) {
+  .icon-set {
+    width: 2rem;
+  }
+
+  .icon-subtitle {
+    display: none;
+  }
+}
+
+/* Basic info panel name and address */
+
+.info-panel-name-address {
+  float: left;
+  width: 50%;
+}
+
+.info-panel-name {
+  padding: 0.5rem;
+  font-size: 1.4rem;
+  font-weight: 800;
+}
+
+.info-panel-address {
+  font-size: 0.85rem;
+  padding: 0 0.5rem;
+}
+
+@media only screen and (max-width: 340px) {
+  .info-panel-name {
+    font-size: 1rem;
+  }
+
+  .info-panel-address {
+    font-size: 0.75rem;
+  }
+}
+
+#edit-component {
+  display: none;
+  transform: translateX(-40em);
+  transition: transform 0.5s ease-in-out;
+}
+
+#edit-component .scroll-container li {
+  width: 100%;
+}
+
+/* Voting History */
+
+.voter-history-panel {
+  min-height: 10vh;
+}
+
+.voting-history-title {
+  width: 100%;
+  padding: 0 0.5rem;
+  margin-bottom: -0.3rem;
+}
+
+#edit-component .list-expand-button {
+  margin-top: -0.5rem;
+  margin-bottom: 1rem;
+  height: 1.4rem;
+  width: 2rem;
+  line-height: 0.8;
+  margin-left: calc(50% - 1rem);
+}
+
+.voting-history-title > div {
+  font-size: 0.7rem;
+  float: left;
+}
+
+.voting-history-title-date {
+  width: 20%;
+}
+
+.voting-history-title-name {
+  width: 48%;
+}
+
+.voting-history-title-party {
+  width: 15%;
+}
+
+.voting-history-title-method {
+  width: 12%;
+}
+
+#edit-component .scroll-container {
+  max-height: 12vh;
+  clear: left;
+}
+
+#edit-component .scroll-container-expanded {
+  max-height: 25vh;
+  transition: max-height 0.5s;
+}
+
+.voting-history-item {
+  float: left;
+  font-size: 0.8rem;
+}
+
+.voting-history-date {
+  width: 22%;
+  font-size: 0.7rem;
+}
+
+.voting-history-name {
+  width: 53%;
+  font-weight: 800;
+}
+
+.voting-history-party {
+  width: 18%;
+}
+
+.voting-history-method {
+  width: 12%;
+}
+
+.this-visit-panel {
+  height: auto;
+  padding-bottom: 1rem;
+  transition: height 1s ease-in-out;
+}
+
+.last-visit-panel {
+  min-height: 15vh;
+}
+
+.record-item {
+  padding-left: 0.5rem;
+  margin-top: 0.5rem;
+}
+
+.record-item-name {
+  float: left;
+  font-size: 0.85rem;
+  width: 30%;
+  position: relative;
+  top: 0.75rem;
+}
+
+.record-item .icon-group {
+  justify-content: flex-start;
+  width: 70%;
+}
+
+.record-item .input-container {
+  margin-top: 0.3rem;
+  margin-left: 0.5rem;
+  width: 3rem;
+}
+
+.record-item input {
+  border-color: #bbb;
+  border-width: 1px 1px 2.5px;
+  font-size: 0.8rem;
+  height: 1.2rem;
+  color: #bbb;
+}
+
+.record-item input:focus {
+  border-width: 2.5px;
+  border-color: var(--aux-color);
+  border-radius: 0 0 0.5em 0.5em;
+}
+
+.record-item input::placeholder {
+  color: #bbb;
+}
+
+#other-notes-input {
+  margin: 1rem 0.5rem 0.5rem;
+  width: calc(100% - 2rem);
+  height: 3rem;
+}
+
+#other-notes-input input {
+  height: 100%;
+}
+
+.final-save {
+  height: 2rem;
+  background-color: var(--main-color);
+  color: #fff;
+  border: 1.5px solid var(--main-color);
+  border-bottom-width: 3px;
+  border-radius: 0 0 0.6rem 0.6rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -1rem;
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+  font-weight: 800;
+  transform: translateX(-40em);
+  transition: transform 0.5s ease-in-out;
+  cursor: pointer;
+}
+
+.final-save-toast {
+  background-color: var(--aux-color);
+  border-color: var(--aux-color);
+}
