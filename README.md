@@ -49,6 +49,7 @@ This filter filters voters after a particular voter list is loaded by name/addre
 4. **Display update.** Use the filtered data to updated the voter list and map, which gets implemented in the **Module 3**.
 
 Showcase:
+
 | Filter window | Data filtered |
 |--|--|
 |![filter-1](mockups/filter-1_iphone13blue_portrait.png)|![filter-2](mockups/filter-2_iphone13blue_portrait.png)|
