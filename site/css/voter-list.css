@@ -110,6 +110,7 @@ Text and icons inside voter list item
   border-radius: 0 0 0.3rem 0.3rem;
   border: 1.25px solid #0d59a9;
   border-bottom-width: 2.5px;
+  cursor: pointer;
 }
 
 #voter-list-component .material-symbols-outlined {

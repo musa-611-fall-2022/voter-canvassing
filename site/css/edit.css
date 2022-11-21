@@ -92,6 +92,7 @@ The bottom component is originally not showing until you select a voter
   font-size: 0.9rem;
   border-radius: 0 0 0.4rem 0.4rem;
   border-bottom-width: 2.5px;
+  cursor: pointer;
 }
 
 .canvass-status-save-toast {
@@ -385,6 +386,7 @@ The bottom component is originally not showing until you select a voter
   font-weight: 800;
   transform: translateX(-40em);
   transition: transform 0.5s ease-in-out;
+  cursor: pointer;
 }
 
 .final-save-toast {
