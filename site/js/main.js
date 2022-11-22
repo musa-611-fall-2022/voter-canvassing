@@ -75,8 +75,12 @@ function fetchVoterList(voterListFilename) {
       window.data = data;
       for(let i = 0; i < voters.data.length; i++) {
         //if tigerline != empty, then run the following (to protect against empty attributes)
+        if (voters.data[i]['TIGER/Line Lng/Lat'] !== undefined && voters.data[i]['TIGER/Line Lng/Lat'] !== ''){
+        //console.log(voters.data[i]['TIGER/Line Lng/Lat']);
         const voterFeature = makeVotersFeature(voters.data[i]);
+        console.log(voterFeature);
         map.voterLayer.addData(voterFeature);
+        }
       }
       //console.log(voters);
       /*console.log(voters?.data?.length);
