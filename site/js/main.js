@@ -15,19 +15,46 @@
 // individual component modules:
 // * [map.js]: for behavior related to the map
 
-import { initMap, Search }  from './map.js';
-//import { csvtojson } from './managedata.js';
+import { initMap, Search, updateUserPositionOn }  from './map.js';
+import { ShowVotersList } from './list.js';
+
 
 
 let voterMap=initMap();
 let votersToShow = document.querySelector('#listNo');
 let search = document.querySelector('#search1');
 
+
+
+
 //let btn = document.getElementById("search1");
 //btn.addEventListener("click", csvtojson(voterMap, votersToShow));
 
+// **Geolocation** -- `onUserPositionSuccess` will be called by the geolocation
+// API if and when the user's position is successfully found.
+function onUserPositionSuccess(pos) {
+    updateUserPositionOn(voterMap, pos);
+  }
+  
+// **Geolocation** -- `onUserPositionSuccess` will be called by the geolocation
+// API if and when there is an error in finding the user's position.
+  function onUserPositionFailure(err) {
+    console.log(err);
+  }
 
-Search(voterMap, search, votersToShow);
+
+function setupGeolocationEvent() {
+    navigator.geolocation.getCurrentPosition(
+      onUserPositionSuccess,
+      onUserPositionFailure,
+    );
+  }
+  Search(voterMap, search, votersToShow);
+//setupGeolocationEvent();
+ShowVotersList(votersToShow);
+
+
+
 
 window.voterMap=voterMap;
 window.votersToShow=votersToShow;

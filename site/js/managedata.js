@@ -18,8 +18,6 @@ function csvtojson ( map, votersToShow, onFailure){
         return v;
 
     })
-        .then(result => showVotersOnMap( result, map));
-
 
     }
 

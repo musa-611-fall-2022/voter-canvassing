@@ -42,7 +42,7 @@ function initMap() {
     return map;
 }
 
-//convert json to a geojson-like feature
+//convert a json to a geojson-like feature
 function makevoterFeature(voter)
 {
     return {
@@ -72,7 +72,7 @@ function showVotersOnMap(votersToShow, voterMap) {
 
     const voterFeatureCollection = {
         "type": "FeatureCollection",
-        "features": votersToShow.map(makevoterFeature),
+        "features": votersToShow.map(makevoterFeature),//excuate one by one
     };
     voterMap.voterLayer = L.geoJSON(voterFeatureCollection, {
         pointToLayer: (feature, latlng) => L.circleMarker(latlng),
@@ -92,14 +92,25 @@ function showVotersOnMap(votersToShow, voterMap) {
 function Search (map, search, votersToShow) {
     search.addEventListener('click', () => {
         let votersToShow1 = votersToShow.value;
-        csvtojson(map, votersToShow1);
+        let result = csvtojson(map, votersToShow1);
+        showVotersOnMap(result, map);
     });
 
 }
+
+function updateUserPositionOn(map, pos) {
+    map.positionLayer.addData({
+      'type': 'Point',
+      'coordinates': [pos.coords.longitude, pos.coords.latitude],
+    });
+    map.setView([pos.coords.latitude, pos.coords.longitude], 18);
+  }
+
 
 export{
         initMap,
         showVotersOnMap,
         Search,
+        updateUserPositionOn,
 
 };
