@@ -92,7 +92,7 @@ function showVotersOnMap(votersToShow_json, voterMap) {
     }
 
 
-//use this function to search the voters by listNo
+//designed for the "search" buttom, use this function to search the voters by listNo. both on map and lists
 function Search (map, search, votersToShow) {
     search.addEventListener('click', () => {
         let votersToShow1 = votersToShow.value;

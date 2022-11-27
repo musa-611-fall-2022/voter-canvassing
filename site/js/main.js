@@ -23,7 +23,7 @@ import { ShowVotersList } from './list.js';
 let voterMap=initMap();
 let votersToShow = document.querySelector('#listNo');
 let search = document.querySelector('#search1');
-let List = document.querySelector("#voter-list");
+//let List = document.querySelector("#voter-list");
 
 
 Search(voterMap, search, votersToShow);
@@ -51,7 +51,7 @@ function setupGeolocationEvent() {
     );
   }
 //setupGeolocationEvent();
-ShowVotersList(votersToShow);
+//ShowVotersList(votersToShow);
 
 
 
