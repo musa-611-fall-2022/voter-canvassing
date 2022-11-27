@@ -23,12 +23,12 @@ import { ShowVotersList } from './list.js';
 let voterMap=initMap();
 let votersToShow = document.querySelector('#listNo');
 let search = document.querySelector('#search1');
+let List = document.querySelector("#voter-list");
 
 
+Search(voterMap, search, votersToShow);
 
 
-//let btn = document.getElementById("search1");
-//btn.addEventListener("click", csvtojson(voterMap, votersToShow));
 
 // **Geolocation** -- `onUserPositionSuccess` will be called by the geolocation
 // API if and when the user's position is successfully found.
@@ -42,14 +42,14 @@ function onUserPositionSuccess(pos) {
     console.log(err);
   }
 
-
+ 
+//setupGeolocationEvent();
 function setupGeolocationEvent() {
     navigator.geolocation.getCurrentPosition(
       onUserPositionSuccess,
       onUserPositionFailure,
     );
   }
-  Search(voterMap, search, votersToShow);
 //setupGeolocationEvent();
 ShowVotersList(votersToShow);
 

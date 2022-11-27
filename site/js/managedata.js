@@ -1,7 +1,8 @@
 import {  showVotersOnMap }  from './map.js';
-//convert csv to json
+//convert csv to json and display on map
 function csvtojson ( map, votersToShow, onFailure){
-    fetch(`./data/voters_lists/${votersToShow}.csv`)
+    fetch(`data/voters_lists/${votersToShow}.csv`)
+
     .then(response => {
         if (response.status === 200) {
         const data = response.text();
@@ -16,11 +17,14 @@ function csvtojson ( map, votersToShow, onFailure){
     .then(result => {
         let v = result.data.slice(1, result.data.length-1);
         return v;
-
     })
+    //now we get json version data of a certain listNO.
 
+    .then(result => showVotersOnMap(result,map))
+    
+    
     }
-
+    
 export{
     csvtojson,
 };

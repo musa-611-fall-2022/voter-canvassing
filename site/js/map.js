@@ -7,6 +7,7 @@
  * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
  */
 import{ csvtojson } from './managedata.js';
+import{ ShowVotersList } from './list.js';
 
 function onvoterClicked(evt) {
     console.log(evt);
@@ -65,15 +66,18 @@ function makevoterFeature(voter)
 }
 
 //Use the function to display the voters' location on the map.
-function showVotersOnMap(votersToShow, voterMap) {
+function showVotersOnMap(votersToShow_json, voterMap) {
     if (voterMap.voterLayer !== undefined){
         voterMap.removeLayer(voterMap.voterLayer);
     }
 
     const voterFeatureCollection = {
         "type": "FeatureCollection",
-        "features": votersToShow.map(makevoterFeature),//excuate one by one
+        "features": votersToShow_json.map(makevoterFeature),//excuate one by one, convert json like data to geojson like feature
+        
     };
+    
+    
     voterMap.voterLayer = L.geoJSON(voterFeatureCollection, {
         pointToLayer: (feature, latlng) => L.circleMarker(latlng),
         style:  {
@@ -92,8 +96,9 @@ function showVotersOnMap(votersToShow, voterMap) {
 function Search (map, search, votersToShow) {
     search.addEventListener('click', () => {
         let votersToShow1 = votersToShow.value;
-        let result = csvtojson(map, votersToShow1);
-        showVotersOnMap(result, map);
+        csvtojson(map, votersToShow1);
+        ShowVotersList(votersToShow1);
+        
     });
 
 }
