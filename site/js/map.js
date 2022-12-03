@@ -14,11 +14,14 @@ function initMap() {
     map.voterLayer = L.geoJSON(null, {
         pointToLayer: (feature, latlng) => L.circleMarker(latlng),
         style: {
-            fillColor: '#83bf15',
-            fillOpacity: 0.3,
-            stroke: false,
+            fillColor: '#5AC8B1',
+            fillOpacity: 1,
+            stroke: true,
+            color: "#1B6354",
+            interactive: true,
+            radius: 5,
         },
-    }).addTo(map);
+    }).bindTooltip(Layer => Layer.feature.properties['add']).addTo(map);
 
     map.positionLayer = L.geoJSON(null).addTo(map);
     

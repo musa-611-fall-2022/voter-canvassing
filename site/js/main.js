@@ -95,6 +95,8 @@ function makeVoterFeature(data_json) {
                     "party": data_json[i]["Party Code"],
                     "last_name": data_json[i]["Last Name"],
                     "first_name": data_json[i]["First Name"],
+                    "add": data_json[i]["TIGER/Line Matched Address"],
+
                 },
             });
 
@@ -109,12 +111,41 @@ function onInventoryLoadSuccess(voters) {
     map.voterLayer.addData(voters);
 };
 
+function updateUserPositionOn(map, pos) {
+    map.positionLayer.addData({
+      'type': 'Point',
+      'coordinates': [pos.coords.longitude, pos.coords.latitude],
+    });
+    map.setView([pos.coords.latitude, pos.coords.longitude], 19);
+  }
+
+  function onUserPositionSuccess(pos) {
+    updateUserPositionOn(map, pos);
+  }
+
+  function onUserPositionFailure(err) {
+    alert(`Oh man, we just failed to find the user's position: ${err}`);
+  }
+
+  function setupGeolocationEvent() {
+    navigator.geolocation.getCurrentPosition(
+      onUserPositionSuccess,
+      onUserPositionFailure,
+    );
+  }
+
+  function setupInteractionEvents() {
+    map.voterLayer.addEventListener('click', onTreeSelected);
+  }
 
 
 //  data = {};
 //data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
 downloadInventory(makeVoterFeature)
+
+setupInteractionEvents();
+setupGeolocationEvent();
 
 
 //const data = downloadInventory(onInventoryLoadSuccess);
