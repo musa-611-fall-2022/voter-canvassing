@@ -1,20 +1,50 @@
-import { initMap } from './map.js';
+// Tree Inventory Surveying App
+// ============================
 
+
+
+
+
+//const map = initMap();
+//nitMap();
+
+import { initMap } from './map.js';
+import { showVoterdata } from './voter-info-form.js';
+//import { votersinlist } from './voterlist.js';
+
+//let map = initMap();
+//const voterData = downloadInventory();
+
+//geoJSON(makeVoterfeature);
 let map = initMap();
-let listNum = [];
+
+let app = {
+    currentVoter: null,
+    notes: null,
+}
+//voterstoshow(voters, map);
+let listNum = "0101";
 
 let voterFileInput = document.querySelector('.input');
-let voterFileLoadButton = document.querySelector('#load-voter-list-button'); 
-let voterListObj = document.querySelector("#voter-list"); 
-
+let voterFileLoadButton = document.querySelector('#load-voter-list-button');
+let voterList = document.querySelector("voter-list");
+//votersinlist(voters);
 let clearMapButton = document.querySelector('#clear-map-button');
-let clearInputTextButton = document.querySelector('#clear-text-button'); 
+let clearInputTextButton = document.querySelector('#clear-text-button');
 
 //Functions
 
+
+function onButtonClicked() {
+    listNum = voterFileInput.value;
+    console.log(listNum);
+    //onClearMapButtonClicked();
+    downloadInventory(makeVoterFeature);
+}
+
 function onClearMapButtonClicked() {
     map.removeLayer(map.voterLayer);
-    voterListObj.innerHTML = ``;
+    voterList.innerHTML = ``;
 }
 
 function clearMap() {
@@ -32,11 +62,8 @@ function clearInputTextBox () {
 clearInputTextBox();
 
 
-function onButtonClicked() { 
-    listNum = String(voterFileInput.value);
-    console.log(listNum);
-    downloadInventory(makeVoterFeature);
-}
+
+
 
 function loadVoterListClick() {
     voterFileLoadButton.addEventListener('click', onButtonClicked);
@@ -51,21 +78,45 @@ function loadVoterListEnter() {
 }// Then call the function
 loadVoterListEnter();
 
+
+
+
 async function downloadInventory(onSuccess, onFailure) {
     const resp = await fetch('data/voters_lists/' + listNum + '.csv');
     if (resp.status === 200) {
         const data = await resp.text();
         const data_json = Papa.parse(data, { header: true, skipEmptyLines: true }).data;
-        console.log(data_json);
-        window.dat = data_json;
+        //   console.log(data_json);
         //console.log(data_json[0]["TIGER/Line Lng/Lat"]);
-        if (onSuccess) { onSuccess(data_json) }
+        if (onSuccess) {onSuccess(data_json) }
     } else {
-        alert('Enter Voter List Number to Start');
+        alert('Oh no, I failed to download the data.');
         if (onFailure) { onFailure() }
     }
-    //return data_json;
-};
+    makeVoterFeature(data_json);
+    // return data_json;
+    //votersinlist(data_json);
+}
+
+
+
+function onInventoryLoadSuccess(voters) {
+    voterstoshow(voters);
+    map.voterLayer.addData(voters);
+    //votersinlist();
+    //let voterList = document.querySelector("#voter-list");
+    
+}
+
+/*
+function onInventoryLoadSuccess(voters) {
+    map.voterLayer.addData(voters);
+}
+*/
+
+
+
+
 
 function makeVoterFeature(data_json) {
     const voters = {
@@ -73,8 +124,9 @@ function makeVoterFeature(data_json) {
         features: [],
     };
 
+
     let i;
-    console.log(data_json)
+    console.log(data_json);
     console.log(data_json.length);
     for (i = 0; i < data_json.length; i++) {
         //console.log(i);
@@ -83,6 +135,7 @@ function makeVoterFeature(data_json) {
 
             let Lng = Number(LatLng.split(",")[0]);
             let Lat = Number(LatLng.split(",")[1]);
+            //let name[] = data_json[i]["First Name"];
 
 
             voters.features.push({
@@ -92,67 +145,80 @@ function makeVoterFeature(data_json) {
                     "coordinates": [Lng, Lat],
                 },
                 "properties": {
-                    "party": data_json[i]["Party Code"],
+                    "name" : data_json[i]["First Name"].concat(" ", data_json[i]["Last Name"]),
+                    "id": data_json[i]["ID Number"],
                     "last_name": data_json[i]["Last Name"],
                     "first_name": data_json[i]["First Name"],
-                    "add": data_json[i]["TIGER/Line Matched Address"],
-
+                    "address": data_json[i]["TIGER/Line Matched Address"],
+                    "VotingParty": "",
+                    "languageAssistance": "",
                 },
             });
-
         }
+        console.log(voters);
     }
     onInventoryLoadSuccess(voters);
-    console.log(voters);
-};
+    //votersinlist();
+}
 
 
-function onInventoryLoadSuccess(voters) {
-    map.voterLayer.addData(voters);
-};
+function voterstoshow() {
+    if (map.voterLayer !== undefined) {
+      map.removeLayer(map.voterLayer);
+    }
 
-function updateUserPositionOn(map, pos) {
-    map.positionLayer.addData({
-      'type': 'Point',
-      'coordinates': [pos.coords.longitude, pos.coords.latitude],
-    });
-    map.setView([pos.coords.latitude, pos.coords.longitude], 19);
+    map.voterLayer = L.geoJSON(null, {
+      pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+      style: {
+        fillColor: '#83bf15',
+        fillOpacity: 0.3,
+        stroke: false,
+      },
+    })
+    .bindTooltip(layer => layer.feature.properties['name'])
+    .addTo(map);
+
+    setupinteractionevents();
   }
 
-  function onUserPositionSuccess(pos) {
-    updateUserPositionOn(map, pos);
+/*
+function onvoterSelected(evt) {
+    const voter = evt.layer.feature;
+    app.currentVoter = voter;
+    showVoterdata(voter, app);
+  }
+*/
+
+function onvoterSelected(evt) {
+    const voter = evt.layer.feature.properties;
+    app.currentVoter = voter;
+    showVoterdata(voter, app);
   }
 
-  function onUserPositionFailure(err) {
-    alert(`Oh man, we just failed to find the user's position: ${err}`);
-  }
+function setupinteractionevents(){
+    map.voterLayer.addEventListener('click',onvoterSelected);
+}
+//setupinteractionevents();
 
-  function setupGeolocationEvent() {
-    navigator.geolocation.getCurrentPosition(
-      onUserPositionSuccess,
-      onUserPositionFailure,
-    );
-  }
 
-  function setupInteractionEvents() {
-    map.voterLayer.addEventListener('click', onTreeSelected);
-  }
+
+
 
 
 //  data = {};
 //data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
 
-downloadInventory(makeVoterFeature)
 
-setupInteractionEvents();
-setupGeolocationEvent();
 
+//downloadInventory(makeVoterFeature);
 
 //const data = downloadInventory(onInventoryLoadSuccess);
 //makeVoterFeature(data);
-window.voterMap = map;
-window.voterFileInput = voterFileInput;
-window.voterFileLoadButton = voterFileLoadButton;
-window.voterListObj = voterListObj;
-window.voterMap = map;
 
+
+
+window.map = map;
+window.makeVoterFeature = makeVoterFeature;
+//window.data_json = data_json;
+
+window.app = app;
