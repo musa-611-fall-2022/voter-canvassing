@@ -35,14 +35,14 @@ Search(voterMap, search, votersToShow);
 function onUserPositionSuccess(pos) {
     updateUserPositionOn(voterMap, pos);
   }
-  
+
 // **Geolocation** -- `onUserPositionSuccess` will be called by the geolocation
 // API if and when there is an error in finding the user's position.
   function onUserPositionFailure(err) {
     console.log(err);
   }
 
- 
+
 //setupGeolocationEvent();
 function setupGeolocationEvent() {
     navigator.geolocation.getCurrentPosition(
