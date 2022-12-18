@@ -4,22 +4,22 @@ import { compileName, compileAddress, showAddressesInList } from './addressList.
 function showDetails(data, id, panel) {
     panel.innerHTML = "";
 
-    panel.classList.add("voter-details-container")
-    
+    panel.classList.add("voter-details-container");
+
     //compile voters
     const voters = [];
     let count = 1;
     let pastTalks = "No past conversations.";
 
-    const headerHTML = `<div id=detailsHeader_${id} class="voter-details-header"><h3>${id}</h3></div>`
+    const headerHTML = `<div id=detailsHeader_${id} class="voter-details-header"><h3>${id}</h3></div>`;
     const li = htmlToElement(headerHTML);
-    panel.append(li)
+    panel.append(li);
     panel.parentNode.scrollTop = 0;
 
     //loop through data to find particular voters associated with active address
     for (let person of data["features"]) {
         //get each voter associated with that specific address
-        const resultAddress = compileAddress(person)
+        const resultAddress = compileAddress(person);
         if (resultAddress == id) {
             //add them to voter array, following consistent format
             const voter = {
@@ -28,13 +28,13 @@ function showDetails(data, id, panel) {
                 name: compileName(person),
                 age: 0,
                 registered: registered(person),
-                party: person.properties["Party Code"]
-            }
+                party: person.properties["Party Code"],
+            };
             voters.push(voter);
             count++;
         }
     }
-    
+
     //list voters in form from voters array
     for (let person of voters){
         let html = `
@@ -51,26 +51,26 @@ function showDetails(data, id, panel) {
             <p id="votingPlan_${person.voterID}">Not yet added.</p>
             <button id="votingPlanBtn_${person.voterID}">Edit Voting Plan</button>
             <hr class="detailEntrySeparator"/>
-        </div>`
+        </div>`;
 
         //add html to the addressList div
         const li = htmlToElement(html);
         panel.append(li);
-       
+
 
         //add event listener to the voting plan button
-        let button = document.getElementById(`votingPlanBtn_${person.voterID}`)
+        let button = document.getElementById(`votingPlanBtn_${person.voterID}`);
         button.addEventListener('click', onButtonClicked); //add clicking event listener
     }
-    
-};
+
+}
 
 function showBackButton(){
 
 }
 
 function onButtonClicked(){
-console.log("Button was clicked")
+console.log("Button was clicked");
 }
 
 //determine whether the person is active or inactive
@@ -80,7 +80,7 @@ function registered(x){
     } else if (x.properties["Voter Status"] == "I"){
         return "Inactive Registration";
     } else {
-        return "Unknown Registration"
+        return "Unknown Registration";
     }
 }
 

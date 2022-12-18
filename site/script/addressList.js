@@ -22,14 +22,14 @@ function showAddressesInList(addresses) {
 
             //specify the full address and save it for checking whether others live there
             let fullAddress = compileAddress(address);
-            
+
             //if it hasn't been added
             if (added.indexOf(fullAddress) === -1){
 
                 //replaced name concatenation with function, used in other modules
-                let Name = compileName(address)
+                let Name = compileName(address);
                 let id = fullAddress;
-                
+
                 added.push(fullAddress);
                 count++; //add to count for the total number of residences
 
@@ -55,12 +55,12 @@ function showAddressesInList(addresses) {
                 </a>` ;
                 const li = htmlToElement(html);
                 addressList.append(li);
-                li.addEventListener('click', onAddressClicked); //add clicking event listener              
+                li.addEventListener('click', onAddressClicked); //add clicking event listener
             }
-            
-        };
 
-        
+        }
+
+
     }
 
     //add the residence total to the top of the address list
@@ -74,9 +74,9 @@ function showAddressesInList(addresses) {
 
 function compileName(data){
     if (data.properties["Suffix"] == ""){
-        return `${data["properties"]["First Name"]} ${data["properties"]["Last Name"]}`
+        return `${data["properties"]["First Name"]} ${data["properties"]["Last Name"]}`;
     } else {
-        return `${data["properties"]["First Name"]} ${data["properties"]["Last Name"]} ${data["properties"]["Suffix"]}`
+        return `${data["properties"]["First Name"]} ${data["properties"]["Last Name"]} ${data["properties"]["Suffix"]}`;
     }
 }
 
@@ -88,7 +88,7 @@ function typeOfHouse(address){
     } else {
         string = "House";
     }
-    return string
+    return string;
 }
 
 //reduce function to concatenate all the voters at a single address into one string
@@ -108,21 +108,21 @@ function compileAddress(data){
     && data.properties['Apartment Number'] == ""
     && data.properties['Address Line 2'] == ""){
         //Base case
-        return `${data.properties['House Number']} ${data.properties['Street Name']}`
+        return `${data.properties['House Number']} ${data.properties['Street Name']}`;
     } else if (data.properties['House Number Suffix'] == ""
     && data.properties['Address Line 2'] == "") {
         //Apartments, no address line 2
-        return `${data.properties['House Number']} ${data.properties['Street Name']} ${data.properties['Apartment Number']}`
+        return `${data.properties['House Number']} ${data.properties['Street Name']} ${data.properties['Apartment Number']}`;
     } else if (data.properties['Address Line 2'] == ""
     && data.properties['Apartment Number'] == "") {
         //House number suffix
-        return `${data.properties['House Number']} ${data.properties['House Number Suffix']} ${data.properties['Street Name']} `
+        return `${data.properties['House Number']} ${data.properties['House Number Suffix']} ${data.properties['Street Name']} `;
     } else if (data.properties['House Number Suffix'] == ""){
         //Apartment Number and Address Line 2. Later because this search term is more general.
-        return `${data.properties['House Number']} ${data.properties['Street Name']} ${data.properties['Apartment Number']} ${data.properties['Address Line 2']}`
+        return `${data.properties['House Number']} ${data.properties['Street Name']} ${data.properties['Apartment Number']} ${data.properties['Address Line 2']}`;
     } else {
         //catch all
-        return `${data.properties['House Number']} ${data.properties['House Number Suffix']} ${data.properties['Street Name']} ${data.properties['Apartment Number']} ${data.properties['Address Line 2']}`
+        return `${data.properties['House Number']} ${data.properties['House Number Suffix']} ${data.properties['Street Name']} ${data.properties['Apartment Number']} ${data.properties['Address Line 2']}`;
     }
 }
 

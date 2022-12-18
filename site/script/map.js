@@ -1,5 +1,5 @@
 function initMap() {
-    const map = L.map('map', {maxZoom: 22, preferCanvas: true }).setView([39.995, -75.13], 12);
+    const map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.995, -75.13], 12);
 
     L.tileLayer('https://api.mapbox.com/styles/v1/keelbn/cl8w1pun9001514odcvwo00gb/tiles/256/{z}/{x}/{y}@2x?access_token=pk.eyJ1Ijoia2VlbGJuIiwiYSI6ImNqaWVseGZjZzA3emMzdnAxM296OTFjNG8ifQ.W2j9Y2mz4t6vGRyKJk_Nyw', {
         maxZoom: 22,
@@ -44,12 +44,12 @@ function showVotersOnMap(data) {
             }).bindTooltip(Layer => Layer.feature.properties['ID Number']).addTo(map);
     }
     // Set view lonlat
-    map.setView([data["features"][0]["geometry"]["coordinates"][1], data["features"][0]["geometry"]["coordinates"][0]], 16)
+    map.setView([data["features"][0]["geometry"]["coordinates"][1], data["features"][0]["geometry"]["coordinates"][0]], 16);
     map.voterLayer.addData(data);
-    console.log(data)
+    console.log(data);
 }
 
 export {
     initMap,
-    loadList
-}
+    loadList,
+};
