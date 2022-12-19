@@ -1,132 +1,120 @@
-@import "https://fonts.googleapis.com/css2?family=Open+Sans"; 
+@import "https://fonts.googleapis.com/css2?family=Open+Sans";
 
 html {
-    font-family: "Open Sans", sans-serif; 
+  font-family: "Open Sans", sans-serif;
 }
 
-h1{
-    background-color: #217e79;
-    color: whitesmoke;
-    margin: 0px;
-    padding: 25px;
+h1 {
+  background-color: #217e79;
+  color: whitesmoke;
+  margin: 0;
+  padding: 25px;
 }
 
 body {
-    display: flex; 
-    flex-direction: column;
-    height: 100vh;
-    margin: 0; 
-    padding: 0;
-    z-index: 1;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  z-index: 1;
 }
 
 .map {
-    height: 100%;
-    z-index: 1;
+  height: 100%;
+  z-index: 1;
 }
 
 textarea {
-    width: 100%;
-    display: block;
-    margin-bottom: 1rem;
-    height: 1rem;
-    z-index: -1;;
+  width: 100%;
+  display: block;
+  margin-bottom: 1rem;
+  height: 1rem;
+  z-index: -1;
 }
 
 button {
-    display:inline-block;
-    margin-right:5px;
-    z-index: -1;
+  margin-right: 5px;
+  z-index: -1;
+  display: flex;
+  flex-flow: row wrap;
+  font-size: 10px;
+  background-color: #217e79;
+  color: aliceblue;
+  bottom: 30%;
 }
 
 .voter-list-container {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    height: 10rem;
-    overflow-y: scroll;
-    overflow-x: auto;
-    z-index: 1;;
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
+  height: 10rem;
+  overflow-y: scroll;
+  overflow-x: auto;
+  z-index: 1;
 }
 
-#response-container{
-    background-color: #1a5e5e;
-    position: absolute;
-    top: 0%;
-    left: 65%;
-    right: 20%;
-    margin: 5px;
-    padding: 5px;
-    border-radius: 15px;
-    border: 40px black;
-    height: auto;
-    width: 300px;
-    flex-wrap: wrap;
-    flex-direction: row-reverse;
-    justify-content: center;
-    align-items: center;
-    z-index: 1;
-    font-size: 10px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    color: azure;
-
-    transform: inherit;
-    
+#response-container {
+  background-color: #1a5e5e;
+  position: absolute;
+  top: 0%;
+  left: 65%;
+  right: 20%;
+  margin: 5px;
+  padding: 5px;
+  border-radius: 15px;
+  border: 40px black;
+  height: auto;
+  width: 300px;
+  flex-wrap: wrap;
+  flex-direction: row-reverse;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  font-size: 10px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: azure;
+  transform: inherit;
 }
 
-#voter-notes{
-    top: 25%;
-    display: flex;
-    height: 300px;
-    width: 300px;
-    flex-direction: column;
-    align-items: center;
+#voter-notes {
+  top: 25%;
+  display: flex;
+  height: 300px;
+  width: 300px;
+  flex-direction: column;
+  align-items: center;
 }
 
-button{
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    font-size: 10px;
-    background-color: #217e79;
-    color: aliceblue;
-    bottom:30%;
+h3 {
+  top: 10%;
 }
 
-h3{
-    top: 10%;
+.voter-address {
+  font-style: italic;
+  font-weight: bold;
 }
 
-.voter-address{
-    font-style: italic;
-    font-weight: bold;
+#voter-list {
+  width: 100%;
+  display: flex;
+  flex-flow: row wrap;
 }
 
-#voter-list{
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+.voter-list-item {
+  margin: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  padding: 5px;
+  height: 50px;
+  width: 200px;
+  background-color: rgb(26, 94, 94);
+  color: azure;
+  font-size: 10px;
+  border-radius: 5px;
 }
 
-.voter-list-item{
-    margin: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    padding: 5px;
-    height:50px;
-    width:200px;
-    background-color:  rgb(26, 94, 94);
-    color: azure;
-    font-size: 10px;
-    border-radius: 5px;
-
+#blank {
+  height: auto;
+  width: auto;
 }
-
-#blank{
-    height:auto;
-    width:auto;
-}
-
-

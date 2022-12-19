@@ -1,12 +1,12 @@
 let responseContainer = document.getElementById("response-container");
 responseContainer.style.display = "none";
 
-let firstStage = responseContainer;
+//let firstStage = responseContainer;
 
 let voterCard = document.createElement("div");
 voterCard.id = "voterCard";
 
-let address = "";
+//let address = "";
 //let ID = "";
 
 let people = document.createElement("ul");
@@ -139,7 +139,7 @@ function openVoterNotes(p){
         let item = voter.currentID.concat(" ").concat(n);
         console.log(item);
         voter[n] = localStorage.getItem(item);
-    }    
+    }
 
     console.log(voter);
 
@@ -147,14 +147,13 @@ function openVoterNotes(p){
 
     if(localStorage.getItem(voter.currentID) === null){
         loadNotes.innerText = "No notes for ID " + voter.currentID + " so far...";
-        
     }
 
     else{
         loadNotes.innerText = localStorage.getItem(voter.currentID);
     }
 
-    loadNotes.style.backgroundColor = "#217e79"
+    loadNotes.style.backgroundColor = "#217e79";
     loadNotes.style.width = "100%";
     loadNotes.style.height = "50%";
     loadNotes.border = "10px";
@@ -189,18 +188,19 @@ function openVoterNotes(p){
         tag.style.zIndex ="2";
 
         tag.addEventListener('click', ()=>{
-            console.log(voter[t])
+            console.log(voter[t]);
             switch(voter[t]){
             case 'true':
                 localStorage.setItem(item, 'false');
-                setTag(localStorage.getItem(item));            
+                setTag(localStorage.getItem(item));
+                break;
             case 'false':
                localStorage.setItem(item, 'true');
-               setTag(localStorage.getItem(item));            
-            
+               setTag(localStorage.getItem(item));
+               break;
             case null:
                localStorage.setItem(item, 'true');
-               setTag(localStorage.getItem(item));            
+               setTag(localStorage.getItem(item));
             }
 
             console.log(setTag(localStorage.getItem(item)));
@@ -217,7 +217,6 @@ function openVoterNotes(p){
 
         voterNotes.appendChild(tags);
 
-    
     //CHECKBOXES ONLY in VOTER NOTES
 
 
@@ -239,11 +238,11 @@ function openVoterNotes(p){
         checkboxLabel.htmlFor = q;
         checkboxLabel.appendChild(document.createTextNode(q));
         questionCheckbox.addEventListener('change', ()=>{
-            let item = voter.currentID.concat(" ").concat(q)
+            let item = voter.currentID.concat(" ").concat(q);
 
             if(questionCheckbox.isChecked){
                 localStorage.setItem(item, true);
-                console.log('false, changing to true')
+                console.log('false, changing to true');
             }
             else if(!questionCheckbox.isChecked){
                 localStorage.setItem(item, false);
@@ -251,7 +250,6 @@ function openVoterNotes(p){
             else{
                 localStorage.setItem(item, true);
             }
-           
         });
 
         checkboxes.appendChild(questionCheckbox);
@@ -295,7 +293,7 @@ function openVoterNotes(p){
     });
 
     saveVoterNotesButton.addEventListener('click', () =>{
-        
+
         const notes = ("::").concat(writeNotes.value);
         console.log(notes);
         voter.currentNotes = notes;
@@ -317,7 +315,7 @@ function showPoint(point){
                 color : "#c2b397",
                 fillOpacity: 0.9,
                 radius: 10,
-            }}).addTo(map);
+            } }).addTo(map);
     }
     else{
         map.removeLayer(map.chosenLayer);
@@ -328,7 +326,7 @@ function showPoint(point){
                 color : "#c2b397",
                 fillOpacity: 0.9,
                 radius: 10,
-            }}).addTo(map);
+            } }).addTo(map);
     }
 }
 
@@ -345,7 +343,7 @@ function onEachFeature(feature, layer) {
         console.log(feature.geometry.coordinates);
 
         showPoint(feature);
-        
+
         voter.currentAddress = feature.properties.address; // start by moving pointer to selected building
         //voter.currentID = feature.voters
         //voter.currentNotes = localStorage.getItem(voter.currentID);
