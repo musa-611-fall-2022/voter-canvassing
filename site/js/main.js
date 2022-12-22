@@ -8,8 +8,9 @@
 //const map = initMap();
 //nitMap();
 
+import { loadNotes, saveNote } from './inventory.js';
 import { initMap } from './map.js';
-import { showVoterdata } from './voter-info-form.js';
+import { getFormContent, showVoterdata } from './voter-info-form.js';
 //import { votersinlist } from './voterlist.js';
 
 //let map = initMap();
@@ -20,7 +21,7 @@ let map = initMap();
 
 let app = {
     currentVoter: null,
-    notes: null,
+    notes: {},
 }
 //voterstoshow(voters, map);
 let listNum = "0101";
@@ -168,17 +169,22 @@ function voterstoshow() {
     }
 
     map.voterLayer = L.geoJSON(null, {
-      pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
-      style: {
-        fillColor: '#83bf15',
-        fillOpacity: 0.3,
-        stroke: false,
-      },
+        pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+        style: {
+            fillColor: '#ffffff',
+            fillOpacity: 1,
+            stroke: true,
+            color: '#00008B',
+            radius: 5,
+            weight: 2.5
+        },
     })
-    .bindTooltip(layer => layer.feature.properties['name'])
-    .addTo(map);
+        .bindTooltip(layer => layer.feature.properties['name'])
+        .addTo(map);
+        
 
     setupinteractionevents();
+    /*map.setView([data_json["features"][0]["geometry"]["coordinates"][1], data_json["features"][0]["geometry"]["coordinates"][0]], 16);*/
   }
 
 /*
@@ -189,17 +195,74 @@ function onvoterSelected(evt) {
   }
 */
 
+
+/*
+function voterhighlight(voter){
+    map.layer = L.geoJSON(null, {
+        pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+        style: {
+          fillColor: '#ff0000',
+          fillOpacity: 0.6, 
+          stroke: false,
+        },
+    }).addTo(map);
+}
+*/
+
+const highlight = {
+    fillColor: '#ff0000',
+    fillOpacity: 0.6, 
+    stroke: false,
+};
+
+
+
+
+const saveVoterNotesEl = document.getElementById('save-notes');
+
+
+
+
 function onvoterSelected(evt) {
+    let voterCard = document.createElement("div");
+    const voterhighlight = evt.layer.feature;
+    if(map.layer !== undefined){
+        map.removeLayer(map.layer);
+    }
+    map.layer = L.geoJSON(voterhighlight, {
+        pointToLayer: function (feature, latlng) {
+            return L.circleMarker(latlng, highlight);
+        }
+    }).addTo(map);
+
+
+    //map.layer = L.circleMarker(voterhighlight).addTo(map);
     const voter = evt.layer.feature.properties;
+    //voterhighlight(voterhighlight);
     app.currentVoter = voter;
+
     showVoterdata(voter, app);
   }
 
+
+function onSaveClicked(){
+    const content = getFormContent();
+    const voterID = app.currentVoter['id'];
+    saveNote(voterID, content, app);
+}
+
 function setupinteractionevents(){
     map.voterLayer.addEventListener('click',onvoterSelected);
+    saveVoterNotesEl.addEventListener('click', onSaveClicked);
+    //document.getElementById('click').style.color = "red";
 }
 //setupinteractionevents();
 
+function onNotesLoadSucess(notes){
+    app.notes = notes;
+}
+
+loadNotes(onNotesLoadSucess);
 
 
 
