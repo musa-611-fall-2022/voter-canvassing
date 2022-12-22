@@ -1,25 +1,41 @@
 import { htmlToElement } from "./template-tools.js";
 
-function populateVoterMenu(voterList, voterListObj) {
-    voterListObj.innerHTML = ``;
-    for (let address of voterList) {
 
-        let voterHTML = ``;
-        for (let voter of address['voters']) {
-            voterHTML = voterHTML + `<span class="voter-name">${voter['firstName']} ${voter['lastName']}</span>`;
-        }
+
+function voterMenuList(voterList, voterListObj) {
+    voterListObj.innerHTML = '';
+
+    for (let v of voterList) {
 
         const html = `
-        <span class="voter-list-item">
-            <span class="voter-address">${address.properties['address']}</span>
-            ${voterHTML}
-        </span>
+        <li class="voter-name"> Name : ${v['First Name']} ${v['Last Name']}. <br>
+        Address: ${v['TIGER/Line Matched Address']}<br></li>
         `;
+
         const li = htmlToElement(html);
         voterListObj.append(li);
     }
 }
 
 export {
-    populateVoterMenu,
+    voterMenuList,
 };
+
+
+/*import { htmlToElement } from "./template-tools.js";
+
+function showSchoolsInList(schoolsToShow, schoolList) {
+    schoolList.innerHTML = '';
+
+    for (const school of schoolsToShow) {
+        const html = `
+            <li class="school-list-item">${school['name']}. School Level: ${school['School Level']}</li>
+        `;
+        const li = htmlToElement(html);
+        schoolList.append(li);
+    }
+}
+
+export {
+    showSchoolsInList,
+};*/
