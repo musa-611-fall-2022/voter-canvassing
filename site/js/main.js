@@ -1,20 +1,10 @@
-// Tree Inventory Surveying App
-// ============================
-
-
-
-
-
-//const map = initMap();
-//nitMap();
-
 import { loadNotes, saveNote } from './inventory.js';
 import { initMap } from './map.js';
 import { getFormContent, showVoterdata } from './voter-info-form.js';
-//import { votersinlist } from './voterlist.js';
+import { voterMenuList } from './voterlist.js';
 
 let map = initMap();
-let voterList; 
+let voterList;
 let data_json;
 
 let app = {
@@ -201,11 +191,11 @@ function voterstoshow(data_json) {
     })
         .bindTooltip(layer => layer.feature.properties['name'])
         .addTo(map);
-        
+
 
     setupinteractionevents();
     /*map.setView([data_json["features"][0]["geometry"]["coordinates"][1], data_json["features"][0]["geometry"]["coordinates"][0]], 16);*/
-  }
+}
 
 /*
 function onvoterSelected(evt) {
@@ -231,7 +221,7 @@ function voterhighlight(voter){
 
 const highlight = {
     fillColor: '#ff0000',
-    fillOpacity: 0.6, 
+    fillOpacity: 0.6,
     stroke: false,
 };
 
@@ -246,7 +236,7 @@ const saveVoterNotesEl = document.getElementById('save-notes');
 function onvoterSelected(evt) {
     let voterCard = document.createElement("div");
     const voterhighlight = evt.layer.feature;
-    if(map.layer !== undefined){
+    if (map.layer !== undefined) {
         map.removeLayer(map.layer);
     }
     map.layer = L.geoJSON(voterhighlight, {
@@ -262,35 +252,35 @@ function onvoterSelected(evt) {
     app.currentVoter = voter;
 
     showVoterdata(voter, app);
-  }
+}
 
 
-function onSaveClicked(){
+function onSaveClicked() {
     const content = getFormContent();
     const voterID = app.currentVoter['id'];
     saveNote(voterID, content, app);
 }
 
-function setupinteractionevents(){
-    map.voterLayer.addEventListener('click',onvoterSelected);
+function setupinteractionevents() {
+    map.voterLayer.addEventListener('click', onvoterSelected);
     saveVoterNotesEl.addEventListener('click', onSaveClicked);
     //document.getElementById('click').style.color = "red";
 }
 
 //Function to show voter data on markers
-function onvoterSelected(evt) {
+/*function onvoterSelected(evt) {
     const voterMarker = evt.layer.feature.properties;
     app.currentVoter = voterMarker;
     showVoterdata(voterMarker, app);
-}
+}*/
 
-function setupinteractionevents() {
+/*function setupinteractionevents() {
     map.voterLayer.addEventListener('click', onvoterSelected);
-}
+}*/
 
 setupinteractionevents();
 
-function onNotesLoadSucess(notes){
+function onNotesLoadSucess(notes) {
     app.notes = notes;
 }
 

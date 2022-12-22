@@ -1,50 +1,55 @@
 <!DOCTYPE html>
 
 <html>
-    <head>
-        
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Voter Canvassing</title>
+<head>
 
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
-        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14="crossorigin=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <link rel="stylesheet" href="css/styles.css">
-    </head>
+    <title>Voter Canvassing</title>
 
-    <body>
-        <h1>Voter Canvassing App</h1>
-        <div class="container"></div>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.2/dist/leaflet.css"
+        integrity="sha256-sA+zWATbFveLLNqWO2gtiw3HL/lh1giY/Inf1BJ0z14=" crossorigin="" />
 
-        <div id="map" class="map"></div>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
 
-        <div id="voter-list-container" class="voter-list-container">
-            <li id="voter-list"></li>
+<body>
+    <h1>Voter Canvassing App</h1>
+    <div class="container"></div>
+
+    <div id="map" class="map"></div>
+
+    <div id="voter-list-container" class="voter-list-container">
+        <li id="voter-list"></li>
+    </div>
+
+    <div id="load-voter-list" class="load-voter-list">
+        <textarea id="input" class="input" placeholder="Enter Voter List Number..."></textarea>
+        <button id="load-voter-list-button" class="button"> Load Voters (Click twice for list)</button>
+        <button id="clear-text-button" class="button"> Clear Input Text</button>
+        <button id="clear-map-button" class="button"> Clear Map & List</button>
+    </div>
+
+    <div id="response" class="response"></div>
+
+
+    <div id="vote-card" class="votercard">
+        <h2 id="Name"></h2>
+        <h2 id="Address"></h2>
+        <h2 id="Voting-Party"></h2>
+        <div id="voter-save-el" class="voter-save-el">
+            <textarea id="people-notes" class="people-notes" placeholder="Notes..."></textarea>
+            <button id="save-notes" class="save-notes">Save</button>
         </div>
-        
-        <div id="load-voter-list" class="load-voter-list">
-            <textarea id="input" class="input" placeholder="Enter Voter List Number..."></textarea>
-            <button id="load-voter-list-button" class="button"> Load Voters (Click twice for list)</button>
-            <button id="clear-text-button" class="button"> Clear Input Text</button>
-            <button id="clear-map-button" class="button"> Clear Map & List</button>
-        </div>
-
-        <div id="response" class="response"></div>
+    </div>
 
 
-        <div id = "vote-card" class = "votercard">
-            <h2 id="Name"></h2>
-          <h2 id="Address"></h2>
-          <h2 id="Voting Party"></h2>
-          <textarea id="people-notes" class="people-notes" placeholder="Notes..."></textarea>
-          <button id="save-notes" class="save-notes">Save</button>
-        </div>
-          
+    <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
+        integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg=" crossorigin=""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.2.0/papaparse.js"></script>
 
-        <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js" integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="crossorigin=""></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.2.0/papaparse.js"></script>
-        
-        <script type="module" src="js/main.js"></script>
-    </body>
+    <script type="module" src="js/main.js"></script>
+</body>
+
 </html>
