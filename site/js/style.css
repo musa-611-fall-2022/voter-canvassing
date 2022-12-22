@@ -1,0 +1,101 @@
+html,
+body {
+    height: 100%;
+    overflow-y: hidden;
+  }
+  .input-box {
+    padding-bottom: 10px;
+  }
+
+  #vote-map {
+    position: relative;
+    float: right;
+    height: 100%;
+    width: 50%;
+  }
+
+  .container-fluid {
+    height: 100%;
+    width: 100%;
+  }
+
+  #input-button {
+    background-color: rgb(155, 177, 238);
+    border-right-width: 3px;
+    width: 5rem;
+    float: 10rem;
+    margin-left: 0em;
+    font-size: 0.8rem;
+    
+  }
+  #input-button .tooltiptext {
+    color: #0d59a9;
+    text-align: center;
+    width: 6em;
+    height: 1rem;
+    padding: 0.2rem 0.5rem;
+    position: absolute;
+    bottom: 50%;
+    left: 15%;
+    font-weight: 500;
+    font-size: 3rem;
+   
+  }
+  
+  #input-button:hover .tooltiptext {
+    visibility: visible;
+  }
+  
+  .tooltip-content {
+    position: relative;
+    float: left;
+    
+  }
+
+
+  #voterlistcomponent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.5s;
+  }
+
+  #voterlistcomponent .panel {
+    background-color: rgb(219, 227, 251);
+    padding: 0 0.5rem 0.05rem;
+  }
+
+  
+  #voterlistcomponent .scroll_container .list_address {
+    margin-right: 1rem;
+    font-size: 0.8rem;
+    padding-top: 1rem;
+    height: 1rem;
+    vertical-align: baseline;
+    border-bottom: 0 solid #bbb;
+  }
+  
+#voterlistcomponent .scroll_container .list-voter:hover {
+  background-color: #eee;
+}
+
+  .left {
+    float: left;
+    width: 50%;
+    height: 100%;
+    margin-left: 0;
+  }
+
+
+  ul {
+    padding: 0;
+    flex: auto;
+    flex-wrap: wrap;
+    overflow: auto;
+  }
+  
+  ul,
+  li {
+    font-size: 13px;
+    text-align: center;
+  }
