@@ -1,4 +1,4 @@
-import { initMap, searchNeighbor, loadData , updateUserPositionOn} from "./map.js";
+import { initMap, searchNeighbor, updateUserPositionOn} from "./map.js";
 import { showVoterInList } from "./voter-list.js";
 import {showvoterDataInForm,  initvoterInfoForm} from "./voter-info-form.js"
 import { loadNotes, saveNotes } from './inventory.js';
@@ -32,6 +32,7 @@ function onSaveClicked(evt) {
   
   // `onvoterSelected` will be called if and when the user clicks on a voter on the map
 function onvoterSelected(evt) {
+    console.log(evt);
     const voter = evt.detail.voter;
     app.currentvoter = voter;
   
@@ -40,7 +41,7 @@ function onvoterSelected(evt) {
     showvoterDataInForm(voter, notes);
   }
 
-    function setupInteractionEvents() {
+function setupInteractionEvents() {
     window.addEventListener('voter-selected', onvoterSelected);
     window.addEventListener('save-clicked', onSaveClicked);
   } 
@@ -71,11 +72,10 @@ function setupGeolocationEvent() {
   initToast();
   initvoterInfoForm();
   setupGeolocationEvent();
-   loadNotes(notes => {
+  loadNotes(notes => {
     app.notes = notes;
     setupInteractionEvents();
   }); 
-  //loadData(onInventoryLoadSuccess);
 
 window.app=app;  
 window.voterFileInput = neighborInput;

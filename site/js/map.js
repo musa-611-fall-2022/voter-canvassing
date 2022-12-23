@@ -4,19 +4,20 @@ import {showvoterDataInForm, initvoterInfoForm} from './voter-info-form.js'
 import { loadNotes, saveNotes } from './inventory.js';
 import { initToast, showToast } from './toast.js';
 
-/*
-let app = {
-  currentvoter: null,
-  notes: null,
-};*/
+
+///该功能发生在点击地图上的点之后
 function onvoterClicked(evt) {
-  console.log(evt);
   const voter = evt.layer.feature;
 
   const voterSelectedEvent = new CustomEvent('voter-selected', { detail: { voter } });
   window.dispatchEvent(voterSelectedEvent);
+
+  const voterNameEl = document.getElementById('load-overlay');
+  const voterName = `${voter.properties['First_Name']} ${voter.properties['Last_Name']}, ${voter.properties['Address']}` ;
+  voterNameEl.innerHTML = voterName;
 }
 
+///该功能位地图初始设置
 function initMap() {
     const map = L.map('map', { maxZoom: 22, preferCanvas: true }).setView([39.95, -75.16], 13);
 
@@ -46,7 +47,7 @@ function initMap() {
   }
   
 
-//turn array into feature
+//该功能turn array into feature
 function makeVoterFeature(voter) {
     return {
       "type": "Feature",
@@ -54,6 +55,7 @@ function makeVoterFeature(voter) {
       "properties": {
         'First_Name': voter['3'],
         'Last_Name':voter['2'],
+        'Address':`NO.${voter['12']+' '+voter['14']}`
       },
       "geometry": {
         "type": "Point",
@@ -62,7 +64,7 @@ function makeVoterFeature(voter) {
     };
   }
 
-//show feature on map
+//该功能show feature on map
   function showVotersOnMap(map, VotersToShow) {
   if (map.VoterLayers !== undefined) {
     map.removeLayer(map.VoterLayers);
@@ -85,34 +87,7 @@ function makeVoterFeature(voter) {
   map.VoterLayers.addEventListener('click', onvoterClicked);
   }
 
-  /*
-//`onSaveClicked` will be called if and when the save button on the voter info form is clicked
-function onSaveClicked(evt) {
-  const note = evt.detail.note;
-  const voterId = app.currentvoter.properties['id'];
-  app.notes[voterId] = note;
-
-  saveNotes(app.notes);
-  showToast('Saved!', 'toast-success');
-
-}
-
-// `onvoterSelected` will be called if and when the user clicks on a voter on the map
-function onvoterSelected(evt) {
-  const voter = evt.detail.voter;
-  app.currentvoter = voter;
-
-  const voterId = voter.properties['id'];
-  const notes = app.notes[voterId] || '';
-  showvoterDataInForm(voter, notes);
-}
-
-  function setupInteractionEvents() {
-  window.addEventListener('voter-selected', onvoterSelected);
-  window.addEventListener('save-clicked', onSaveClicked);
-}
-*/
-//turn csv to array
+//该功能turn csv to array
 function loadData (map, neighbor, onFailure){
 let voter_list = document.querySelector("#voterList");
 
@@ -144,7 +119,7 @@ fetch(`./voters_lists/${neighbor}.csv`)
   
 }
 
-//reset position to input neighbor
+//该功能reset position to input neighbor
 function posMap (map, neighbor){
   fetch(`./voters_lists/${neighbor}.csv`)
     .then(response => {
@@ -163,7 +138,7 @@ function posMap (map, neighbor){
   });
   }
   
-//search targetted neighborhood
+//该功能search targetted neighborhood
 function searchNeighbor(map, searchOnClicked, neighborInput) {
 searchOnClicked.addEventListener('click', () => {
   let neighbor = neighborInput.value;
@@ -179,6 +154,7 @@ document.getElementById('neighbor-name-input').addEventListener('keypress', func
 });
 }
 
+//该功能用于在一开始开始显示使用者位置
 function updateUserPositionOn(map, pos) {
   map.positionLayer.addData({
     'type': 'Point',
@@ -196,7 +172,5 @@ loadNotes(notes => {
 export {
     initMap,
     searchNeighbor,
-    loadData,
     updateUserPositionOn,
-
 };
