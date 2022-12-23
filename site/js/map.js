@@ -1,11 +1,8 @@
 //set initial map using leaflet
 import { showVoterInList } from './voter-list.js'
-import {showvoterDataInForm, initvoterInfoForm} from './voter-info-form.js'
-import { loadNotes, saveNotes } from './inventory.js';
-import { initToast, showToast } from './toast.js';
 
 
-///该功能发生在点击地图上的点之后
+///该功能发生在点击地图上的点之后加载详细信息
 function onvoterClicked(evt) {
   const voter = evt.layer.feature;
 
@@ -161,11 +158,6 @@ function updateUserPositionOn(map, pos) {
   });
   map.setView([pos.coords.latitude, pos.coords.longitude], 19);
 }
-
-loadNotes(notes => {
-  app.notes = notes;
-  setupInteractionEvents();
-});
 
 
 export {

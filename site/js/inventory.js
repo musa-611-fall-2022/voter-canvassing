@@ -29,14 +29,46 @@ async function loadNotes(onSuccess, onFailure) {
   }
 }
 
-async function saveNotes(voterId, note, app, onSuccess, onFailure) {
+async function loadLanguage(onSuccess, onFailure) {
+  try {
+    // const notes = JSON.parse(localStorage.getItem('notes'));
+    const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
+    const result = await getDoc(notesDoc);
+    const docData = result.data() || {};
+    const language = docData.language || {};
+    onSuccess(language);
+  } catch {
+    if (onFailure) {
+      onFailure();
+    }
+  }
+}
+
+async function loadMailOrInPerson(onSuccess, onFailure) {
+  try {
+    // const notes = JSON.parse(localStorage.getItem('notes'));
+    const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
+    const result = await getDoc(notesDoc);
+    const docData = result.data() || {};
+    const mailOrInPerson = docData.mailOrInPerson || {};
+    onSuccess(mailOrInPerson);
+  } catch {
+    if (onFailure) {
+      onFailure();
+    }
+  }
+}
+
+async function saveNotes(voterId, note, language, mailOrInPerson, app, onSuccess, onFailure) {
   // Save in memory
   app.notes[voterId] = note;
+  app.language[voterId] = language;
+  app.mailOrInPerson[voterId] = mailOrInPerson;
 
   // Save in the cloud.
   try {
     const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
-    await setDoc(notesDoc, { content: app.notes });
+    await setDoc(notesDoc, { content: app.notes, language: app.language });
     if (onSuccess) {
       onSuccess(notesDoc);
     }
@@ -52,4 +84,6 @@ async function saveNotes(voterId, note, app, onSuccess, onFailure) {
 export {
   loadNotes,
   saveNotes,
+  loadLanguage,
+  loadMailOrInPerson
 };
