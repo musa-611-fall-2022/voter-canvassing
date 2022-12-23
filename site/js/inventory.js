@@ -65,7 +65,7 @@ async function saveNotes(voterId, note, language, mailOrInPerson, app, onSuccess
   // Save in the cloud.
   try {
     const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
-    await setDoc(notesDoc, { content: app.notes, language: app.language });
+    await setDoc(notesDoc, { content: app.notes, language: app.language, mailOrInPerson: app.mailOrInPerson });
     if (onSuccess) {
       onSuccess(notesDoc);
     }
