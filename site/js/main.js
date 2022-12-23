@@ -76,7 +76,7 @@ loadMailOrInPerson(mailOrInPerson => {
   app.mailOrInPerson = mailOrInPerson;
 });
 setupGeolocationEvent();
-  
+
 window.app=app;  
 window.voterFileInput = neighborInput;
 window.voterFileLoadButton = searchOnClicked;

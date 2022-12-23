@@ -2,8 +2,9 @@
 import { showVoterInList } from './voter-list.js'
 
 
-///该功能发生在点击地图上的点之后加载详细信息
+///该功能发生在点击地图上的点之后
 function onvoterClicked(evt) {
+  //show voter information
   const voter = evt.layer.feature;
 
   const voterSelectedEvent = new CustomEvent('voter-selected', { detail: { voter } });
@@ -12,6 +13,19 @@ function onvoterClicked(evt) {
   const voterNameEl = document.getElementById('load-overlay');
   const voterName = `${voter.properties['First_Name']} ${voter.properties['Last_Name']}, ${voter.properties['Address']}` ;
   voterNameEl.innerHTML = voterName;
+
+  //highlight clicked voter
+  if (voterMap.pLayer !== undefined){
+    voterMap.removeLayer(voterMap.pLayer);
+    }
+  voterMap.pLayer = L.circleMarker(evt.latlng).addTo(voterMap);
+  voterMap.pLayer.setStyle({
+    icon: "https://maps.gstatic.com/mapfiles/markers2/marker.png",
+    color: '#ad4b5a',
+    fillColor: '#6195ed', // Red
+    fillOpacity: 0.5,
+    radius: 5,
+  });
 }
 
 ///该功能位地图初始设置
@@ -41,7 +55,6 @@ function initMap() {
 
     return map;
   }
-  
 
 //该功能turn array into feature
 function makeVoterFeature(voter) {

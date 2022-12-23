@@ -16,7 +16,6 @@ const firestoreDb = getFirestore(firebaseApp);
 
 async function loadNotes(onSuccess, onFailure) {
   try {
-    // const notes = JSON.parse(localStorage.getItem('notes'));
     const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
     const result = await getDoc(notesDoc);
     const docData = result.data() || {};
@@ -31,7 +30,6 @@ async function loadNotes(onSuccess, onFailure) {
 
 async function loadLanguage(onSuccess, onFailure) {
   try {
-    // const notes = JSON.parse(localStorage.getItem('notes'));
     const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
     const result = await getDoc(notesDoc);
     const docData = result.data() || {};
@@ -46,7 +44,6 @@ async function loadLanguage(onSuccess, onFailure) {
 
 async function loadMailOrInPerson(onSuccess, onFailure) {
   try {
-    // const notes = JSON.parse(localStorage.getItem('notes'));
     const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
     const result = await getDoc(notesDoc);
     const docData = result.data() || {};
