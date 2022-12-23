@@ -4,6 +4,10 @@ import { showVoterInList } from './voter-list.js'
 
 ///该功能发生在点击地图上的点之后
 function onvoterClicked(evt) {
+  //remove toast
+  const toastEl = document.getElementById('toast');
+  toastEl.innerHTML = '';
+
   //show voter information
   const voter = evt.layer.feature;
   
@@ -163,6 +167,10 @@ function posMap (map, neighbor){
 //该功能search targetted neighborhood
 function searchNeighbor(map, searchOnClicked, neighborInput) {
 searchOnClicked.addEventListener('click', () => {
+  //remove toast
+  const toastEl = document.getElementById('toast');
+  toastEl.innerHTML = '';
+
   //remove selected information and highlight
   const voterNameEl = document.getElementById('load-overlay');
   voterNameEl.innerHTML = 'Loading...';
