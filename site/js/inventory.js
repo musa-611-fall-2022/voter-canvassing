@@ -15,39 +15,41 @@ const firebaseApp = initializeApp(firebaseConfig);
 const firestoreDb = getFirestore(firebaseApp);
 
 async function loadNotes(onSuccess, onFailure) {
-    try {
-      const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
-      const result = await getDoc(notesDoc);
-      const notes = result.data().notes;
-      localStorage.setItem('notes', JSON.stringify(notes));
-      onSuccess(notes);
-    } catch {
-      if (onFailure) {
-        onFailure();
-      }
+  try {
+    // const notes = JSON.parse(localStorage.getItem('notes'));
+    const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
+    const result = await getDoc(notesDoc);
+    const docData = result.data() || {};
+    const notes = docData.content || {};
+    onSuccess(notes);
+  } catch {
+    if (onFailure) {
+      onFailure();
     }
   }
-  async function saveNotes(notes, onSuccess, onFailure) {
-    // Save locally.
-    localStorage.setItem('notes', JSON.stringify(notes));
-  
-    // Save in the cloud.
-    try {
-      const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
-      await setDoc(notesDoc, { notes });
-      console.log("Document written with ID: ", notesDoc.id);
-      if (onSuccess) {
-        onSuccess(notesDoc);
-      }
-    } catch (e) {
-      console.error("Error adding document: ", e);
-      if (onFailure) {
-        onFailure(e);
-      }
+}
+
+async function saveNotes(voterId, note, app, onSuccess, onFailure) {
+  // Save in memory
+  app.notes[voterId] = note;
+
+  // Save in the cloud.
+  try {
+    const notesDoc = doc(firestoreDb, "tree-inventory-notes", "notes");
+    await setDoc(notesDoc, { content: app.notes });
+    if (onSuccess) {
+      onSuccess(notesDoc);
+    }
+  } catch (e) {
+    alert(`Shoot, I failed to save the notes in firestore. ${e}`);
+    if (onFailure) {
+      onFailure(e);
     }
   }
-  
-  export {
-    loadNotes,
-    saveNotes,
-  };
+}
+
+
+export {
+  loadNotes,
+  saveNotes,
+};

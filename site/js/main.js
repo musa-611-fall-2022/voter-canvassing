@@ -1,6 +1,6 @@
 import { initMap, searchNeighbor, updateUserPositionOn} from "./map.js";
 import { showVoterInList } from "./voter-list.js";
-import {showvoterDataInForm,  initvoterInfoForm} from "./voter-info-form.js"
+import {showvoterDataInForm,  initvoterInfoForm, getFormContent} from "./voter-info-form.js"
 import { loadNotes, saveNotes } from './inventory.js';
 import { initToast, showToast } from './toast.js';
 const map = initMap();
@@ -17,28 +17,27 @@ searchNeighbor(map, searchOnClicked, neighborInput);
   //loadOverlayEl.classList.add('hidden');
 //}
 
-
+function onNotesSaveSuccess() {
+  showToast('Saved!', 'toast-success');
+}
   
  //`onSaveClicked` will be called if and when the save button on the voter info form is clicked
-function onSaveClicked(evt) {
-    const note = evt.detail.note;
-    const voterId = app.currentvoter.properties['id'];
-    app.notes[voterId] = note;
-  
-    saveNotes(app.notes);
-    showToast('Saved!', 'toast-success');
+function onSaveClicked() {
+    const content = getFormContent()
+    const voterId = app.currentvoter['id'];
+
+    saveNotes(voterId, content, app, onNotesSaveSuccess);
   
   }
   
   // `onvoterSelected` will be called if and when the user clicks on a voter on the map
 function onvoterSelected(evt) {
-    console.log(evt);
     const voter = evt.detail.voter;
     app.currentvoter = voter;
   
-    const voterId = voter.properties['id'];
-    const notes = app.notes[voterId] || '';
-    showvoterDataInForm(voter, notes);
+    const voterId = voter['id'];
+    const notes = app.notes[voterId] || 'nothing yet...';
+    showvoterDataInForm(notes);
   }
 
 function setupInteractionEvents() {
@@ -71,12 +70,12 @@ function setupGeolocationEvent() {
 
   initToast();
   initvoterInfoForm();
-  setupGeolocationEvent();
+  setupInteractionEvents();
   loadNotes(notes => {
     app.notes = notes;
-    setupInteractionEvents();
   }); 
-
+  setupGeolocationEvent();
+  
 window.app=app;  
 window.voterFileInput = neighborInput;
 window.voterFileLoadButton = searchOnClicked;

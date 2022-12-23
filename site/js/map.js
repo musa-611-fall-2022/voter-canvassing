@@ -38,7 +38,6 @@ function initMap() {
       },
     }).addTo(map);
     
-    //no use; never called
     map.treeLayer.addEventListener('click', onvoterClicked);
 
     map.positionLayer = L.geoJSON(null).addTo(map);

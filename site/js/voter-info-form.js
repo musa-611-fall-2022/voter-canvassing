@@ -1,10 +1,7 @@
-const voterNameEl = document.getElementById('First Name');
 const voterNotesEl = document.getElementById('voter-notes');
 const savevoterNotesEl = document.getElementById('save-voter-notes');
 
-function showvoterDataInForm(voter, notes) {
-  const voterName = voter.properties['First Name'];
-  voterNameEl.innerHTML = voterName;
+function showvoterDataInForm(notes) {
   voterNotesEl.value = notes;
 }
 
@@ -14,6 +11,11 @@ function onSaveButtonClicked() {
   window.dispatchEvent(saveClickedEvent);
 }
 
+function getFormContent() {
+  const note = voterNotesEl.value;
+  return note;
+}
+
 function initvoterInfoForm() {
   savevoterNotesEl.addEventListener('click', onSaveButtonClicked);
 }
@@ -21,4 +23,5 @@ function initvoterInfoForm() {
 export {
   showvoterDataInForm,
   initvoterInfoForm,
+  getFormContent,
 };
