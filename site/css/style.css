@@ -1,0 +1,30 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+  }
+  
+  h2 {
+    font-size: 1rem;
+    margin-top: 0;
+  }
+  
+  .map {
+    height: 40%;
+  }
+  .voter-info {
+    padding: 1rem;
+  }
+
+  .voter-info{
+    padding: 1rem;
+  }  
+
+  .list-container{
+    height:40%;
+    overflow-y: scroll;
+    padding: 1rem;
+    padding-top: 0;
+}

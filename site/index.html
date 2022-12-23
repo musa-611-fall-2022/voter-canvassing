@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Voter Canvasing</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.2/leaflet.min.css" integrity="sha512-ekzf1ud/EngtmWo8xbIkhtBQsSgkOhTyyD6AA6b/J4/YXTInuNgeKVQDCH/pysNYnrGgsZazWSuWsNtFKzHbmg==" crossorigin="anonymous" referrerpolicy="no-referrer">
+    <link rel="stylesheet" href="css/style.css">
+  </head>
+
+  <body>
+<!-- 地图的位置 -->
+    <div id="map" class="map"></div>
+<!-- loading 输入的占位 -->
+    <div id="load-overlay" class="load-overlay">Loading...</div>
+<!-- 输入成功的占位 -->
+    <div id="toast" class="toast hidden"></div>
+<!--  -->
+    <div id="voter-info" class="voter-info">
+      <h2 id="voter-name"></h2>
+      <textarea id="voter-notes" class="voter-notes" placeholder="Notes..."></textarea>
+      <button id="save-voter-notes" class="save-voter-notes">Save</button>
+    </div>
+<!-- 表格占位 id = voterList 有用-->
+    <div class="list-container">
+      <div class="search-bar">
+          <input id="neighbor-name-input" type="text" class="form-control" placeholder="Enter voter file number...">
+          <span class="input-group-btn">
+              <button class="btn btn-default" id="neighbor-name-search" type="button">Search</button>
+          </span>
+      </div>
+      <div class="lists-group" >
+          <div id="voterList" class="list-group"></div>
+      </div>
+    </div>
+<!--  -->
+    <script src="papaparse.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.2/leaflet.min.js" integrity="sha512-QPePsP1y4BuymxYZEuQdJ4dsUzZR9MmyrMOLK//zHK4ZoDfMA7zQOJefboRSIm6QKCfzC7djwDOO/+0f72w7Zg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script type="module" src="js/main.js"></script>
+  </body>
+</html>

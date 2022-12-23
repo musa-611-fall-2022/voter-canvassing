@@ -19,33 +19,39 @@ The items listed under **Your Repository** and **Core Interface Elements** are a
 
 ### Loading voter files...
 
-* [ ] There should be an `input` element on the page where you can enter a voter file number. **Save the `input` DOM element in a variable named `voterFileInput` attached to the global `window` object.** In other words:
+* [x] There should be an `input` element on the page where you can enter a voter file number. **Save the `input` DOM element in a variable named `voterFileInput` attached to the global `window` object.** In other words:
   
   ```js
   window.voterFileInput = ...;
   ```
 
-* [ ] There should be a `button` that will load the voter file number given in the `voterFileInput` when clicked. **Save the `button` DOM element in a variable named `voterFileLoadButton` attached to the global `window` object.**
+* [x] There should be a `button` that will load the voter file number given in the `voterFileInput` when clicked. **Save the `button` DOM element in a variable named `voterFileLoadButton` attached to the global `window` object.**
 
 ### Listing and mapping voters...
 
 * [ ] Your page should have an element that shows the voters (and their addresses) from a file. Note that the element _does not_ need to be a `ul`, `ol`, or any other HTML list element. Even though the element itself may not use a list tag like `ul` or `ol`, it will still function as a list and I'll still refer to it as one. **The list's DOM element should be available on the global `window` object as a variable named `voterList`.**
+你的页面应该有一个元素，显示文件中的选民（和他们的地址）。请注意，该元素不需要是`ul`、`ol`或任何其他HTML列表元素。尽管该元素本身可能没有使用像`ul`或`ol`这样的列表标签，但它仍将作为一个列表发挥作用，我仍将把它作为一个列表来引用。**列表的DOM元素应该在全局的`window'对象上作为变量`voterList'可用。
+这一步直接调用筛选出来的csv文件筛选出来，在csv里面把想要的数据洗出来。
 
-* [ ] Your page should have a Leaflet map to show voter locations. **The Leaflet map object should be available on the global `window` object as a variable named `voterMap`.**
+* [x] Your page should have a Leaflet map to show voter locations. **The Leaflet map object should be available on the global `window` object as a variable named `voterMap`.**
 
 * When you enter a file number, the voter information in that CSV file should be loaded onto the `voterMap` and into the `voterList`.
   * [ ] **Wrap each voter's name in an element (for example a `span`) with the class `voter-name`. Wrap addresses in an element with the class `voter-address`** You may choose to list each voter individually or grouped by address, which I would recommend. Either way, each voter's basic information (at least their name and street address) should be shown in the `voterList`.
-  * [ ] **Represent the voters in the file with map markers.** You may choose to have one map marker to represent each voter, one marker to represent each address, or one marker to represent each _building_ (for example, two apartments that share the same street address are in the same building). I would generally recommend showing a marker for each building, as otherwise markers for different apartments or voters in the same building will be overlapping.
+   * [] **将每个选民的名字包在一个元素中（例如一个`span'），类别为`voter-name'。将地址包在一个元素中，类别为`选民地址`**你可以选择单独列出每个选民，或按地址分组，我建议这样做。无论哪种方式，每个选民的基本信息（至少是他们的姓名和街道地址）应该显示在`选民名单'中。
+
+  * [x] **Represent the voters in the file with map markers.** You may choose to have one map marker to represent each voter, one marker to represent each address, or one marker to represent each _building_ (for example, two apartments that share the same street address are in the same building). I would generally recommend showing a marker for each building, as otherwise markers for different apartments or voters in the same building will be overlapping.
 
 * [ ] When you click on a map marker, the marker should be highlighted in some way to show that it is selected. **Change the marker styles of a selected marker if it is a vector marker (e.g. `L.circleMarker`), or change the icon if it is a normal image marker (e.g. `L.marker`).**
 
 * [ ] When you click on a map marker, the corresponding item(s) in the `voterList` should also be highlighted. **Add a class named `selected` to the appropriate element(s) within the `voterList`.** Use that `selected` class to apply different visual styles to the element(s).
+* [] 当你点击一个地图标记时，该标记应以某种方式突出显示，以显示它被选中。**如果它是一个矢量标记（如`L.circleMarker`），则改变所选标记的标记样式；如果它是一个普通的图像标记（如`L.marker`），则改变其图标。
 
 ### Displaying and editing voter details...
 
 > _Note that if you decide to implement a workflow that doesn't precisely fit into the structure below, that's ok! Just talk with me about what the workflow is, because we may need to modify the project tests._
 
 * [ ] When you click on a voter (or an address) in the `voterList`, a panel should be shown that contains details about the voter (or about each voter at the address). This panel could be represented in HTML with a `div`, `form`, `section`, or any of a number of other elements. **Give the voter information panel(s) a class of `voter-details`.**
+* [] 当你点击`选民名单'中的一个选民（或一个地址）时，应显示一个面板，其中包含关于该选民（或该地址的每个选民）的详细信息。这个面板可以用HTML中的 "div"、"form"、"section "或其他一些元素表示。**给予选民信息面板 "voter-details "的类别**。
 
 * [ ] There should be _at least_ three separate input elements available for collecting facts about each voter (refer to the [product requirements document](PRD.md) that we created in class to remind yourself what kind of information should be collected). **Include fields for collecting voter information on each `voter-details` panel.**
 
