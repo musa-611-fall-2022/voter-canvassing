@@ -28,13 +28,17 @@ function onvoterClicked(evt) {
   });
 
   //highlight voter list
-  let stopList = document.querySelector("#voterList")
+  let stopList = document.querySelector("#voterSelected")
   stopList.innerHTML = '';
   const html = `
   <li class="selected"> ${voter.properties['First_Name']} ${voter.properties['Last_Name']} </li>
   `;
   const li = htmlToElement(html);
   stopList.append(li);
+
+  let voterList = document.querySelector("#voterList");
+  let selectedInList = document.getElementById(voter['id']);
+  voterList.removeChild(selectedInList);
 }
 
 ///该功能位地图初始设置
@@ -159,6 +163,16 @@ function posMap (map, neighbor){
 //该功能search targetted neighborhood
 function searchNeighbor(map, searchOnClicked, neighborInput) {
 searchOnClicked.addEventListener('click', () => {
+  //remove selected information and highlight
+  const voterNameEl = document.getElementById('load-overlay');
+  voterNameEl.innerHTML = 'Loading...';
+  let stopList = document.querySelector("#voterSelected")
+  stopList.innerHTML = '';
+  if (voterMap.pLayer !== undefined){
+    voterMap.removeLayer(voterMap.pLayer);
+  };
+  
+  //search
   let neighbor = neighborInput.value;
   loadData(map, neighbor);
   posMap(map, neighbor);
