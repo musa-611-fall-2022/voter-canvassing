@@ -5,7 +5,7 @@ function showVoterInList(stopsToShow, stopList) {
 
   for (const stop of stopsToShow) {
     const html = `
-      <li class="stop-list-item">${stop['3']} ${stop['2']} </li>
+      <li class="stop-list-item" id=${stop['0']}> ${stop['3']} ${stop['2']} </li>
     `;
     const li = htmlToElement(html);
     stopList.append(li);

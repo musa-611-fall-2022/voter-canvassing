@@ -6,25 +6,33 @@ body {
     padding: 0;
   }
   
-  h2 {
-    font-size: 1rem;
-    margin-top: 0;
-  }
-  
-  .map {
-    height: 40%;
-  }
-  .voter-info {
-    padding: 1rem;
-  }
-
-  .voter-info{
-    padding: 1rem;
-  }  
-
-  .list-container{
-    height:40%;
-    overflow-y: scroll;
-    padding: 1rem;
-    padding-top: 0;
+h2 {
+  font-size: 1rem;
+  margin-top: 0;
 }
+  
+.map {
+  height: 40%;
+}
+.voter-info {
+  padding: 1rem;
+}
+
+.voter-info{
+  padding: 1rem;
+}  
+
+.list-container{
+  height:40%;
+  overflow-y: scroll;
+  padding: 1rem;
+  padding-top: 0;
+}
+
+.selected {
+  border: 4px solid;
+  border-color: #ad4b5a;
+  margin-top: 1rem;
+}
+
+

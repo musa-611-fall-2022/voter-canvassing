@@ -6,7 +6,7 @@ import { showVoterInList } from './voter-list.js'
 function onvoterClicked(evt) {
   //show voter information
   const voter = evt.layer.feature;
-
+  
   const voterSelectedEvent = new CustomEvent('voter-selected', { detail: { voter } });
   window.dispatchEvent(voterSelectedEvent);
 
@@ -21,11 +21,20 @@ function onvoterClicked(evt) {
   voterMap.pLayer = L.circleMarker(evt.latlng).addTo(voterMap);
   voterMap.pLayer.setStyle({
     icon: "https://maps.gstatic.com/mapfiles/markers2/marker.png",
-    color: '#ad4b5a',
-    fillColor: '#6195ed', // Red
+    color: '#ad4b5a', // Red
+    fillColor: '#6195ed', // Blue
     fillOpacity: 0.5,
     radius: 5,
   });
+
+  //highlight voter list
+  let stopList = document.querySelector("#voterList")
+  stopList.innerHTML = '';
+  const html = `
+  <li class="selected"> ${voter.properties['First_Name']} ${voter.properties['Last_Name']} </li>
+  `;
+  const li = htmlToElement(html);
+  stopList.append(li);
 }
 
 ///该功能位地图初始设置
