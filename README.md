@@ -10,7 +10,7 @@ Author:
 This web app is used to empower a canvasser to help ensure that people are informed about voting. You can check the app [HERE](https://yuewendai.github.io/voter-canvassing/site/index.html).
 
 ## How to use it
-* Input 4 digit voting area code and click "search"
+* Input 4 digit voting area code (such as "1011") and click "search"
 * Then explore all the functions!
 
 ## App functions
