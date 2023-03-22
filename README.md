@@ -9,6 +9,10 @@ Author:
 
 This web app is used to empower a canvasser to help ensure that people are informed about voting. You can check the app [HERE](https://yuewendai.github.io/voter-canvassing/site/index.html).
 
+## How to use it
+* Input 4 digit voting area code and click "search"
+* Then explore all the functions!
+
 ## App functions
 
 A mobile-friendly website with a map you can interact with that each location pops up the details a canvasser would need before they visited that address and then an interactive pop up to add info on the outcome of the session.
@@ -33,7 +37,3 @@ This app has functions including:
 * Prioritized list of where to go next
 * Color coded markers based on status (not yet visited, need to return, additional action required, etc.)
 * Some notion of apartment vs single-family house
-
-## How to use it
-* Input 4 digit voting area code and click "search"
-* Then explore all the functions!
