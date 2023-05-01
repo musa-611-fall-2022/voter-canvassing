@@ -1,0 +1,443 @@
+//how to convert json to geojson in js?
+
+$.getJSON("./data/tracking.json", function(jsonData) {
+    /* 
+    Here the anonymous function is called when the file has been downloaded.
+    Only then you can be sure that the JSON data is present and you can work with it's data.
+    You have to keep in mind if you are getting the file synchronously or asynchronously (default).
+   */
+});
+
+
+//how to convert address to lat long in js?
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>lat/long</title>
+        <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+        <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+    </head>
+
+    <body onload="initialize()">
+        <div id="map-canvas" style="width:800px; height:500px;"></div>
+        <?php
+
+            $array = Array(
+                "R. Aurora, 611 - Santa Ifigênia, São Paulo - SP, 01209-001",
+                "R. dos Timbiras, 521 - Santa Ifigênia, São Paulo - SP",
+                "R. Vitória, 678 - Jardim Ataliba Leonel, São Paulo - SP, 02324-250",
+                "R. Joaquim Gustavo, 531 - República, São Paulo - SP, 01045-020",
+                "R. Conselheiro Nébias, 236 - Campos Elíseos, São Paulo - SP"
+            );
+        ?>
+    </body>
+
+</html>
+<script>var address = new Array(<?php echo "'".implode("','", $array)."'"?>);</script> 
+<script src="map.js"></script>
+<script>setTimeout(function(){codeAddress()},1000);</script>
+
+
+var geocoder;
+var map;
+function initialize() {
+  geocoder = new google.maps.Geocoder();
+  var mapOptions = {
+    zoom: 16,
+  }
+  map = new google.maps.Map(document.getElementById("map-canvas"), mapOptions);
+}
+
+function codeAddress() {
+
+  for(var i = 0; i < address.length; i++){
+
+    geocoder.geocode( { 'address': address[i]}, function(results, status) {
+
+      if (status == google.maps.GeocoderStatus.OK) {
+
+        map.setCenter(results[0].geometry.location);
+
+        str = String(results[0].geometry.location);
+        var comma = str.indexOf(",");
+
+        lat = str.substr(1,comma -1);
+        lng = str.substr(comma+1, str.length-comma-2);
+
+        var latlng = new google.maps.LatLng(lat,lng);
+
+        var image = 'http://icons.iconarchive.com/icons/pelfusion/long-shadow-media/32/Maps-Pin-Place-icon.png';
+
+        var marker = new google.maps.Marker({
+            map: map,
+            position: latlng,
+            icon: image,
+            title: results[0].address_components[1].long_name
+        });
+
+      } else {
+        //alert("Geocode was not successful for the following reason: " + status);
+      }
+    });        
+  }
+}
+
+
+
+//  data = {};
+//data = Papa.parse(text, { header: true, skipEmptyLines: true }).data;
+
+
+
+
+
+//const data = downloadInventory(onInventoryLoadSuccess);
+//makeVoterFeature(data);
+//window.voterMap = voterMap;
+//window.voters = voters;
+
+// load json file-test1
+/*
+async function downloadInventory(onSuccess, onFailure) {
+  const resp = await fetch('data/0101.json');
+  if (resp.status === 200) {
+    const resp = await resp.json();
+    if (onSuccess) { onSuccess(data) }
+  } else {
+    alert('Oh no, I failed to download the data.');
+    console.log(data);
+    if (onFailure) { onFailure() }
+  }
+  
+}
+
+//let dataVoter;
+
+
+function onInventoryLoadSuccess(voters) {
+  Votermap.voterLayer.addData(voters);
+};
+
+
+async function downloadInventory(onSuccess, onFailure) {
+  fetch('data/0101.json')
+  .then(resp => {
+    if (resp.status === 200) {
+      return console.log(resp.json());
+    } else {
+    alert('Oh no, I failed to download the data.');
+    if (onFailure) { onFailure() }
+  }
+})
+  .then(onSuccess);
+};
+
+function geo(data) {
+  let newdata = data.map(data => {
+    return { "coord": data["TIGER/Line Lng/Lat"]};
+    console.log(newdata);
+})
+}
+
+
+async function downloadInventory(onSuccess, onFailure) {
+  const resp = await fetch('data/voters_lists/0101.csv');
+  if (resp.status === 200) {
+    const data = await resp.text();
+    const data_json = Papa.parse(data, {header: true, skipEmptyLines: true}).data;
+    console.log(data_json);
+    if (onSuccess) { onSuccess(data_json) }
+  } else {
+    alert('Oh no, I failed to download the data.');
+    if (onFailure) { onFailure() }
+  }
+}
+
+
+
+async function downloadInventory() {
+  const response = await fetch('data/0101.json');
+  const data = await response.json();
+  const {coordinates} = Object.keys(data)[10];
+  console.log(coordinates);
+  }
+
+  downloadInventory();
+
+
+
+
+
+
+
+
+//const data = downloadInventory();
+
+//console.log(data);
+/*
+function latlng(voter){
+  let a = voter["TIGER/Line Lng/Lat"].split(",");
+  let latitude = parseFloat(a[0]);
+  let longitude = parseFloat(a[1]);
+}
+
+//const geo = data.map(latlng);
+
+*/
+
+/*
+function makeVoterfeature(data_json){
+  return {
+    "type": "Feature",
+    "ID": data_json['ID Number'],
+    "properties": {
+      "First_Name": data_json['First Name'],
+      "Last_Name": data_json['Last Name'],
+      "gender" : data_json['Gender'],
+      "address" : data_json['TIGER/Line Matched Address'],
+      "city" : data_json['City'],
+      "county" : data_json['County'],
+      "state" : data_json['State'],
+      "zipCode" : data_json['Zip'],
+      "stillLivesThere": "",
+      "votingPlan": "",
+      "languageAssistance": "",
+      "lnglat": data_json['TIGER/Line Lng/Lat']
+    },
+  };
+  
+};
+
+
+
+function geoJSON(data_json) {
+  return {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [data_json.geometry]
+    },
+    "properties": makeVoterfeature()
+  }
+  console.log(data_json);
+}
+
+
+function coord(){
+//var yourString = [data_json["TIGER/Line Lng/Lat"]];
+var yourString = {};
+yourString[latlng] = [data_json["TIGER/Line Lng/Lat"]];
+var string = yourString.split(',');
+
+// Create array of float for each pair of coordinate
+var a = string.length; 
+for (i = 0; i < a; i++) {
+    string[i] = parseFloat(string[i]);
+}
+
+// Initialize an array to store the new values
+var b = string.length / 2;
+var array = [];
+for (i = 0; i < b; i++) {
+        array[i] = [0, 0];
+}
+
+// Create an array of array of coordinates
+var k = 0;
+for (i = 0; i < b; i++) {
+    for (j = 0; j < 2; j++) {
+        array[i][j] = string[k];
+        k++;
+    }
+}
+
+console.log(array);
+}
+
+
+function onInventoryLoadSuccess(voters) {
+  Votermap.Voterlayer.addData(voters);
+}
+
+
+/*
+function voterstoshow(data_json, Votermap){
+  var GPSlocation = [data_json["TIGER/Line Lng/Lat"]];
+  var LatLng = GPSlocation.replace("(", "").replace(")", "").split(", ")
+  var Lat = parseFloat(LatLng[0]);
+  var Lng = parseFloat(LatLng[1]);
+  const voterFeatureCollection = {
+    "type": "FeatureCollection",
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [geom.Lng, geom.Lat]
+    },
+  };
+  console.log(voterFeatureCollection);
+}
+
+
+/*
+function geo(data) {
+  var outGeoJson = {}
+  outGeoJson['properties'] = data
+  outGeoJson['type']= "Feature"
+  outGeoJson['geometry']= {"type": "Point", "coordinates":
+      [data["TIGER/Line Lng/Lat"]]}
+
+  console.log(outGeoJson)
+}; 
+*/
+/*
+function geo(data_json) {
+  var geojson = {
+    type: "FeatureCollection",
+    features: [],
+  };
+  
+  for (let i = 0; i < obj.length; i++) {
+    geojson.features.push({
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [obj[i]["TIGER/Line Lng/Lat"]]
+      },
+      "properties": obj[i]
+    });
+  }
+
+  
+  console.log(geojson)
+}
+
+
+function makeVoterFeature(data_json) {
+  const voters = {
+      type: "FeatureCollection",
+      features: [],
+  };
+
+  let i;
+  console.log(data_json)
+  console.log(data_json.length);
+  for (i = 0; i < data_json.length; i++) {
+      //console.log(i);
+      let LatLng = data_json[i]["TIGER/Line Lng/Lat"];
+      if (typeof (LatLng) == "string") {
+
+          let Lng = Number(LatLng.split(",")[0]);
+          let Lat = Number(LatLng.split(",")[1]);
+
+
+          voters.features.push({
+              "type": "Feature",
+              "geometry": {
+                  "type": "Point",
+                  "coordinates": [Lng, Lat],
+              },
+              "properties": {
+                  "id": data_json[i]["ID Number"],
+                  "last_name": data_json[i]["Last Name"],
+                  "first_name": data_json[i]["First Name"],
+              },
+          });
+
+      }
+  }
+  onInventoryLoadSuccess(voters);
+};
+
+
+
+
+
+
+//const geo = data.map(geoJSON);
+
+downloadInventory(makeVoterFeature);
+
+/*
+const geoJSONPointArr = data.map(row => {
+  return {
+    "type": "Feature",
+    "geometry": {
+      "type": "Point",
+      "coordinates": [row["TIGER/Line Lng/Lat"]]
+    },
+    "properties": row
+  }
+});
+
+console.log(geoJSONPointArr);
+
+ /* function GetLocation() {
+    var geocoder = new google.maps.Geocoder();
+    var address = data.getElementById("address").value;
+    geocoder.geocode({ 'address': address }, function (results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            var latitude = results[0].geometry.location.lat();
+            var longitude = results[0].geometry.location.lng();
+            var latlng = latitude.concat(" ", longitude);
+            alert("Latitude: " + latitude + "\nLongitude: " + longitude);
+        } else {
+            alert("Request failed.")
+        }
+    });
+  };*/
+
+  /*function voteronmap(votertoshow, map) {
+
+    const voterFeatureCollection = {
+        'type': 'FeatureCollection',
+        'features': votertoshow.map(makeVoterfeature),
+    };
+
+    map.voterLayers = L.geoJSON(voterFeatureCollection, {
+        pointToLayer: (geoJsonPoint, latlng) => L.circleMarker(latlng),
+        style: {
+            stroke: null,
+            fillOpacity: 0.9,
+            radius: 3,
+         },
+    })
+    .addTo(map);
+}*/
+
+
+
+
+
+//const map = initMap();
+//const data = downloadInventory();
+
+
+/*
+function voteronmap(votertoshow, map) {
+  
+  const voterFeatureCollection = {
+    'type': 'FeatureCollection',
+    'features': voter.geometry,
+};
+console.log(voterFeatureCollection);
+
+  map.voterLayers = L.marker(voterFeatureCollection).addTo(map);
+}
+
+voteronmap();
+/*export{
+  voteronmap;
+
+}*/
+
+//window.downloadInventory = downloadInventory;
+//window.Votermap = Votermap;
+//window.geoJSONPointArr = geoJSONPointArr;
+//window.voterData = voterData;
+//window.outGeoJson = outGeoJson;
+
+
+
+
+
