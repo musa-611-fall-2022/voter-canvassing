@@ -1,0 +1,124 @@
+body {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.list-container{
+    overflow: hidden;
+    z-index: 2;
+}
+
+.list-group{
+    display: none;
+    overflow: auto;
+    height: 100px;
+}
+
+.list-group-item  > *{
+    pointer-events: none;
+}
+
+.address-group{
+    overflow: auto;
+}
+
+.map {
+    display: block;
+    position: absolute;
+    flex-grow: 1;
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    top: 4%;
+}
+
+button {
+    width:100%;
+    display: block;
+}
+
+.list-details{
+    height: 30%;
+}
+
+.address-container {
+    position: absolute;
+    bottom: 0;
+    height: 50%;
+    width: 100%;
+    z-index: 2;
+    overflow: auto;
+}
+
+.voter-details-container{
+    background-color:white;
+}
+
+.voter-details-header{
+    margin: 10px;
+}
+
+.voter-details{
+    margin-left: 10px;
+    margin-right: 10px; 
+}
+
+h1 {
+    font-size: 3.16em;
+}
+
+h2 {
+    font-size: 2.4em;
+}
+
+h3 {
+    font-family: urw-form,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1.777em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+h4 {
+    font-family: urw-form-expanded,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.333em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+h5 {
+    font-family: urw-form,sans-serif;
+font-weight: 700;
+font-style: normal;
+    font-size: 1em;
+    padding-top: 2px;
+}
+
+p{
+    font-family: urw-form,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1em;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+legend {
+    font-family: urw-form,sans-serif;
+    font-weight: 700;
+    font-style: normal;
+    font-size: 1em;
+    padding-top: 2px;
+    margin-bottom: 5px;
+}
+
+#hidden {
+    display: hidden;
+}
