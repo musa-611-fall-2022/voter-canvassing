@@ -9,13 +9,13 @@ The items listed under **Your Repository** and **Core Interface Elements** are a
 
 ## Your Repository
 
-* [ ] **Your repository should have a README.md file that describes the team that worked on the project, how you approached collaboration (i.e., how the work was divided up), and any stretch goals that are attempted/implemented.** Markdown is a pretty simple and intuitive syntax for writing project documentation. See GitHub's [basic markdown reference](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax). You can also [preview a markdown file](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) as you write it in VS Code.
+* [*] **Your repository should have a README.md file that describes the team that worked on the project, how you approached collaboration (i.e., how the work was divided up), and any stretch goals that are attempted/implemented.** Markdown is a pretty simple and intuitive syntax for writing project documentation. See GitHub's [basic markdown reference](https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax). You can also [preview a markdown file](https://code.visualstudio.com/docs/languages/markdown#_markdown-preview) as you write it in VS Code.
 
 ## Core Interface Elements
 
 ### Layout
 
-* [ ] Unless otherwise specified, all features should be useable on both small (mobile) and large (laptop/desktop) screens. **Your HTML document should have appropriate `meta` tag(s) to make this possible.**
+* [*] Unless otherwise specified, all features should be useable on both small (mobile) and large (laptop/desktop) screens. **Your HTML document should have appropriate `meta` tag(s) to make this possible.**
 
 ### Loading voter files...
 
